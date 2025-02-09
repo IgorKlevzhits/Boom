@@ -143,5 +143,5 @@ private extension MainViewController {
             categoryButton.heightAnchor.constraint(equalToConstant: heightButtons),
         ])
     }
-    
+
 }
