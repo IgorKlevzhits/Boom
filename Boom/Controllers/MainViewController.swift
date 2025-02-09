@@ -10,10 +10,11 @@ import UIKit
 class MainViewController: UIViewController {
     
     // MARK: - UI
-    
+    // "SFProRounded-Medium"
     private lazy var nextViewButton: UIButton = {
         let element = UIButton(type: .system)
         element.setTitle("nextScreen", for: .normal)
+        element.titleLabel?.font = UIFont(name: "SFProRounded-Medium", size: 20)
         element.backgroundColor = UIColor(named: "MainButtons")
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -41,7 +42,6 @@ private extension MainViewController {
     
     func setViews() {
         view.addSubview(nextViewButton)
-        
         nextViewButton.addTarget(self, action: #selector(nextViewButtonTapped), for: .touchUpInside)
     }
     
@@ -50,8 +50,8 @@ private extension MainViewController {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             nextViewButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextViewButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            nextViewButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
-    
+
 }
