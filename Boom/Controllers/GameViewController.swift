@@ -48,11 +48,16 @@ class GameViewController: UIViewController {
     
     
     private lazy var pauseButtonNavBar: UIBarButtonItem = {
-        let element = UIBarButtonItem()
-        element.image = UIImage(systemName: "pause.circle")
-        element.tintColor = UIColor(named: "TextColor")
-        element.target = self
-        element.action = #selector(pauseButtonTapped)
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "pause.circle",
+                                withConfiguration: UIImage.SymbolConfiguration(pointSize: 35)),
+                        for: .normal)
+        button.tintColor = UIColor(named: "TextColor")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        button.addTarget(self, action: #selector(pauseButtonTapped), for: .touchUpInside)
+        let element = UIBarButtonItem(customView: button)
         return element
     }()
     
@@ -65,11 +70,16 @@ class GameViewController: UIViewController {
     }()
     
     private lazy var backButtonNavBar: UIBarButtonItem = {
-        let element = UIBarButtonItem()
-        element.image = UIImage(systemName: "chevron.backward")
-        element.tintColor = UIColor(named: "TextColor")
-        element.target = self
-        element.action = #selector(backButtonTapped)
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "chevron.backward",
+                                withConfiguration: UIImage.SymbolConfiguration(pointSize: 35)),
+                        for: .normal)
+        button.tintColor = UIColor(named: "TextColor")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        let element = UIBarButtonItem(customView: button)
         return element
     }()
     
