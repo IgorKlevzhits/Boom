@@ -9,6 +9,12 @@ import UIKit
 
 class GameViewController: UIViewController {
     // MARK: - UI
+    private lazy var backgroundImageView: UIImageView = {
+        let element = UIImageView(image: UIImage(named: "WhiteBackground"))
+        element.contentMode = .scaleAspectFill
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
     
     private lazy var titleLabel: UILabel = {
         let element = UILabel()
@@ -73,7 +79,6 @@ class GameViewController: UIViewController {
     // MARK: - Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setViews()
         setupConstraints()
     }
@@ -104,6 +109,7 @@ private extension GameViewController {
     // MARK: - Set Views
     
     func setViews() {
+        view.addSubview(backgroundImageView)
         view.addSubview(titleLabel)
         view.addSubview(bombImageView)
         view.addSubview(startGameButton)
@@ -119,6 +125,11 @@ private extension GameViewController {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            
+            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23),
