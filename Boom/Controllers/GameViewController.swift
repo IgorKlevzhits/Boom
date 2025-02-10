@@ -94,8 +94,11 @@ class GameViewController: UIViewController {
             pauseButtonNavBar.image = UIImage(systemName: "pause.circle")
         }
     }
+    
+    @objc private func startGameButtonTapped(_ sender: UIButton) {
+        startGameButton.isHidden = true
+    }
 }
-
 private extension GameViewController {
     
     // MARK: - Set Views
@@ -108,6 +111,8 @@ private extension GameViewController {
         navigationItem.rightBarButtonItem = pauseButtonNavBar
         navigationItem.titleView = titleNavBar
         navigationItem.leftBarButtonItem = backButtonNavBar
+        
+        startGameButton.addTarget(self, action: #selector(startGameButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Setup Constraints
