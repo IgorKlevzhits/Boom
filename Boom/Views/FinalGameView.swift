@@ -8,25 +8,30 @@
 import UIKit
 
 class FinalGameView: UIView {
-    let backGround: UIImageView = {
+    private let spacingElements: CGFloat = 30
+    private let heightButtons: CGFloat = 55
+    
+    let backGroundImage: UIImageView = {
         let bgImage = UIImageView()
         bgImage.image = UIImage(named: "WhiteBackground")
         bgImage.contentMode = .scaleAspectFill
+        bgImage.clipsToBounds = true
         return bgImage
     }()
-    let titel: UILabel = {
+    let titelLabel: UILabel = {
         let label = UILabel()
         label.text = "Конец Игры"
         label.font = UIFont(name: Fonts.SFBlack, size: 30)
+        label.textAlignment = .center
         return label
     }()
-    let image: UIImageView = {
+    let finishImage: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "FinalBoom")
         img.contentMode = .scaleAspectFit
         return img
     }()
-    let text: UILabel = {
+    let conditionLable: UILabel = {
         let label = UILabel()
         label.text = "В следующем раунде после каждого ответа хлопать в ладоши"
         label.font = UIFont(name: Fonts.SFHeavy, size: 28)
@@ -35,7 +40,7 @@ class FinalGameView: UIView {
         label.textAlignment = .center
         return label
     }()
-    let changeTsk: UIButton = {
+    let changeTaskButton: UIButton = {
         let button = UIButton()
         button.setTitle("Начать заново", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -45,7 +50,7 @@ class FinalGameView: UIView {
         button.layer.cornerRadius = 10
         return button
     }()
-    let restart: UIButton = {
+    let restartButton: UIButton = {
         let button = UIButton()
         button.setTitle("Начать заново", for: .normal)
         button.backgroundColor = UIColor(named: "GameButtons")
@@ -55,60 +60,79 @@ class FinalGameView: UIView {
         return button
     }()
     
+    let stackButton: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.spacing = 16
+        return stack
+    }()
+    let mainStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.spacing = 40
+        return stack
+    }()
+  
+    
     init() {
         super.init(frame: .zero)
         setView()
         setConstraint()
     }
     func setView(){
+        addSubview(backGroundImage)
+        addSubview(titelLabel)
+        addSubview(finishImage)
+        addSubview(conditionLable)
+        addSubview(changeTaskButton)
+        addSubview(restartButton)
+        sendSubviewToBack(backGroundImage)
         
+        stackButton.addArrangedSubview(changeTaskButton)
+        stackButton.addArrangedSubview(restartButton)
+        addSubview(stackButton)
         
+        mainStack.addArrangedSubview(finishImage)
+        mainStack.addArrangedSubview(conditionLable)
+        addSubview(mainStack)
+        
+        backGroundImage.translatesAutoresizingMaskIntoConstraints = false
+        titelLabel.translatesAutoresizingMaskIntoConstraints = false
+        finishImage.translatesAutoresizingMaskIntoConstraints = false
+        conditionLable.translatesAutoresizingMaskIntoConstraints = false
+        changeTaskButton.translatesAutoresizingMaskIntoConstraints = false
+        restartButton.translatesAutoresizingMaskIntoConstraints = false
+        stackButton.translatesAutoresizingMaskIntoConstraints = false
+        mainStack.translatesAutoresizingMaskIntoConstraints = false
     }
     func setConstraint(){
-        addSubview(backGround)
-        addSubview(titel)
-        addSubview(image)
-        addSubview(text)
-        addSubview(changeTsk)
-        addSubview(restart)
+      
         
-        backGround.translatesAutoresizingMaskIntoConstraints = false
-        titel.translatesAutoresizingMaskIntoConstraints = false
-        image.translatesAutoresizingMaskIntoConstraints = false
-        text.translatesAutoresizingMaskIntoConstraints = false
-        changeTsk.translatesAutoresizingMaskIntoConstraints = false
-        restart.translatesAutoresizingMaskIntoConstraints = false
-        
-        
+            
         NSLayoutConstraint.activate([
-            backGround.topAnchor.constraint(equalTo: topAnchor, constant: -20 ),
-            backGround.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 130),
-            backGround.leftAnchor.constraint(equalTo: leftAnchor, constant: -40),
-            backGround.rightAnchor.constraint(equalTo: rightAnchor, constant: 40)
-        ])
-        NSLayoutConstraint.activate([
-            titel.topAnchor.constraint(equalTo: topAnchor, constant: -30), //Эта переменная не бьетсяс фигмой
-            titel.leftAnchor.constraint(equalTo: leftAnchor, constant: 95),
-            titel.rightAnchor.constraint(equalTo: rightAnchor, constant: -90)])
-        NSLayoutConstraint.activate([
-            image.topAnchor.constraint(equalTo: titel.bottomAnchor, constant: 65),
-            image.widthAnchor.constraint(equalToConstant: 249),
-            image.heightAnchor.constraint(equalToConstant: 300),
-            image.leftAnchor.constraint(equalTo: leftAnchor, constant: 69)])
-        NSLayoutConstraint.activate([
-            text.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 47),
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 23),
-            text.rightAnchor.constraint(equalTo: rightAnchor, constant: -23)])
-        NSLayoutConstraint.activate([
-            changeTsk.topAnchor.constraint(equalTo: text.bottomAnchor, constant: 43),
-            changeTsk.leftAnchor.constraint(equalTo: leftAnchor, constant: 25),
-            changeTsk.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
-            changeTsk.heightAnchor.constraint(equalToConstant: 55)])
-        NSLayoutConstraint.activate([
-            restart.topAnchor.constraint(equalTo: changeTsk.bottomAnchor, constant: 16),
-            restart.leftAnchor.constraint(equalTo: leftAnchor, constant: 25),
-            restart.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
-            restart.heightAnchor.constraint(equalToConstant: 55)
+            backGroundImage.topAnchor.constraint(equalTo: topAnchor),
+            backGroundImage.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backGroundImage.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backGroundImage.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            titelLabel.topAnchor.constraint(equalTo: topAnchor, constant: spacingElements * 2),
+            titelLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+
+            mainStack.centerYAnchor.constraint(equalTo: centerYAnchor),
+            mainStack.centerXAnchor.constraint(equalTo: centerXAnchor),
+            mainStack.leftAnchor.constraint(equalTo: leftAnchor, constant: spacingElements),
+            
+            changeTaskButton.heightAnchor.constraint(equalToConstant: heightButtons),
+            restartButton.heightAnchor.constraint(equalToConstant: heightButtons),
+            
+            finishImage.heightAnchor.constraint(equalTo: stackButton.heightAnchor, multiplier: 1.5),
+            
+            stackButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            stackButton.topAnchor.constraint(equalTo: conditionLable.bottomAnchor, constant: spacingElements),
+            stackButton.leftAnchor.constraint(equalTo: leftAnchor, constant: spacingElements)
         ])
             
             
