@@ -11,6 +11,13 @@ class MainViewController: UIViewController {
     
     // MARK: - UI
     
+    private lazy var backgroundImageView: UIImageView = {
+        let element = UIImageView(image: UIImage(named: "YellowBackground"))
+        element.contentMode = .scaleAspectFill
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
     private lazy var mainStackView: UIStackView = {
         let element = UIStackView()
         element.axis = .vertical
@@ -20,13 +27,26 @@ class MainViewController: UIViewController {
         return element
     }()
     
+    private lazy var labelStackView: UIStackView = {
+        let element = UIStackView()
+        element.axis = .vertical
+        element.distribution = .fillProportionally
+        element.spacing = 5
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
     private lazy var gameForLabel: UILabel = {
         let element = UILabel()
         element.text = "ИГРА ДЛЯ КОМПАНИИ"
         element.textColor = .black
-        element.font = .systemFont(ofSize: 28, weight: .bold)
+        element.font = UIFont(name: Fonts.SFHeavy, size: 28)
         element.numberOfLines = 0
         element.textAlignment = .center
+        element.layer.shadowColor = UIColor.black.cgColor
+        element.layer.shadowRadius = 5
+        element.layer.shadowOpacity = 0.7
+        element.layer.shadowOffset = CGSize(width: 0, height: 2.5)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -35,11 +55,12 @@ class MainViewController: UIViewController {
         let element = UILabel()
         element.text = "БОМБА"
         element.textColor = .black
-        element.font = UIFont(name: "SFProRounded-Black", size: 48)
+        element.font = UIFont(name: Fonts.SFBlack, size: 48)
         element.textAlignment = .center
-//        element.shadowColor = .lightGray
-//        element.layer.shadowRadius = 100
-//        element.shadowOffset = CGSize(width: 3, height: 3)
+        element.layer.shadowColor = UIColor.black.cgColor
+        element.layer.shadowRadius = 5
+        element.layer.shadowOpacity = 0.7
+        element.layer.shadowOffset = CGSize(width: 0, height: 2.5)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -47,6 +68,10 @@ class MainViewController: UIViewController {
     private lazy var bombImageView: UIImageView = {
         let element = UIImageView(image: UIImage(named: "bomb"))
         element.contentMode = .scaleAspectFit
+        element.layer.shadowColor = UIColor.black.cgColor
+        element.layer.shadowRadius = 10
+        element.layer.shadowOpacity = 0.5
+        element.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -64,9 +89,13 @@ class MainViewController: UIViewController {
         let element = UIButton(type: .system)
         element.setTitle("Старт игры", for: .normal)
         element.backgroundColor = UIColor(named: "MainButtons")
-        element.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        element.titleLabel?.font = UIFont(name: Fonts.SFHeavy, size: 20)
         element.tintColor = UIColor(named: "TextColor")
-        element.layer.cornerRadius = spacingElements
+        element.layer.cornerRadius = 10
+        element.layer.shadowColor = UIColor.black.cgColor
+        element.layer.shadowRadius = 10
+        element.layer.shadowOpacity = 0.5
+        element.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -75,9 +104,13 @@ class MainViewController: UIViewController {
         let element = UIButton(type: .system)
         element.setTitle("Категории", for: .normal)
         element.backgroundColor = UIColor(named: "MainButtons")
-        element.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        element.titleLabel?.font = UIFont(name: Fonts.SFHeavy, size: 20)
         element.tintColor = UIColor(named: "TextColor")
-        element.layer.cornerRadius = spacingElements
+        element.layer.cornerRadius = 10
+        element.layer.shadowColor = UIColor.black.cgColor
+        element.layer.shadowRadius = 10
+        element.layer.shadowOpacity = 0.5
+        element.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -105,7 +138,6 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "MainBackground")
         setViews()
         setupConstraints()
     }
@@ -117,11 +149,16 @@ private extension MainViewController {
     // MARK: - Set Views
     
     func setViews() {
-        navigationController?.navigationBar.isHidden = false
+        view.addSubview(backgroundImageView)
+        
         view.addSubview(mainStackView)
-        mainStackView.addArrangedSubview(gameForLabel)
-        mainStackView.addArrangedSubview(nameGameLabel)
+        
+        mainStackView.addArrangedSubview(labelStackView)
+        labelStackView.addArrangedSubview(gameForLabel)
+        labelStackView.addArrangedSubview(nameGameLabel)
+        
         mainStackView.addArrangedSubview(bombImageView)
+        
         mainStackView.addArrangedSubview(buttonsStackView)
         buttonsStackView.addArrangedSubview(startGameButton)
         buttonsStackView.addArrangedSubview(categoryButton)
@@ -140,7 +177,18 @@ private extension MainViewController {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: spacingElements),
+            
+            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            labelStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: spacingElements),
+            labelStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacingElements),
+            labelStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacingElements),
+            labelStackView.heightAnchor.constraint(equalToConstant: 90),
+            
+            mainStackView.topAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: spacingElements),
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacingElements),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacingElements),
             mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -spacingElements),
