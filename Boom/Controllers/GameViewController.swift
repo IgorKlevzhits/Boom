@@ -44,6 +44,8 @@ class GameViewController: UIViewController {
         let element = UIBarButtonItem()
         element.image = UIImage(systemName: "pause.circle")
         element.tintColor = UIColor(named: "TextColor")
+        element.target = self
+        element.action = #selector(pauseButtonTapped)
         return element
     }()
     
@@ -64,6 +66,10 @@ class GameViewController: UIViewController {
         return element
     }()
     
+    // MARK: - Private Properties
+    
+    private var isPause = false
+    
     // MARK: - Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +83,16 @@ class GameViewController: UIViewController {
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
         dismiss(animated: true)
+    }
+    
+    @objc private func pauseButtonTapped() {
+        isPause.toggle()
+        
+        if isPause {
+            pauseButtonNavBar.image = UIImage(systemName: "play.circle")
+        } else {
+            pauseButtonNavBar.image = UIImage(systemName: "pause.circle")
+        }
     }
 }
 
