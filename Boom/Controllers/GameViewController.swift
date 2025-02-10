@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class GameViewController: UIViewController {
     // MARK: - UI
@@ -75,12 +76,19 @@ class GameViewController: UIViewController {
     // MARK: - Private Properties
     
     private var isPause = false
+    private var timer = Timer()
+    private var player: AVAudioPlayer? = nil
+    private var isBombSoundPlayed = false
+    private var totalTime = 15
+    private var secondPassed = 0
     
     // MARK: - Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
         setupConstraints()
+        
+        playSound(Music.backroundMusic)
     }
     
     // MARK: - Private Methods
@@ -101,7 +109,34 @@ class GameViewController: UIViewController {
     }
     
     @objc private func startGameButtonTapped(_ sender: UIButton) {
+        timer.invalidate()
+        
         startGameButton.isHidden = true
+        
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+
+    }
+    
+    @objc private func updateTimer() {
+        
+        if totalTime <= 4 && !isBombSoundPlayed {
+            playSound(Music.bombTimer)
+            isBombSoundPlayed = true
+        }
+        
+        if secondPassed < totalTime {
+            totalTime -= 1
+            print(totalTime)
+        } else {
+            print("Finish")
+        }
+    }
+    
+    private func playSound(_ soundName: String) {
+        guard let url = Bundle.main.url(forResource: soundName, withExtension: "mp3") else { return }
+        
+        player = try! AVAudioPlayer(contentsOf: url)
+        player?.play()
     }
 }
 private extension GameViewController {

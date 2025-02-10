@@ -12,3 +12,8 @@ enum Fonts {
     static let SFHeavy = "SFProRounded-Heavy"
     static let SFBlack = "SFProRounded-Black"
 }
+
+enum Music {
+    static let bombTimer = "bombTimer"
+    static let backroundMusic = "BackgroundMusic"
+}
