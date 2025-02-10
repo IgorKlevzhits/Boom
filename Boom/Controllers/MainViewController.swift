@@ -18,6 +18,25 @@ class MainViewController: UIViewController {
         return element
     }()
     
+    private lazy var settingsButtonNavBar: UIBarButtonItem = {
+        let element = UIBarButtonItem()
+        element.image = UIImage(named: "Settings")
+        element.target = self
+        element.action = #selector(settingsButtonTapped)
+        return element
+    }()
+    
+    private lazy var rulesButtonNavBar: UIBarButtonItem = {
+        let element = UIBarButtonItem()
+//        element.image = UIImage(systemName: "questionmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
+        element.image = UIImage(named: "Rules")
+        element.style = .plain
+        element.tintColor = .red
+        element.target = self
+        element.action = #selector(rulesButtonTapped)
+        return element
+    }()
+    
     private lazy var mainStackView: UIStackView = {
         let element = UIStackView()
         element.axis = .vertical
@@ -130,6 +149,11 @@ class MainViewController: UIViewController {
         }
     }
     
+    @objc private func settingsButtonTapped(_ sender: UIButton) {
+//        let rulesVC = yourController()
+//        navigationController?.pushViewController(yourController(), animated: true)
+    }
+    
     @objc private func rulesButtonTapped(_ sender: UIButton) {
 //        let rulesVC = yourController()
 //        navigationController?.pushViewController(yourController(), animated: true)
@@ -151,6 +175,9 @@ private extension MainViewController {
     func setViews() {
         view.addSubview(backgroundImageView)
         
+//        navigationItem.leftBarButtonItem = settingsButtonNavBar
+//        navigationItem.rightBarButtonItem = rulesButtonNavBar
+        
         view.addSubview(mainStackView)
         
         mainStackView.addArrangedSubview(labelStackView)
@@ -165,12 +192,6 @@ private extension MainViewController {
         
         startGameButton.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
         categoryButton.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
-        
-        let rulesButton = UIBarButtonItem()
-        rulesButton.title = "?"
-        navigationItem.rightBarButtonItem = rulesButton
-        
-        rulesButton.action = #selector(rulesButtonTapped)
     }
     
     // MARK: - Setup Constraints
