@@ -19,21 +19,24 @@ class MainViewController: UIViewController {
     }()
     
     private lazy var settingsButtonNavBar: UIBarButtonItem = {
-        let element = UIBarButtonItem()
-        element.image = UIImage(named: "Settings")
-        element.target = self
-        element.action = #selector(settingsButtonTapped)
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "Settings"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        button.addTarget(self, action: #selector(rulesButtonTapped), for: .touchUpInside)
+        let element = UIBarButtonItem(customView: button)
         return element
     }()
     
     private lazy var rulesButtonNavBar: UIBarButtonItem = {
-        let element = UIBarButtonItem()
-//        element.image = UIImage(systemName: "questionmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
-        element.image = UIImage(named: "Rules")
-        element.style = .plain
-        element.tintColor = .red
-        element.target = self
-        element.action = #selector(rulesButtonTapped)
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "Rules"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        button.addTarget(self, action: #selector(rulesButtonTapped), for: .touchUpInside)
+        let element = UIBarButtonItem(customView: button)
         return element
     }()
     
@@ -175,8 +178,8 @@ private extension MainViewController {
     func setViews() {
         view.addSubview(backgroundImageView)
         
-//        navigationItem.leftBarButtonItem = settingsButtonNavBar
-//        navigationItem.rightBarButtonItem = rulesButtonNavBar
+        navigationItem.leftBarButtonItem = settingsButtonNavBar
+        navigationItem.rightBarButtonItem = rulesButtonNavBar
         
         view.addSubview(mainStackView)
         
