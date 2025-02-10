@@ -59,6 +59,8 @@ class GameViewController: UIViewController {
         let element = UIBarButtonItem()
         element.image = UIImage(systemName: "chevron.backward")
         element.tintColor = UIColor(named: "TextColor")
+        element.target = self
+        element.action = #selector(backButtonTapped)
         return element
     }()
     
@@ -68,6 +70,13 @@ class GameViewController: UIViewController {
         view.backgroundColor = .white
         setViews()
         setupConstraints()
+    }
+    
+    // MARK: - Private Methods
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
     }
 }
 
