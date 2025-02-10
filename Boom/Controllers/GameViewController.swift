@@ -119,10 +119,7 @@ class GameViewController: UIViewController {
     
     @objc private func updateTimer() {
         
-        if totalTime <= 4 && !isBombSoundPlayed {
-            playSound(Music.bombTimer)
-            isBombSoundPlayed = true
-        }
+        bombSoundPlayed()
         
         if secondPassed < totalTime {
             totalTime -= 1
@@ -137,6 +134,13 @@ class GameViewController: UIViewController {
         
         player = try! AVAudioPlayer(contentsOf: url)
         player?.play()
+    }
+    
+    private func bombSoundPlayed() {
+        if totalTime <= 4 && !isBombSoundPlayed {
+            playSound(Music.bombTimer)
+            isBombSoundPlayed = true
+        }
     }
 }
 private extension GameViewController {
