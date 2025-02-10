@@ -11,6 +11,15 @@ class MainViewController: UIViewController {
     
     // MARK: - UI
     
+    private lazy var mainStackView: UIStackView = {
+        let element = UIStackView()
+        element.axis = .vertical
+        element.distribution = .fillProportionally
+        element.spacing = spacingElements
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
     private lazy var gameForLabel: UILabel = {
         let element = UILabel()
         element.text = "ИГРА ДЛЯ КОМПАНИИ"
@@ -26,8 +35,11 @@ class MainViewController: UIViewController {
         let element = UILabel()
         element.text = "БОМБА"
         element.textColor = .black
-        element.font = .systemFont(ofSize: 48, weight: .bold)
+        element.font = UIFont(name: "SFProRounded-Black", size: 48)
         element.textAlignment = .center
+//        element.shadowColor = .lightGray
+//        element.layer.shadowRadius = 100
+//        element.shadowOffset = CGSize(width: 3, height: 3)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -73,12 +85,16 @@ class MainViewController: UIViewController {
     // MARK: - Private Properties
     
     private let spacingElements: CGFloat = 20
-    private let heightButtons: CGFloat = 80
+    private let heightButtons: CGFloat = 55
     
     // MARK: - Private Methods
     
-    @objc private func nextViewButtonTapped(_ sender: UIButton) {
+    @objc private func ButtonTapped(_ sender: UIButton) {
+        if sender.currentTitle == "Старт игры" {
 //        navigationController?.pushViewController(yourController(), animated: true)
+        } else {
+//        navigationController?.pushViewController(yourController(), animated: true)
+        }
     }
     
     @objc private func rulesButtonTapped(_ sender: UIButton) {
@@ -102,45 +118,34 @@ private extension MainViewController {
     
     func setViews() {
         navigationController?.navigationBar.isHidden = false
-        view.addSubview(gameForLabel)
-        view.addSubview(nameGameLabel)
-        view.addSubview(bombImageView)
-        view.addSubview(buttonsStackView)
+        view.addSubview(mainStackView)
+        mainStackView.addArrangedSubview(gameForLabel)
+        mainStackView.addArrangedSubview(nameGameLabel)
+        mainStackView.addArrangedSubview(bombImageView)
+        mainStackView.addArrangedSubview(buttonsStackView)
         buttonsStackView.addArrangedSubview(startGameButton)
         buttonsStackView.addArrangedSubview(categoryButton)
         
-//        startGameButton.addTarget(self, action: #selector(nextViewButtonTapped), for: .touchUpInside)
+        startGameButton.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
+        categoryButton.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
+        
         let rulesButton = UIBarButtonItem()
         rulesButton.title = "?"
         navigationItem.rightBarButtonItem = rulesButton
         
         rulesButton.action = #selector(rulesButtonTapped)
-//        navigationController?.navigationItem.rightBarButtonItem =
     }
     
     // MARK: - Setup Constraints
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            gameForLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: spacingElements),
-            gameForLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacingElements),
-            gameForLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacingElements),
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: spacingElements),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacingElements),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacingElements),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -spacingElements),
             
-            nameGameLabel.topAnchor.constraint(equalTo: gameForLabel.bottomAnchor, constant: spacingElements),
-            nameGameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacingElements),
-            nameGameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacingElements),
-            
-            bombImageView.topAnchor.constraint(equalTo: nameGameLabel.bottomAnchor, constant: spacingElements),
-            bombImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacingElements),
-            bombImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacingElements),
-            bombImageView.heightAnchor.constraint(equalTo: bombImageView.widthAnchor),
-            
-            buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -spacingElements),
-            buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacingElements),
-            buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacingElements),
-            
-            startGameButton.heightAnchor.constraint(equalToConstant: heightButtons),
-            categoryButton.heightAnchor.constraint(equalToConstant: heightButtons),
+            startGameButton.heightAnchor.constraint(equalToConstant: heightButtons)
         ])
     }
 
