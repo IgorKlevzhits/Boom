@@ -77,7 +77,8 @@ class GameViewController: UIViewController {
     
     private var isPause = false
     private var timer = Timer()
-    private var player: AVAudioPlayer? = nil
+    private var backgroundPlayer: AVAudioPlayer?
+    private var bombTimerPlayer: AVAudioPlayer?
     private var isBombSoundPlayed = false
     private var totalTime = 15
     private var secondPassed = 0
@@ -88,13 +89,19 @@ class GameViewController: UIViewController {
         setViews()
         setupConstraints()
         
-        playSound(Music.backroundMusic)
+        try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: [.mixWithOthers])
+        try? AVAudioSession.sharedInstance().setActive(true)
+        
+        playBackgroundMusic()
     }
     
     // MARK: - Private Methods
     
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+        timer.invalidate()
+//        backgroundPlayer?.stop()
+//        bombTimerPlayer?.stop()
         dismiss(animated: true)
     }
     
@@ -118,29 +125,39 @@ class GameViewController: UIViewController {
     }
     
     @objc private func updateTimer() {
-        
-        bombSoundPlayed()
+        if totalTime == 4 {
+            bombSoundPlayed()
+        }
         
         if secondPassed < totalTime {
             totalTime -= 1
             print(totalTime)
         } else {
+            timer.invalidate()
             print("Finish")
         }
     }
     
-    private func playSound(_ soundName: String) {
-        guard let url = Bundle.main.url(forResource: soundName, withExtension: "mp3") else { return }
+    private func createPlayer(soundName: String, loop: Bool) -> AVAudioPlayer? {
+        guard let url = Bundle.main.url(forResource: soundName, withExtension: "mp3") else { return nil }
         
-        player = try! AVAudioPlayer(contentsOf: url)
-        player?.play()
+        do {
+            let player = try AVAudioPlayer(contentsOf: url)
+            player.numberOfLoops = loop ? -1 : 0
+            return player
+        } catch {
+            return nil
+        }
     }
     
     private func bombSoundPlayed() {
-        if totalTime <= 4 && !isBombSoundPlayed {
-            playSound(Music.bombTimer)
-            isBombSoundPlayed = true
-        }
+        bombTimerPlayer = createPlayer(soundName: Music.bombTimer, loop: false)
+        bombTimerPlayer?.play()
+    }
+    
+    private func playBackgroundMusic() {
+        backgroundPlayer = createPlayer(soundName: Music.backroundMusic, loop: true)
+        backgroundPlayer?.play()
     }
 }
 private extension GameViewController {
