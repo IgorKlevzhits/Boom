@@ -18,6 +18,28 @@ class MainViewController: UIViewController {
         return element
     }()
     
+    private lazy var settingsButtonNavBar: UIBarButtonItem = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "Settings"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        button.addTarget(self, action: #selector(rulesButtonTapped), for: .touchUpInside)
+        let element = UIBarButtonItem(customView: button)
+        return element
+    }()
+    
+    private lazy var rulesButtonNavBar: UIBarButtonItem = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "Rules"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        button.addTarget(self, action: #selector(rulesButtonTapped), for: .touchUpInside)
+        let element = UIBarButtonItem(customView: button)
+        return element
+    }()
+    
     private lazy var mainStackView: UIStackView = {
         let element = UIStackView()
         element.axis = .vertical
@@ -130,6 +152,11 @@ class MainViewController: UIViewController {
         }
     }
     
+    @objc private func settingsButtonTapped(_ sender: UIButton) {
+//        let rulesVC = yourController()
+//        navigationController?.pushViewController(yourController(), animated: true)
+    }
+    
     @objc private func rulesButtonTapped(_ sender: UIButton) {
 //        let rulesVC = yourController()
 //        navigationController?.pushViewController(yourController(), animated: true)
@@ -151,6 +178,9 @@ private extension MainViewController {
     func setViews() {
         view.addSubview(backgroundImageView)
         
+        navigationItem.leftBarButtonItem = settingsButtonNavBar
+        navigationItem.rightBarButtonItem = rulesButtonNavBar
+        
         view.addSubview(mainStackView)
         
         mainStackView.addArrangedSubview(labelStackView)
@@ -165,12 +195,6 @@ private extension MainViewController {
         
         startGameButton.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
         categoryButton.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
-        
-        let rulesButton = UIBarButtonItem()
-        rulesButton.title = "?"
-        navigationItem.rightBarButtonItem = rulesButton
-        
-        rulesButton.action = #selector(rulesButtonTapped)
     }
     
     // MARK: - Setup Constraints

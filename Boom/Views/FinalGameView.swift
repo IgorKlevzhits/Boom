@@ -119,6 +119,6 @@ class FinalGameView: UIView {
     }
 }
 
-#Preview {
-    FinalGameView()
-}
+//#Preview {
+//    FinalGameView()
+//}
