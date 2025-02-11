@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import ImageIO
 
 class GameViewController: UIViewController {
     // MARK: - UI
@@ -29,7 +30,7 @@ class GameViewController: UIViewController {
     }()
     
     private lazy var bombImageView: UIImageView = {
-        let element = UIImageView(image: UIImage(named: "bombForGame"))
+        let element = UIImageView()
         element.contentMode = .scaleAspectFit
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -103,6 +104,7 @@ class GameViewController: UIViewController {
         try? AVAudioSession.sharedInstance().setActive(true)
         
         playBackgroundMusic()
+        loadGIF(named: "AnimationBomb", duration: 15.0)
     }
     
     // MARK: - Private Methods
@@ -168,6 +170,24 @@ class GameViewController: UIViewController {
     private func playBackgroundMusic() {
         backgroundPlayer = createPlayer(soundName: Music.backroundMusic, loop: true)
         backgroundPlayer?.play()
+    }
+    
+    private func loadGIF(named name: String, duration: TimeInterval) {
+        guard let gifURL = Bundle.main.url(forResource: name, withExtension: "gif"),
+              let gifData = try? Data(contentsOf: gifURL),
+              let source = CGImageSourceCreateWithData(gifData as CFData, nil) else { return }
+        
+        var images: [UIImage] = []
+        let count = CGImageSourceGetCount(source)
+        let frameDuration = duration / Double(count)
+        
+        for i in 0..<count {
+            if let cgImage = CGImageSourceCreateImageAtIndex(source, i, nil) {
+                images.append(UIImage(cgImage: cgImage))
+            }
+        }
+        
+        bombImageView.image = UIImage.animatedImage(with: images, duration: duration)
     }
 }
 private extension GameViewController {

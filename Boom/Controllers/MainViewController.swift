@@ -23,7 +23,8 @@ class MainViewController: UIViewController, MainViewDelegate {
         mainView.delegate = self
     }
     
-    // MARK: - Делегатные методы
+    // MARK: - Delegate Methods
+    
     func startGameButtonTapped() {
         // Переход на экран с игрой
         navigationController?.pushViewController(GameViewController(), animated: true)
