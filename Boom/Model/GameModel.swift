@@ -65,7 +65,7 @@ final class GameModel {
     }
     
     func playBackgroundMusic() {
-        backgroundPlayer = createPlayer(soundName: Music.backroundMusic, loop: true)
+        backgroundPlayer = createPlayer(soundName: Music.backroundMusicThree, loop: true)
         backgroundPlayer?.play()
     }
     
