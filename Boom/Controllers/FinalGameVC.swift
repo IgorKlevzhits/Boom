@@ -23,7 +23,7 @@ class FinalGameVC: UIViewController {
         restartButton()
     }
     
-    func makeTask() {
+    @objc private func makeTask() {
         if let task = TaskModel().task.randomElement( ) {
             mainView.conditionLable.text = task.description
         } 
@@ -32,10 +32,7 @@ class FinalGameVC: UIViewController {
     //MARK: ACTIONS
     
     func changeTaskButton() {
-        mainView.changeTaskButton.addTarget(self, action: #selector(changeTask), for: .touchUpInside)
-    }
-    @objc private func changeTask() {
-        makeTask()
+        mainView.changeTaskButton.addTarget(self, action: #selector(makeTask), for: .touchUpInside)
     }
     
     func restartButton() {
