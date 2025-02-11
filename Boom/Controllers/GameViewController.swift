@@ -72,12 +72,12 @@ class GameViewController: UIViewController {
     private lazy var backButtonNavBar: UIBarButtonItem = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "chevron.backward",
-                                withConfiguration: UIImage.SymbolConfiguration(pointSize: 35)),
+                                withConfiguration: UIImage.SymbolConfiguration(pointSize: 30)),
                         for: .normal)
         button.tintColor = UIColor(named: "TextColor")
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 35).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         let element = UIBarButtonItem(customView: button)
         return element
@@ -116,10 +116,10 @@ class GameViewController: UIViewController {
     @objc private func pauseButtonTapped() {
         isPause.toggle()
         
-        if isPause {
-            pauseButtonNavBar.image = UIImage(systemName: "play.circle")
-        } else {
-            pauseButtonNavBar.image = UIImage(systemName: "pause.circle")
+        if let button = pauseButtonNavBar.customView as? UIButton {
+            let imageName = isPause ? "play.circle" : "pause.circle"
+            let image = UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 35))
+            button.setImage(image, for: .normal)
         }
     }
     
