@@ -195,12 +195,11 @@ private extension MainView {
     func setViews() {
         addSubview(backgroundImageView)
         
-        addSubview(mainStackView)
-        
-        mainStackView.addArrangedSubview(labelStackView)
+        addSubview(labelStackView)
         labelStackView.addArrangedSubview(gameForLabel)
         labelStackView.addArrangedSubview(nameGameLabel)
         
+        addSubview(mainStackView)
         mainStackView.addArrangedSubview(bombImageView)
         
         mainStackView.addArrangedSubview(buttonsStackView)
