@@ -18,15 +18,31 @@ class FinalGameVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        changeTask()
-        startAgain()
+        makeTask()
+        changeTaskButton()
+        restartButton()
     }
-    @objc private func changeTask() { // Сохранение данных?
-        navigationController?.popViewController(animated: true)
-        dismiss(animated: true)
+    
+    func makeTask() {
+        if let task = TaskModel().task.randomElement( ) {
+            mainView.conditionLable.text = task.description
+        } 
     }
+    
+    //MARK: ACTIONS
+    
+    func changeTaskButton() {
+        mainView.changeTaskButton.addTarget(self, action: #selector(changeTask), for: .touchUpInside)
+    }
+    @objc private func changeTask() {
+        makeTask()
+    }
+    
+    func restartButton() {
+        mainView.restartButton.addTarget(self, action: #selector(startAgain), for: .touchUpInside)
+    }
+    
     @objc private func startAgain() {
         navigationController?.popViewController(animated: true)
-        dismiss(animated: true)
     }
 }
