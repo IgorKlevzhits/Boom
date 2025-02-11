@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class GameViewController: UIViewController {
     // MARK: - UI
@@ -47,11 +48,16 @@ class GameViewController: UIViewController {
     
     
     private lazy var pauseButtonNavBar: UIBarButtonItem = {
-        let element = UIBarButtonItem()
-        element.image = UIImage(systemName: "pause.circle")
-        element.tintColor = UIColor(named: "TextColor")
-        element.target = self
-        element.action = #selector(pauseButtonTapped)
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "pause.circle",
+                                withConfiguration: UIImage.SymbolConfiguration(pointSize: 35)),
+                        for: .normal)
+        button.tintColor = UIColor(named: "TextColor")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        button.addTarget(self, action: #selector(pauseButtonTapped), for: .touchUpInside)
+        let element = UIBarButtonItem(customView: button)
         return element
     }()
     
@@ -64,44 +70,119 @@ class GameViewController: UIViewController {
     }()
     
     private lazy var backButtonNavBar: UIBarButtonItem = {
-        let element = UIBarButtonItem()
-        element.image = UIImage(systemName: "chevron.backward")
-        element.tintColor = UIColor(named: "TextColor")
-        element.target = self
-        element.action = #selector(backButtonTapped)
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "chevron.backward",
+                                withConfiguration: UIImage.SymbolConfiguration(pointSize: 30)),
+                        for: .normal)
+        button.tintColor = UIColor(named: "TextColor")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        let element = UIBarButtonItem(customView: button)
         return element
     }()
     
     // MARK: - Private Properties
     
     private var isPause = false
+    private var timer = Timer()
+    private var backgroundPlayer: AVAudioPlayer?
+    private var bombTimerPlayer: AVAudioPlayer?
+    private var isBombSoundPlayed = false
+    private var totalTime = 15
+    private var secondPassed = 0
     
     // MARK: - Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
         setupConstraints()
+        
+        try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: [.mixWithOthers])
+        try? AVAudioSession.sharedInstance().setActive(true)
+        
+        playBackgroundMusic()
     }
     
     // MARK: - Private Methods
     
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+        timer.invalidate()
         dismiss(animated: true)
     }
     
     @objc private func pauseButtonTapped() {
         isPause.toggle()
         
-        if isPause {
-            pauseButtonNavBar.image = UIImage(systemName: "play.circle")
-        } else {
-            pauseButtonNavBar.image = UIImage(systemName: "pause.circle")
+        if let button = pauseButtonNavBar.customView as? UIButton {
+            let imageName = isPause ? "play.circle" : "pause.circle"
+            let image = UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 35))
+            button.setImage(image, for: .normal)
         }
     }
     
+    private func pauseOrResumeTimer() {
+        if isPause {
+            startTimer()
+        } else {
+            timer.invalidate()
+        }
+        
+        isPause.toggle()
+    }
+    
+    private func startTimer() {
+        timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
     @objc private func startGameButtonTapped(_ sender: UIButton) {
+        timer.invalidate()
+        
         startGameButton.isHidden = true
+        
+        startTimer()
+    }
+    
+    @objc private func updateTimer() {
+        if isPause { return }
+        
+        if totalTime == 4 {
+            bombSoundPlayed()
+            pauseButtonNavBar.isEnabled = false
+        }
+        
+        if totalTime > 0 {
+            totalTime -= 1
+            print(totalTime)
+        } else {
+            timer.invalidate()
+            print("Finish")
+        }
+    }
+    
+    private func createPlayer(soundName: String, loop: Bool) -> AVAudioPlayer? {
+        guard let url = Bundle.main.url(forResource: soundName, withExtension: "mp3") else { return nil }
+        
+        do {
+            let player = try AVAudioPlayer(contentsOf: url)
+            player.numberOfLoops = loop ? -1 : 0
+            return player
+        } catch {
+            return nil
+        }
+    }
+    
+    private func bombSoundPlayed() {
+        bombTimerPlayer = createPlayer(soundName: Music.bombTimer, loop: false)
+        bombTimerPlayer?.play()
+    }
+    
+    private func playBackgroundMusic() {
+        backgroundPlayer = createPlayer(soundName: Music.backroundMusic, loop: true)
+        backgroundPlayer?.play()
     }
 }
 private extension GameViewController {
