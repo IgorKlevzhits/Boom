@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1620A5BD2D5B71A100B53587 /* AnimationBomb.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1620A5BC2D5B71A100B53587 /* AnimationBomb.gif */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		161392472D5893D200FC7133 /* Boom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Boom.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1620A5BC2D5B71A100B53587 /* AnimationBomb.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = AnimationBomb.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -46,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				161392492D5893D200FC7133 /* Boom */,
+				1620A5BC2D5B71A100B53587 /* AnimationBomb.gif */,
 				161392482D5893D200FC7133 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -122,6 +128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1620A5BD2D5B71A100B53587 /* AnimationBomb.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
