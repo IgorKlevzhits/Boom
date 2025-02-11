@@ -61,8 +61,6 @@ class GameViewController: UIViewController {
         gameModel.startTimer()
     }
     
-    
-    
     private func loadGIF(named name: String, duration: TimeInterval) {
         guard let gifURL = Bundle.main.url(forResource: name, withExtension: "gif"),
               let gifData = try? Data(contentsOf: gifURL),
