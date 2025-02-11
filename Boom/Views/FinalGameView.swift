@@ -8,6 +8,7 @@
 import UIKit
 
 class FinalGameView: UIView {
+    
     private let spacingElements: CGFloat = 30
     private let heightButtons: CGFloat = 55
     
@@ -42,7 +43,7 @@ class FinalGameView: UIView {
     }()
     let changeTaskButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Начать заново", for: .normal)
+        button.setTitle("Другое задание", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "GameButtons")
         button.titleLabel?.font = UIFont(name: Fonts.SFBlack, size: 20)
@@ -81,6 +82,9 @@ class FinalGameView: UIView {
         setView()
         setConstraint()
     }
+    
+    // MARK: - Set Views
+    
     func setView(){
         addSubview(backGroundImage)
         addSubview(titelLabel)
@@ -107,10 +111,10 @@ class FinalGameView: UIView {
         stackButton.translatesAutoresizingMaskIntoConstraints = false
         mainStack.translatesAutoresizingMaskIntoConstraints = false
     }
+    
+    // MARK: - Setup Constraints
+    
     func setConstraint(){
-      
-        
-            
         NSLayoutConstraint.activate([
             backGroundImage.topAnchor.constraint(equalTo: topAnchor),
             backGroundImage.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -134,9 +138,7 @@ class FinalGameView: UIView {
             stackButton.topAnchor.constraint(equalTo: conditionLable.bottomAnchor, constant: spacingElements),
             stackButton.leftAnchor.constraint(equalTo: leftAnchor, constant: spacingElements)
         ])
-            
-            
-        
+
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

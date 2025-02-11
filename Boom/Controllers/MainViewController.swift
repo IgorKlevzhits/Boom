@@ -21,6 +21,7 @@ class MainViewController: UIViewController, MainViewDelegate {
     override func loadView() {
         self.view = mainView
         mainView.delegate = self
+        
     }
     
     // MARK: - Делегатные методы
