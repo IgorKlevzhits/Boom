@@ -178,12 +178,12 @@ class GameViewController: UIViewController {
     }
     
     private func bombSoundPlayed() {
-        bombTimerPlayer = createPlayer(soundName: Music.bombTimer, loop: false)
+        bombTimerPlayer = createPlayer(soundName: Music.bombTimer, loop: true)
         bombTimerPlayer?.play()
     }
     
     private func playBackgroundMusic() {
-        backgroundPlayer = createPlayer(soundName: Music.backroundMusic, loop: true)
+        backgroundPlayer = createPlayer(soundName: Music.backroundMusicThree, loop: true)
         backgroundPlayer?.play()
     }
     

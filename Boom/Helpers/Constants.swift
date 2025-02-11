@@ -15,5 +15,7 @@ enum Fonts {
 
 enum Music {
     static let bombTimer = "bombTimer"
-    static let backroundMusic = "BackgroundMusic"
+    static let backroundMusicOne = "BackgroundMusicOne"
+    static let backroundMusicTwo = "BackgroundMusicTwo"
+    static let backroundMusicThree = "BackgroundMusicThree"
 }
