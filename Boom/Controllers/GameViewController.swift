@@ -110,8 +110,6 @@ class GameViewController: UIViewController {
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
         timer.invalidate()
-//        backgroundPlayer?.stop()
-//        bombTimerPlayer?.stop()
         dismiss(animated: true)
     }
     
@@ -125,21 +123,38 @@ class GameViewController: UIViewController {
         }
     }
     
+    private func pauseOrResumeTimer() {
+        if isPause {
+            startTimer()
+        } else {
+            timer.invalidate()
+        }
+        
+        isPause.toggle()
+    }
+    
+    private func startTimer() {
+        timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
     @objc private func startGameButtonTapped(_ sender: UIButton) {
         timer.invalidate()
         
         startGameButton.isHidden = true
         
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-
+        startTimer()
     }
     
     @objc private func updateTimer() {
+        if isPause { return }
+        
         if totalTime == 4 {
             bombSoundPlayed()
+            pauseButtonNavBar.isEnabled = false
         }
         
-        if secondPassed < totalTime {
+        if totalTime > 0 {
             totalTime -= 1
             print(totalTime)
         } else {
