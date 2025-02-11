@@ -55,7 +55,7 @@ class GameViewController: UIViewController {
     
     @objc private func startGameButtonTapped(_ sender: UIButton) {
         gameModel.stopTimer()
-        
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
         gameView.startGameButton.isHidden = true
         
         gameModel.startTimer()
@@ -116,6 +116,7 @@ extension GameViewController {
         self.navigationItem.titleView = titleNavBar()
         self.navigationItem.leftBarButtonItem = backButtonNavBar()
         self.navigationItem.rightBarButtonItem = pauseButtonNavBar()
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
 
 }
