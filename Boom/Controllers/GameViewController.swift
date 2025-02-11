@@ -45,10 +45,10 @@ class GameViewController: UIViewController {
         gameModel.pauseOrResumeTimer()
         
         let imageName = self.gameModel.isPaused ? "play.circle" : "pause.circle"
-//        if let button = pauseButtonItem.customView as? UIButton {
-//            let image = UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 35))
-//            button.setImage(image, for: .normal)
-//        }
+        if let button = self.navigationItem.rightBarButtonItem?.customView as? UIButton {
+            let image = UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 35))
+            button.setImage(image, for: .normal)
+        }
     }
     
 
