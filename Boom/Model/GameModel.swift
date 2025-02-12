@@ -55,9 +55,9 @@ final class GameModel {
         case 1:
             totalTime -= 1
             stopBombSound()
+            playBoom()
         case 0:
             stopTimer()
-            playBoom()
             // Переход на другой экран
             onTimerEnd?()
         default:
