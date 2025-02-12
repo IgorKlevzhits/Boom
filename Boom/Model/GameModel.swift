@@ -7,6 +7,8 @@
 
 import Foundation
 import AVFAudio
+import UIKit
+import AudioToolbox
 
 final class GameModel {
     static var backgroundPlayer: AVAudioPlayer?
@@ -56,6 +58,7 @@ final class GameModel {
             totalTime -= 1
             stopBombSound()
             playBoom()
+            boomVibration()
         case 0:
             stopTimer()
             // Переход на другой экран
@@ -76,6 +79,21 @@ final class GameModel {
         } catch {
             print("ошибка \(soundName)")
             return nil
+        }
+    }
+    
+    func boomVibration() {
+        let impact = UIImpactFeedbackGenerator(style: .heavy)
+        let notification = UINotificationFeedbackGenerator()
+        
+        impact.impactOccurred()
+        notification.notificationOccurred(.error)
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        
+        for i in 0..<5 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + (0.1 * Double(i))) {
+                impact.impactOccurred()
+            }
         }
     }
     

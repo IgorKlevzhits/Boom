@@ -16,7 +16,7 @@ class FinalGameViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: 30).isActive = true
         button.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        button.addTarget(self, action: #selector(restartButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         return UIBarButtonItem(customView: button)
     }()
     
@@ -57,6 +57,10 @@ class FinalGameViewController: UIViewController {
     
     @objc func restartButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     

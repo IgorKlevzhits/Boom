@@ -49,6 +49,7 @@ class GameViewController: UIViewController {
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
         gameModel.timer.invalidate()
+        gameModel.stopBackgroundMusic()
         dismiss(animated: true)
     }
     
