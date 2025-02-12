@@ -18,8 +18,30 @@ class SettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = mainView.titelLabel.text
         
     }
     
     
 }
+
+//extension SettingsVC: UIPickerViewDelegate {
+//    
+//}
+//extension SettingsVC: UIPickerViewDataSource {
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        switch pickerView {
+//        case mainView.backgroundMusikPicker: return 1
+//        case mainView.bomdExplosionMusikPicker: return 1
+//        case mainView.tickMusikPicker: return 1
+//        default: return 0
+//        }
+//    }
+//    
+//    func pickerView(_ pickerView: UIPickerView,
+//                    numberOfRowsInComponent component: Int) -> Int {
+//        <#code#>
+//    }
+//    
+//    
+//}
