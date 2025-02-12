@@ -7,7 +7,7 @@
 import UIKit
 
 internal class CategoryController {
-    let listCategory = [
+    var listCategory = [
         CategoryItem(isSelected: false, iconName: "smile", title: "О разном"),
         CategoryItem(isSelected: false, iconName: "hobby", title: "Спорт и Хобби"),
         CategoryItem(isSelected: false, iconName: "life", title: "Про жизнь"),
@@ -16,9 +16,6 @@ internal class CategoryController {
         CategoryItem(isSelected: false, iconName: "nature", title: "Природа"),
     ]
     
-    func changeSelected(categoryItem: CategoryItem) {
-//        categoryItem.isSelected.toggle()
-    }
 }
 
 struct CategoryItem {

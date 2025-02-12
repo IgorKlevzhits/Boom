@@ -7,75 +7,77 @@
 
 import UIKit
 
-class CategoryViewController : UIViewController {
+class GridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    let controller: CategoryController = CategoryController()
+    private let controller = CategoryController()
     
-    // Lazy initialization of the UICollectionView
-    private lazy var mainCollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 0
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.register(DemoCollectionViewCell.self, forCellWithReuseIdentifier: DemoCollectionViewCell.identifier)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.backgroundColor = .clear
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let spacing: CGFloat = 20
+        let columns: CGFloat = 2
+        let itemWidth = (UIScreen.main.bounds.width - (columns + 1) * spacing) / columns
+        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        layout.minimumInteritemSpacing = spacing
+        layout.minimumLineSpacing = spacing
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        
+        return UICollectionView(frame: .zero, collectionViewLayout: layout)
     }()
     
     override func viewDidLoad() {
-        view.backgroundColor = UIColor(named: "MainSheetBackground")
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        
         setView()
-        setupConstraints()
+        setConstraints()
     }
-    
-    // Method to reload the collection view on the main thread
-    func reloadCollectionView() {
-        DispatchQueue.main.async { [weak self] in
-            self?.mainCollectionView.reloadData()
-        }
-    }
-}
-
-private extension CategoryViewController {
-    
-    func setView() {
-        view.addSubview(mainCollectionView)
-    }
-    
-    func setupConstraints() {
-        NSLayoutConstraint.activate([
-            mainCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mainCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            mainCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            mainCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-    }
-}
-
-extension CategoryViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        controller.listCategory.count
+        return controller.listCategory.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DemoCollectionViewCell.identifier, for: indexPath) as! DemoCollectionViewCell
-        cell.configure(with: controller.listCategory[indexPath.row].iconName)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DemoCell", for: indexPath) as? DemoCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        let category = controller.listCategory[indexPath.item]
+        cell.configure(with: category)
         return cell
     }
     
-    // Return the size for the item at a given index path
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = mainCollectionView.frame.width / 3
-        return CGSize(width: size, height: size)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // для работы с выбранным элементом
+        let selectedItem = controller.listCategory[indexPath.item]
+        
+        // Инвертируем состояние isSelected
+        controller.listCategory[indexPath.item].isSelected.toggle()
+
+        // Обновляем только выбранную ячейку
+        collectionView.reloadItems(at: [indexPath])
+        
+        // MARK: тут проводить логику с нажатиями
     }
 }
 
-//#Preview {
-//    CategoryViewController()
-//}
+extension GridViewController {
+    func setView() {
+        view.addSubview(collectionView)
+
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(DemoCollectionViewCell.self, forCellWithReuseIdentifier: "DemoCell")
+        collectionView.backgroundColor = .white
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+
+    }
+    
+    func setConstraints() {
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+}

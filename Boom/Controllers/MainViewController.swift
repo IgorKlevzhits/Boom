@@ -91,7 +91,7 @@ class MainViewController: UIViewController {
     
     @objc private func ButtonTapped(_ sender: UIButton) {
         if sender.currentTitle == "Старт игры" {
-            navigationController?.pushViewController(CategoryViewController(), animated: true)
+            navigationController?.pushViewController(GridViewController(), animated: true)
         } else {
 //        navigationController?.pushViewController(yourController(), animated: true)
         }
