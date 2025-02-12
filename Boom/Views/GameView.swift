@@ -34,16 +34,7 @@ class GameView: UIView {
         return element
     }()
     
-    private(set) lazy var startGameButton: UIButton = {
-        let element = UIButton(type: .system)
-        element.setTitle("Запустить", for: .normal)
-        element.titleLabel?.font = UIFont(name: Fonts.SFHeavy, size: 20)
-        element.tintColor = UIColor(named: "TextColor")
-        element.backgroundColor = UIColor(named: "GameButtons")
-        element.layer.cornerRadius = 10
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    let startGameButton = UIButton(title: "Запустить", backgroundColor: "YellowButton")
     
     init() {
         super.init(frame: .zero)

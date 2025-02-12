@@ -109,35 +109,8 @@ class MainView: UIView {
         return element
     }()
     
-    private lazy var startGameButton: UIButton = {
-        let element = UIButton(type: .system)
-        element.setTitle("Старт игры", for: .normal)
-        element.backgroundColor = UIColor(named: "MainButtons")
-        element.titleLabel?.font = setFont(fontSize: 20, weight: .heavy)
-        element.tintColor = UIColor(named: "TextColor")
-        element.layer.cornerRadius = 10
-        element.layer.shadowColor = UIColor.black.cgColor
-        element.layer.shadowRadius = 10
-        element.layer.shadowOpacity = 0.5
-        element.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
-    
-    private lazy var categoryButton: UIButton = {
-        let element = UIButton(type: .system)
-        element.setTitle("Категории", for: .normal)
-        element.backgroundColor = UIColor(named: "MainButtons")
-        element.titleLabel?.font = setFont(fontSize: 20, weight: .heavy)
-        element.tintColor = UIColor(named: "TextColor")
-        element.layer.cornerRadius = 10
-        element.layer.shadowColor = UIColor.black.cgColor
-        element.layer.shadowRadius = 10
-        element.layer.shadowOpacity = 0.5
-        element.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    private let startGameButton = UIButton(title: "Старт игры", backgroundColor: "WhiteButton")
+    private let categoryButton = UIButton(title: "Категории", backgroundColor: "WhiteButton")
     
     // MARK: - Private Properties
     
@@ -147,19 +120,6 @@ class MainView: UIView {
     private let heightLabelStackView: CGFloat = 90
     
     // MARK: - Private Methods
-    
-    func setFont(fontSize: CGFloat, weight: UIFont.Weight) -> UIFont {
-        let systemFont = UIFont.systemFont(ofSize: fontSize, weight: weight)
-        
-        let font: UIFont
-        
-        if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
-            font = UIFont(descriptor: descriptor, size: fontSize)
-        } else {
-            font = systemFont
-        }
-        return font
-    }
     
     @objc private func settingsButtonTapped(_ sender: UIButton) {
         delegate?.settingsButtonTapped()

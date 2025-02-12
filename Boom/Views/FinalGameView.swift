@@ -43,25 +43,9 @@ class FinalGameView: UIView {
         label.textAlignment = .center
         return label
     }()
-    let changeTaskButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Другое задание", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(named: "GameButtons")
-        button.titleLabel?.font = UIFont(name: Fonts.SFBlack, size: 20)
-        button.setTitleColor(UIColor(named: "TextColor"), for: .normal)
-        button.layer.cornerRadius = 10
-        return button
-    }()
-    let restartButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Начать заново", for: .normal)
-        button.backgroundColor = UIColor(named: "GameButtons")
-        button.titleLabel?.font = UIFont(name: Fonts.SFBlack, size: 20)
-        button.setTitleColor(UIColor(named: "TextColor"), for: .normal)
-        button.layer.cornerRadius = 10
-        return button
-    }()
+    
+    let changeTaskButton = UIButton(title: "Другое задание", backgroundColor: "YellowButton")
+    let restartButton = UIButton(title: "Начать заново", backgroundColor: "YellowButton")
     
     lazy var stackButton: UIStackView = {
         let stack = UIStackView()
