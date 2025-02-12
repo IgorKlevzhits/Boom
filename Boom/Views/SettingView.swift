@@ -19,13 +19,8 @@ class SettingView: UIView {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    private lazy var  titelLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Настройки"
-        label.font = setFont(fontSize: 20, weight: .heavy)
-        label.textAlignment = .center
-        return label
-    }()
+    let titelLabel = UILabel(text: "Конец Игры", size: 30, weight: .black)
+    
     private lazy var timeTitelLabel: UILabel = {
         let label = UILabel()
         label.text = "Время Игры"
@@ -147,6 +142,7 @@ class SettingView: UIView {
         stackView.distribution = .fill
         stackView.backgroundColor = UIColor(named: "TextColor")
         stackView.layer.cornerRadius = 15
+        stackView.clipsToBounds = true
         stackView.spacing = 10
         return stackView
     }()
@@ -156,6 +152,7 @@ class SettingView: UIView {
         stackView.distribution = .fill
         stackView.backgroundColor = UIColor(named: "TextColor")
         stackView.layer.cornerRadius = 15
+        stackView.clipsToBounds = true
         stackView.spacing = 10
         return stackView
     }()
@@ -165,6 +162,7 @@ class SettingView: UIView {
         stackView.distribution = .fill
         stackView.spacing = 10
         stackView.backgroundColor = UIColor(named: "TextColor")
+        stackView.clipsToBounds = true
         stackView.layer.cornerRadius = 15
         return stackView
     }()
@@ -219,6 +217,9 @@ class SettingView: UIView {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .horizontal
         stackView.distribution = .fill
+        stackView.backgroundColor = UIColor(named: "TextColor")
+        stackView.layer.cornerRadius = 15
+        stackView.clipsToBounds = true
         stackView.spacing = 10
         return stackView
     }()
@@ -226,6 +227,9 @@ class SettingView: UIView {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .horizontal
         stackView.distribution = .fill
+        stackView.backgroundColor = UIColor(named: "TextColor")
+        stackView.layer.cornerRadius = 15
+        stackView.clipsToBounds = true
         stackView.spacing = 10
         return stackView
     }()
@@ -257,10 +261,6 @@ class SettingView: UIView {
         backGraundImageView.translatesAutoresizingMaskIntoConstraints = false
         
         //MARK: TIME STACK
-        
-        addSubview(titelLabel)
-        titelLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         addSubview(timeContainerView)
         
         upperStackView.addArrangedSubview(shortTimeButton)
@@ -317,11 +317,9 @@ class SettingView: UIView {
             backGraundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backGraundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             backGraundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            titelLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titelLabel.topAnchor.constraint(equalTo: topAnchor, constant: spacingElements * 2),
-            
-            timeContainerView.topAnchor.constraint(equalTo: titelLabel.bottomAnchor, constant: spacingElements / 2),
+        
+            //MARK: TIME STACK
+            timeContainerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: spacingElements),
             timeContainerView.leftAnchor.constraint(equalTo: leftAnchor, constant: spacingElements / 2),
             timeContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -spacingElements / 2),
             timeContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
@@ -332,7 +330,7 @@ class SettingView: UIView {
             mainTimeStackView.bottomAnchor.constraint(equalTo: timeContainerView.bottomAnchor),
             mainTimeStackView.bottomAnchor.constraint(equalTo: timeContainerView.bottomAnchor, constant: -spacingElements/2),
             //MARK: MUSIKSTACK
-            musikContainerView.topAnchor.constraint(equalTo: timeContainerView.bottomAnchor, constant: spacingElements/2),
+            musikContainerView.topAnchor.constraint(equalTo: timeContainerView.bottomAnchor, constant: spacingElements),
             musikContainerView.leftAnchor.constraint(equalTo: leftAnchor, constant: spacingElements / 2),
             musikContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -spacingElements / 2),
             musikContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
@@ -347,14 +345,14 @@ class SettingView: UIView {
             bomdExplosionMusikPicker.widthAnchor.constraint(equalTo: bombExplosionMusikStackView.widthAnchor, multiplier: 0.3),
             
             //MARK: USER_DEFAULT
-            userDefaultsContainerView.topAnchor.constraint(equalTo: musikContainerView.bottomAnchor, constant: spacingElements/2),
+            userDefaultsContainerView.topAnchor.constraint(equalTo: musikContainerView.bottomAnchor, constant: spacingElements),
             userDefaultsContainerView.leftAnchor.constraint(equalTo: leftAnchor, constant: spacingElements / 2),
             userDefaultsContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -spacingElements / 2),
-            userDefaultsContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.25)
-            
-            
-            
-            
+            userDefaultsContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3),
+            userDefaultsStackView.leftAnchor.constraint(equalTo: userDefaultsContainerView.leftAnchor, constant: spacingElements/2),
+            userDefaultsStackView.rightAnchor.constraint(equalTo: userDefaultsContainerView.rightAnchor, constant: -spacingElements/2),
+            userDefaultsStackView.topAnchor.constraint(equalTo: userDefaultsContainerView.topAnchor, constant: spacingElements/2),
+            userDefaultsStackView.bottomAnchor.constraint(equalTo: userDefaultsContainerView.bottomAnchor, constant: -spacingElements/2)
         ])
         
     }
