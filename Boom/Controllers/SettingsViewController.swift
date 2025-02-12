@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsVC: UIViewController {
+class SettingsViewController: UIViewController {
     let mainView: SettingView = .init()
     
     override func loadView() {
@@ -25,10 +25,10 @@ class SettingsVC: UIViewController {
     
 }
 
-extension SettingsVC: UIPickerViewDelegate {
+extension SettingsViewController: UIPickerViewDelegate {
     
 }
-extension SettingsVC: UIPickerViewDataSource {
+extension SettingsViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         switch pickerView {
         case mainView.backgroundMusikPicker: return 3

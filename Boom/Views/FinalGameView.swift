@@ -95,7 +95,3 @@ class FinalGameView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
-#Preview {
-    FinalGameViewController()
-}

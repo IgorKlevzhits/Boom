@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
     let selectedCategories: [QuestionCategory] = [.sportsAndHobbies]
     
     private let gameView = GameView()
-    private var gameModel = GameModel(gameTime: TimeModel.short)
+    private var gameModel = GameModel()
     
     // MARK: - Life Circle
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ class GameViewController: UIViewController {
         gameModel.playBackgroundMusic()
         
         gameView.startGameButton.isHidden = false
-        gameModel = GameModel(gameTime: gameTime ?? TimeModel.short)
+        gameModel = GameModel()
         gameView.titleLabel.text = "Нажмите “Запустить” чтобы начать игру"
         gameModel.onTimerEnd = { [weak self] in
             self?.gameModel.stopBackgroundMusic()

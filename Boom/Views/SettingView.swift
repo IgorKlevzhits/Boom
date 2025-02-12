@@ -360,7 +360,3 @@ class SettingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
-#Preview {
-    SettingsVC()
-}
