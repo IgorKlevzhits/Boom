@@ -16,7 +16,7 @@ class GameView: UIView {
         return element
     }()
     
-    private lazy var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let element = UILabel()
         element.text = "Нажмите “Запустить” чтобы начать игру"
         element.numberOfLines = 0
