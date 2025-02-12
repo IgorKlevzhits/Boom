@@ -19,56 +19,63 @@ class SettingView: UIView {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    let titelLabel: UILabel = {
+    
+    lazy var titelLabel: UILabel = {
         let label = UILabel()
         label.text = "Настройки"
-        label.font = UIFont(name: Fonts.SFBlack, size: 30)
+        label.font = setFont(fontSize: 28, weight: .heavy)
         label.textAlignment = .center
         return label
     }()
-    let timeTitelLabel: UILabel = {
+    
+    private lazy var timeTitelLabel: UILabel = {
         let label = UILabel()
         label.text = "Время Игры"
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 28, weight: .heavy)
         return label
     }()
-    let shortTimeButton: UIButton = {
+    
+    private lazy var shortTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Короткое", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "TextColor")
-        button.titleLabel?.font = UIFont(name: Fonts.SFBlack, size: 16)
+        button.titleLabel?.font = setFont(fontSize: 16, weight: .black)
         button.layer.cornerRadius = 15
         return button
     }()
-    let mediumTimeButton: UIButton = {
+    
+    private lazy var mediumTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Среднее", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "TextColor")
-        button.titleLabel?.font = UIFont(name: Fonts.SFBlack, size: 16)
+        button.titleLabel?.font = setFont(fontSize: 16, weight: .black)
         button.layer.cornerRadius = 15
         return button
     }()
-    let longTimeButton: UIButton = {
+    
+    private lazy var longTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Длинное", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "TextColor")
-        button.titleLabel?.font = UIFont(name: Fonts.SFBlack, size: 16)
+        button.titleLabel?.font = setFont(fontSize: 16, weight: .black)
         button.layer.cornerRadius = 15
         return button
     }()
-    let randomTimeButton: UIButton = {
+    
+    private lazy var randomTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Случайное", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "TextColor")
-        button.titleLabel?.font = UIFont(name: Fonts.SFBlack, size: 16)
+        button.titleLabel?.font = setFont(fontSize: 16, weight: .black)
         button.layer.cornerRadius = 15
         return button
     }()
-    let timeContainerView: UIView = {
+    
+    private lazy var timeContainerView: UIView = {
         let container = UIView()
         container.layer.cornerRadius = 20
         container.backgroundColor = UIColor(named: "CategoryCellBackground")
@@ -77,71 +84,80 @@ class SettingView: UIView {
         return container
     }()
     
-    let upperStackView: UIStackView = {
+    private lazy var upperStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
         return stackView
     }()
-    let lowerStackView: UIStackView = {
+    
+    private lazy var lowerStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
         return stackView
     }()
-    let mainTimeStackView: UIStackView = {
+    
+    private lazy var mainTimeStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 10
         return stackView
     }()
+    
     //MARK: MUSIK STACK
-    let backgroundMusikLabel: UILabel = {
+    private lazy var backgroundMusikLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 20, weight: .black)
         label.textAlignment = .left
         label.backgroundColor = UIColor(named: "TextColor")
         label.text = "Фоновая музыка"
         return label
     }()
-    let tickMusikLabel: UILabel = {
+    
+    private lazy var tickMusikLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 20, weight: .black)
         label.textAlignment = .left
         label.backgroundColor = UIColor(named: "TextColor")
         label.text = "Тиканье Бомбы"
         return label
     }()
-    let bombExplosionMusikLabel: UILabel = {
+    
+    private lazy var bombExplosionMusikLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 20, weight: .black)
         label.textAlignment = .left
         label.backgroundColor = UIColor(named: "TextColor")
         label.text = "Взрыв бомбы"
         return label
     }()
-    let backgroundMusikPicker: UIPickerView = {
+    
+    private lazy var backgroundMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor = .white
         return pickerView
     }()
-    let tickMusikPicker: UIPickerView = {
+    
+    private lazy var tickMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor = .white
         return pickerView
     }()
-    let bomdExplosionMusikPicker: UIPickerView = {
+    
+    private lazy var bomdExplosionMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor = .white
         return pickerView
     }()
-    let backGroundMusikStackView: UIStackView = {
+    
+    private lazy var backGroundMusikStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -150,7 +166,8 @@ class SettingView: UIView {
         stackView.spacing = 10
         return stackView
     }()
-    let tickMusikStackView: UIStackView = {
+    
+    private lazy var tickMusikStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -159,7 +176,8 @@ class SettingView: UIView {
         stackView.spacing = 10
         return stackView
     }()
-    let bombExplosionMusikStackView: UIStackView = {
+    
+    private lazy var bombExplosionMusikStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -168,7 +186,8 @@ class SettingView: UIView {
         stackView.layer.cornerRadius = 15
         return stackView
     }()
-    let mainMusikStackView: UIStackView = {
+    
+    private lazy var mainMusikStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
@@ -177,7 +196,7 @@ class SettingView: UIView {
         return stackView
     }()
     
-    let musikContainerView: UIView = {
+    private lazy var musikContainerView: UIView = {
         let container = UIView()
         container.layer.cornerRadius = 20
         container.backgroundColor = UIColor(named: "CategoryCellBackground")
@@ -187,56 +206,61 @@ class SettingView: UIView {
     }()
     
     //MARK: USER DEFAULT
-    let vibrationTurnOnLabel: UILabel = {
+    private lazy var vibrationTurnOnLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 20, weight: .black)
         label.textAlignment = .left
         label.backgroundColor = UIColor(named: "TextColor")
         label.text = "Вибрация"
         return label
     }()
     
-    let chelengeTurnOnLabel: UILabel = {
+    private lazy var chelengeTurnOnLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 20, weight: .black)
         label.textAlignment = .left
         label.backgroundColor = UIColor(named: "TextColor")
         label.text = "Задания"
         return label
     }()
     
-    let vibrationSwitch: UISwitch = {
+    private lazy var vibrationSwitch: UISwitch = {
         let vibrationSwitch = UISwitch()
         return vibrationSwitch
     }()
-    let chelengeSwitch: UISwitch = {
+    
+    private lazy var chelengeSwitch: UISwitch = {
         let chalengeSwitch = UISwitch()
         return chalengeSwitch
     }()
-    let vibrationStackView: UIStackView = {
+    
+    private lazy var vibrationStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.spacing = 10
         return stackView
     }()
-    let chelengeStackView: UIStackView = {
+    
+    private lazy var chelengeStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.spacing = 10
         return stackView
     }()
-    let userDefaultsStackView: UIStackView = {
+    
+    private lazy var userDefaultsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 10
         return stackView
     }()
-    let userDefaultsContainerView: UIView = {
+    
+    private lazy var userDefaultsContainerView: UIView = {
         let container = UIView()
         container.layer.cornerRadius = 20
         container.backgroundColor = UIColor(named: "CategoryCellBackground")
@@ -363,6 +387,3 @@ class SettingView: UIView {
     }
 }
 
-#Preview {
-    SettingsVC()
-}

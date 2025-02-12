@@ -39,8 +39,8 @@ class MainViewController: UIViewController, MainViewDelegate {
     }
     
     func settingsButtonTapped() {
-        //        let rulesVC = yourController()
-        //        navigationController?.pushViewController(yourController(), animated: true)
+        let settingsVC = SettingsViewController()
+        navigationController?.pushViewController(SettingsViewController(), animated: true)
     }
     
     func rulesButtonTapped() {
