@@ -28,9 +28,13 @@ class CategoryView: UIView {
         view.addSubview(label)
         
         NSLayoutConstraint.activate([
+            view.centerXAnchor.constraint(equalTo: centerXAnchor),
+            view.centerYAnchor.constraint(equalTo: centerYAnchor),
             view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
             view.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
             
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
             imageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
             
@@ -39,11 +43,14 @@ class CategoryView: UIView {
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             label.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
+        addSubview(view)
     }
     
     init() {
         super.init(frame: .zero)
-        sefup
+        backgroundColor = .green
+//        setupCategoryViews()
         setViews()
         setupConstraints()
     }
@@ -58,7 +65,7 @@ private extension CategoryView {
     // MARK: - Set Views
     
     func setViews() {
-        addSubview(<#T##view: UIView##UIView#>)
+//        addSubview()
     }
     
     // MARK: - Setup Constraints
