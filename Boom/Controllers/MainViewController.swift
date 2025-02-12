@@ -16,7 +16,8 @@ protocol MainViewDelegate: AnyObject {
 
 class MainViewController: UIViewController, MainViewDelegate {
     
-    let mainView: MainView = .init()
+    var gameTime = TimeModel.short
+    private let mainView: MainView = .init()
     
     override func loadView() {
         self.view = mainView
@@ -27,8 +28,9 @@ class MainViewController: UIViewController, MainViewDelegate {
     // MARK: - Delegate Methods
     
     func startGameButtonTapped() {
-        // Переход на экран с игрой
-        navigationController?.pushViewController(GameViewController(), animated: true)
+        let gameVC = GameViewController()
+        gameVC.gameTime = self.gameTime
+        navigationController?.pushViewController(gameVC, animated: true)
     }
     
     func categoryButtonTapped() {

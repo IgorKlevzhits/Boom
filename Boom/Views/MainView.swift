@@ -24,8 +24,8 @@ class MainView: UIView {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "Settings"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: sizeNavigationButtons).isActive = true
-        button.heightAnchor.constraint(equalToConstant: sizeNavigationButtons).isActive = true
+        button.widthAnchor.constraint(equalToConstant: Sizes.sizeNavigationButtons).isActive = true
+        button.heightAnchor.constraint(equalToConstant: Sizes.sizeNavigationButtons).isActive = true
         button.addTarget(self, action: #selector(rulesButtonTapped), for: .touchUpInside)
         let element = UIBarButtonItem(customView: button)
         return element
@@ -35,8 +35,8 @@ class MainView: UIView {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "Rules"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: sizeNavigationButtons).isActive = true
-        button.heightAnchor.constraint(equalToConstant: sizeNavigationButtons).isActive = true
+        button.widthAnchor.constraint(equalToConstant: Sizes.sizeNavigationButtons).isActive = true
+        button.heightAnchor.constraint(equalToConstant: Sizes.sizeNavigationButtons).isActive = true
         button.addTarget(self, action: #selector(rulesButtonTapped), for: .touchUpInside)
         let element = UIBarButtonItem(customView: button)
         return element
@@ -46,7 +46,7 @@ class MainView: UIView {
         let element = UIStackView()
         element.axis = .vertical
         element.distribution = .fillProportionally
-        element.spacing = spacingElements
+        element.spacing = Sizes.spacingElements
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -104,62 +104,19 @@ class MainView: UIView {
         let element = UIStackView()
         element.axis = .vertical
         element.distribution = .fillEqually
-        element.spacing = spacingElements
+        element.spacing = Sizes.spacingElements
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
     
-    private lazy var startGameButton: UIButton = {
-        let element = UIButton(type: .system)
-        element.setTitle("Старт игры", for: .normal)
-        element.backgroundColor = UIColor(named: "MainButtons")
-        element.titleLabel?.font = setFont(fontSize: 20, weight: .heavy)
-        element.tintColor = UIColor(named: "TextColor")
-        element.layer.cornerRadius = 10
-        element.layer.shadowColor = UIColor.black.cgColor
-        element.layer.shadowRadius = 10
-        element.layer.shadowOpacity = 0.5
-        element.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
-    
-    private lazy var categoryButton: UIButton = {
-        let element = UIButton(type: .system)
-        element.setTitle("Категории", for: .normal)
-        element.backgroundColor = UIColor(named: "MainButtons")
-        element.titleLabel?.font = setFont(fontSize: 20, weight: .heavy)
-        element.tintColor = UIColor(named: "TextColor")
-        element.layer.cornerRadius = 10
-        element.layer.shadowColor = UIColor.black.cgColor
-        element.layer.shadowRadius = 10
-        element.layer.shadowOpacity = 0.5
-        element.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    private let startGameButton = UIButton(title: "Старт игры", backgroundColor: "WhiteButton")
+    private let categoryButton = UIButton(title: "Категории", backgroundColor: "WhiteButton")
     
     // MARK: - Private Properties
     
-    private let spacingElements: CGFloat = 20
-    private let heightButtons: CGFloat = 55
-    private let sizeNavigationButtons: CGFloat = 35
     private let heightLabelStackView: CGFloat = 90
     
     // MARK: - Private Methods
-    
-    func setFont(fontSize: CGFloat, weight: UIFont.Weight) -> UIFont {
-        let systemFont = UIFont.systemFont(ofSize: fontSize, weight: weight)
-        
-        let font: UIFont
-        
-        if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
-            font = UIFont(descriptor: descriptor, size: fontSize)
-        } else {
-            font = systemFont
-        }
-        return font
-    }
     
     @objc private func settingsButtonTapped(_ sender: UIButton) {
         delegate?.settingsButtonTapped()
@@ -220,17 +177,17 @@ private extension MainView {
             backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            labelStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: spacingElements),
-            labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacingElements),
-            labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacingElements),
+            labelStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Sizes.spacingElements),
+            labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Sizes.spacingElements),
+            labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Sizes.spacingElements),
             labelStackView.heightAnchor.constraint(equalToConstant: heightLabelStackView),
             
-            mainStackView.topAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: spacingElements),
-            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacingElements),
-            mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacingElements),
-            mainStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -spacingElements),
+            mainStackView.topAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: Sizes.spacingElements),
+            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Sizes.spacingElements),
+            mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Sizes.spacingElements),
+            mainStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Sizes.spacingElements),
             
-            startGameButton.heightAnchor.constraint(equalToConstant: heightButtons)
+            startGameButton.heightAnchor.constraint(equalToConstant: Sizes.heightButtons)
         ])
     }
 

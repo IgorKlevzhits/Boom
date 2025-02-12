@@ -12,25 +12,36 @@ import ImageIO
 class GameViewController: UIViewController {
     
     // MARK: - Private Properties
-    private var pauseButtonItem: UIBarButtonItem!
+    var gameTime: TimeModel?
+    let questionBank = QuestionBank()
+    let selectedCategories: [QuestionCategory] = [.sportsAndHobbies]
     
     private let gameView = GameView()
-    private let gameModel = GameModel()
+    private var gameModel = GameModel(gameTime: TimeModel.short)
     
     // MARK: - Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = gameView
-        
         setupNavBar()
-        
         gameView.startGameButton.addTarget(self, action: #selector(startGameButtonTapped), for: .touchUpInside)
-        
-        try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: [.mixWithOthers])
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
         try? AVAudioSession.sharedInstance().setActive(true)
-        
         gameModel.playBackgroundMusic()
-        loadGIF(named: "AnimationBomb", duration: 15.0)
+        
+        gameView.startGameButton.isHidden = false
+        gameModel = GameModel(gameTime: gameTime ?? TimeModel.short)
+        gameView.titleLabel.text = "Нажмите “Запустить” чтобы начать игру"
+        gameModel.onTimerEnd = { [weak self] in
+            self?.gameModel.stopBackgroundMusic()
+            self?.navigateToNextScreen()
+        }
+        loadGIF(named: "AnimationBomb", duration: 10)
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     // MARK: - Private Methods
@@ -45,20 +56,20 @@ class GameViewController: UIViewController {
         gameModel.pauseOrResumeTimer()
         
         let imageName = self.gameModel.isPaused ? "play.circle" : "pause.circle"
-//        if let button = pauseButtonItem.customView as? UIButton {
-//            let image = UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 35))
-//            button.setImage(image, for: .normal)
-//        }
+        if let button = self.navigationItem.rightBarButtonItem?.customView as? UIButton {
+            let image = UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 35))
+            button.setImage(image, for: .normal)
+        }
     }
     
 
     
     @objc private func startGameButtonTapped(_ sender: UIButton) {
-        gameModel.stopTimer()
-        
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
+        gameView.titleLabel.text = questionBank.getNextQuestion(from: selectedCategories)?.text
         gameView.startGameButton.isHidden = true
-        
         gameModel.startTimer()
+        gameModel.playBombSound()
     }
     
     private func loadGIF(named name: String, duration: TimeInterval) {
@@ -78,17 +89,15 @@ class GameViewController: UIViewController {
         
         gameView.bombImageView.image = UIImage.animatedImage(with: images, duration: duration)
     }
+    
+    private func navigateToNextScreen() {
+        let finalVC = FinalGameViewController()
+        self.navigationController?.pushViewController(finalVC, animated: true)
+    }
+    
 }
 
 extension GameViewController {
-    
-    private func titleNavBar() -> UILabel {
-        let element = UILabel()
-        element.text = "Игра"
-        element.font = UIFont(name: Fonts.SFBlack, size: 30)
-        element.textColor = .black
-        return element
-    }
     
     private func pauseButtonNavBar() -> UIBarButtonItem {
         let button = UIButton(type: .custom)
@@ -113,7 +122,7 @@ extension GameViewController {
     }
     
     private func setupNavBar() {
-        self.navigationItem.titleView = titleNavBar()
+        self.navigationItem.titleView = UILabel(text: "Игра", size: 30, weight: .black)
         self.navigationItem.leftBarButtonItem = backButtonNavBar()
         self.navigationItem.rightBarButtonItem = pauseButtonNavBar()
     }

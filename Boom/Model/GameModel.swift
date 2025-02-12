@@ -9,14 +9,30 @@ import Foundation
 import AVFAudio
 
 final class GameModel {
-    private var backgroundPlayer: AVAudioPlayer?
-    private var bombTimerPlayer: AVAudioPlayer?
+    static var backgroundPlayer: AVAudioPlayer?
+    static var bombTimerPlayer: AVAudioPlayer?
+    static var boomPlayer: AVAudioPlayer?
     private var isBombSoundPlayed = false
-    private var totalTime = 15
+    private var totalTime: Int
     private var secondPassed = 0
     
     private(set) var timer = Timer()
     private(set) var isPaused = false
+    
+    var onTimerEnd: (() -> Void)?
+    
+    init(gameTime: TimeModel) {
+        switch gameTime {
+        case .short:
+            self.totalTime = 10
+        case .midle:
+            self.totalTime = 20
+        case .long:
+            self.totalTime = 45
+        case .random:
+            self.totalTime = Int.random(in: 10...45)
+        }
+    }
     
     func startTimer() {
         timer.invalidate()
@@ -28,27 +44,25 @@ final class GameModel {
     }
     
     func pauseOrResumeTimer() {
-        if isPaused {
-            startTimer()
-        } else {
-            timer.invalidate()
-        }
+        isPaused ? startTimer() : timer.invalidate()
+        isPaused ? playBombSound() : pauseBombSound()
         isPaused.toggle()
     }
     
     @objc private func updateTimer() {
         if isPaused { return }
-        
-        if totalTime == 4 {
-            bombSoundPlayed()
-        }
-        
-        if totalTime > 0 {
+        switch totalTime {
+        case 1:
+            totalTime -= 1
+            stopBombSound()
+        case 0:
+            stopTimer()
+            playBoom()
+            // Переход на другой экран
+            onTimerEnd?()
+        default:
             totalTime -= 1
             print(totalTime)
-        } else {
-            stopTimer()
-            // Переход на другой экран
         }
     }
     
@@ -60,18 +74,36 @@ final class GameModel {
             player.numberOfLoops = loop ? -1 : 0
             return player
         } catch {
+            print("ошибка \(soundName)")
             return nil
         }
     }
     
-    func playBackgroundMusic() {
-        backgroundPlayer = createPlayer(soundName: Music.backroundMusicThree, loop: true)
-        backgroundPlayer?.play()
+    func playBoom() {
+        GameModel.boomPlayer = createPlayer(soundName: Music.boomThree, loop: false)
+        GameModel.boomPlayer?.play()
     }
     
-    func bombSoundPlayed() {
-        bombTimerPlayer = createPlayer(soundName: Music.bombTimer, loop: false)
-        bombTimerPlayer?.play()
+    func playBackgroundMusic() {
+        GameModel.backgroundPlayer = createPlayer(soundName: Music.backgroundMusicThree, loop: true)
+        GameModel.backgroundPlayer?.play()
+    }
+    
+    func stopBackgroundMusic() {
+        GameModel.backgroundPlayer?.stop()
+    }
+    
+    func playBombSound() {
+        GameModel.bombTimerPlayer = createPlayer(soundName: Music.bombTimerThree, loop: true)
+        GameModel.bombTimerPlayer?.play()
+    }
+    
+    func stopBombSound() {
+        GameModel.bombTimerPlayer?.stop()
+    }
+    
+    func pauseBombSound() {
+        GameModel.bombTimerPlayer?.pause()
     }
 }
 
