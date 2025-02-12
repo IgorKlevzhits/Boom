@@ -50,6 +50,7 @@ class GameViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         gameModel.timer.invalidate()
         gameModel.stopBackgroundMusic()
+        gameModel.stopBombSound() 
         dismiss(animated: true)
     }
     
