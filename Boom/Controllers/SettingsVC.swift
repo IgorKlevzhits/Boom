@@ -18,7 +18,6 @@ class SettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = mainView.titelLabel.text
         
     }
     

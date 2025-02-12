@@ -19,52 +19,52 @@ class SettingView: UIView {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    let titelLabel: UILabel = {
+    private lazy var  titelLabel: UILabel = {
         let label = UILabel()
         label.text = "Настройки"
-        label.font = UIFont(name: Fonts.SFBlack, size: 30)
+        label.font = setFont(fontSize: 20, weight: .heavy)
         label.textAlignment = .center
         return label
     }()
-    let timeTitelLabel: UILabel = {
+    private lazy var timeTitelLabel: UILabel = {
         let label = UILabel()
         label.text = "Время Игры"
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 20, weight: .heavy)
         return label
     }()
-    let shortTimeButton: UIButton = {
+    private lazy var shortTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Короткое", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "TextColor")
-        button.titleLabel?.font = UIFont(name: Fonts.SFBlack, size: 16)
+        button.titleLabel?.font = setFont(fontSize: 16, weight: .heavy)
         button.layer.cornerRadius = 15
         return button
     }()
-    let mediumTimeButton: UIButton = {
+    private lazy var mediumTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Среднее", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "TextColor")
-        button.titleLabel?.font = UIFont(name: Fonts.SFBlack, size: 16)
+        button.titleLabel?.font = setFont(fontSize: 16, weight: .heavy)
         button.layer.cornerRadius = 15
         return button
     }()
-    let longTimeButton: UIButton = {
+    private lazy var longTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Длинное", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "TextColor")
-        button.titleLabel?.font = UIFont(name: Fonts.SFBlack, size: 16)
+        button.titleLabel?.font = setFont(fontSize: 16, weight: .heavy)
         button.layer.cornerRadius = 15
         return button
     }()
-    let randomTimeButton: UIButton = {
+    private lazy var randomTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Случайное", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "TextColor")
-        button.titleLabel?.font = UIFont(name: Fonts.SFBlack, size: 16)
+        button.titleLabel?.font = setFont(fontSize: 16, weight: .heavy)
         button.layer.cornerRadius = 15
         return button
     }()
@@ -99,28 +99,28 @@ class SettingView: UIView {
         return stackView
     }()
     //MARK: MUSIK STACK
-    let backgroundMusikLabel: UILabel = {
+    private lazy var backgroundMusikLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 20, weight: .heavy)
         label.textAlignment = .left
         label.backgroundColor = UIColor(named: "TextColor")
         label.text = "Фоновая музыка"
         return label
     }()
-    let tickMusikLabel: UILabel = {
+    private lazy var tickMusikLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 20, weight: .heavy)
         label.textAlignment = .left
         label.backgroundColor = UIColor(named: "TextColor")
         label.text = "Тиканье Бомбы"
         return label
     }()
-    let bombExplosionMusikLabel: UILabel = {
+    private lazy var bombExplosionMusikLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 20, weight: .heavy)
         label.textAlignment = .left
         label.backgroundColor = UIColor(named: "TextColor")
         label.text = "Взрыв бомбы"
@@ -187,20 +187,20 @@ class SettingView: UIView {
     }()
     
     //MARK: USER DEFAULT
-    let vibrationTurnOnLabel: UILabel = {
+    private lazy var vibrationTurnOnLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 20, weight: .heavy)
         label.textAlignment = .left
         label.backgroundColor = UIColor(named: "TextColor")
         label.text = "Вибрация"
         return label
     }()
     
-    let chelengeTurnOnLabel: UILabel = {
+    private lazy var chelengeTurnOnLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.SFBlack, size: 20)
+        label.font = setFont(fontSize: 20, weight: .black)
         label.textAlignment = .left
         label.backgroundColor = UIColor(named: "TextColor")
         label.text = "Задания"
