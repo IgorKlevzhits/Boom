@@ -35,7 +35,7 @@ class MainViewController: UIViewController, MainViewDelegate {
     
     func categoryButtonTapped() {
         // Переход на экран с категориями
-        // navigationController?.pushViewController(YourCategoryController(), animated: true)
+        navigationController?.pushViewController(CategoryViewController(), animated: true)
     }
     
     func settingsButtonTapped() {
