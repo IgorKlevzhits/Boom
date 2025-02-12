@@ -8,7 +8,7 @@ import UIKit
 
 internal class CategoryController {
     var listCategory = [
-        CategoryItem(isSelected: false, iconName: "smile", title: "О разном"),
+        CategoryItem(isSelected: true, iconName: "smile", title: "О разном"),
         CategoryItem(isSelected: false, iconName: "hobby", title: "Спорт и Хобби"),
         CategoryItem(isSelected: false, iconName: "life", title: "Про жизнь"),
         CategoryItem(isSelected: false, iconName: "influencer", title: "Знаменитости"),
