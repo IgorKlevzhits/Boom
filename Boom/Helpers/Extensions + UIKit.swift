@@ -38,3 +38,16 @@ extension UIButton {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 }
+
+extension UILabel {
+    convenience init(text: String, size: CGFloat, weight: UIFont.Weight) {
+        self.init()
+        self.text = text
+        self.font = setFont(fontSize: size, weight: weight)
+        self.textColor = UIColor(named: "TextColor")
+        self.numberOfLines = 0
+        self.lineBreakMode = .byWordWrapping
+        self.textAlignment = .center
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+}

@@ -16,16 +16,7 @@ class GameView: UIView {
         return element
     }()
     
-    lazy var titleLabel: UILabel = {
-        let element = UILabel()
-        element.text = "Нажмите “Запустить” чтобы начать игру"
-        element.numberOfLines = 0
-        element.textColor = UIColor(named: "TextColor")
-        element.textAlignment = .center
-        element.font = UIFont(name: Fonts.SFMedium, size: 28)
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    let titleLabel = UILabel(text: "Нажмите “Запустить” чтобы начать игру", size: 28, weight: .bold)
     
     private(set) lazy var bombImageView: UIImageView = {
         let element = UIImageView()
@@ -35,6 +26,10 @@ class GameView: UIView {
     }()
     
     let startGameButton = UIButton(title: "Запустить", backgroundColor: "YellowButton")
+    
+    // MARK: - Private Properties
+    
+    
     
     init() {
         super.init(frame: .zero)
@@ -71,19 +66,19 @@ extension GameView {
             backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 23),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 48),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -48),
+            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Sizes.spacingElements),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Sizes.spacingElements),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Sizes.spacingElements),
             
             bombImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             bombImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             bombImageView.widthAnchor.constraint(equalToConstant: 312),
             bombImageView.heightAnchor.constraint(equalToConstant: 352),
             
-            startGameButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -28),
-            startGameButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 23),
-            startGameButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -23),
-            startGameButton.heightAnchor.constraint(equalToConstant: 55)
+            startGameButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Sizes.spacingElements),
+            startGameButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: Sizes.spacingElements),
+            startGameButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Sizes.spacingElements),
+            startGameButton.heightAnchor.constraint(equalToConstant: Sizes.heightButtons)
         ])
     }
 }

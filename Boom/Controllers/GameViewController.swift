@@ -98,14 +98,6 @@ class GameViewController: UIViewController {
 
 extension GameViewController {
     
-    private func titleNavBar() -> UILabel {
-        let element = UILabel()
-        element.text = "Игра"
-        element.font = UIFont(name: Fonts.SFBlack, size: 30)
-        element.textColor = .black
-        return element
-    }
-    
     private func pauseButtonNavBar() -> UIBarButtonItem {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "pause.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 35)), for: .normal)
@@ -129,7 +121,7 @@ extension GameViewController {
     }
     
     private func setupNavBar() {
-        self.navigationItem.titleView = titleNavBar()
+        self.navigationItem.titleView = UILabel(text: "Игра", size: 30, weight: .black)
         self.navigationItem.leftBarButtonItem = backButtonNavBar()
         self.navigationItem.rightBarButtonItem = pauseButtonNavBar()
     }

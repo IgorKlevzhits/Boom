@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum Fonts {
-    static let SFMedium = "SFProRounded-Medium"
-    static let SFHeavy = "SFProRounded-Heavy"
-    static let SFBlack = "SFProRounded-Black"
+enum Sizes {
+    static let spacingElements: CGFloat = 20
+    static let heightButtons: CGFloat = 55
+    static let sizeNavigationButtons: CGFloat = 35
 }
 
 enum Music {

@@ -9,17 +9,8 @@ import UIKit
 
 class FinalGameView: UIView {
     
-    private let spacingElements: CGFloat = 20
-    private let heightButtons: CGFloat = 55
+    let titelLabel = UILabel(text: "Конец Игры", size: 30, weight: .black)
     
-    let titelLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Конец Игры"
-        label.font = UIFont(name: Fonts.SFBlack, size: 30)
-        label.textColor = UIColor(named: "TextColor")
-        label.textAlignment = .center
-        return label
-    }()
     let backGroundImage: UIImageView = {
         let bgImage = UIImageView()
         bgImage.image = UIImage(named: "WhiteBackground")
@@ -33,16 +24,7 @@ class FinalGameView: UIView {
         img.contentMode = .scaleAspectFit
         return img
     }()
-    let conditionLable: UILabel = {
-        let label = UILabel()
-        label.text = "В следующем раунде после каждого ответа хлопать в ладоши"
-        label.font = UIFont(name: Fonts.SFHeavy, size: 28)
-        label.textColor = UIColor(named: "TextColor")
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        label.textAlignment = .center
-        return label
-    }()
+    let conditionLable = UILabel(text: "Задание", size: 28, weight: .bold)
     
     let changeTaskButton = UIButton(title: "Другое задание", backgroundColor: "YellowButton")
     let restartButton = UIButton(title: "Начать заново", backgroundColor: "YellowButton")
@@ -51,14 +33,14 @@ class FinalGameView: UIView {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fillEqually
-        stack.spacing = spacingElements
+        stack.spacing = Sizes.spacingElements
         return stack
     }()
     lazy var mainStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fill
-        stack.spacing = spacingElements
+        stack.spacing = Sizes.spacingElements
         return stack
     }()
     
@@ -82,9 +64,6 @@ class FinalGameView: UIView {
         
         backGroundImage.translatesAutoresizingMaskIntoConstraints = false
         finishImage.translatesAutoresizingMaskIntoConstraints = false
-        conditionLable.translatesAutoresizingMaskIntoConstraints = false
-        changeTaskButton.translatesAutoresizingMaskIntoConstraints = false
-        restartButton.translatesAutoresizingMaskIntoConstraints = false
         stackButton.translatesAutoresizingMaskIntoConstraints = false
         mainStack.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -98,17 +77,17 @@ class FinalGameView: UIView {
             backGroundImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             backGroundImage.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-            mainStack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: spacingElements),
-            mainStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacingElements),
-            mainStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacingElements),
+            mainStack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Sizes.spacingElements),
+            mainStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Sizes.spacingElements),
+            mainStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Sizes.spacingElements),
             
             finishImage.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
-            changeTaskButton.heightAnchor.constraint(equalToConstant: heightButtons),
+            changeTaskButton.heightAnchor.constraint(equalToConstant: Sizes.heightButtons),
             
-            stackButton.topAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: spacingElements),
-            stackButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacingElements),
-            stackButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacingElements),
-            stackButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -spacingElements)
+            stackButton.topAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: Sizes.spacingElements),
+            stackButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Sizes.spacingElements),
+            stackButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Sizes.spacingElements),
+            stackButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Sizes.spacingElements)
         ])
 
     }
