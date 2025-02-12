@@ -26,7 +26,7 @@ class MainView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: Sizes.sizeNavigationButtons).isActive = true
         button.heightAnchor.constraint(equalToConstant: Sizes.sizeNavigationButtons).isActive = true
-        button.addTarget(self, action: #selector(rulesButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         let element = UIBarButtonItem(customView: button)
         return element
     }()

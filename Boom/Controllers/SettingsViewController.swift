@@ -8,17 +8,17 @@
 
 import UIKit
 
-class SettingsVC: UIViewController {
-    let mainView: SettingView = .init()
+class SettingsViewController: UIViewController {
+    let settingsView: SettingView = .init()
     
     override func loadView() {
-        self.view = mainView
+        self.view = settingsView
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = mainView.titelLabel.text
+        navigationItem.title = settingsView.titelLabel.text
         
     }
     
