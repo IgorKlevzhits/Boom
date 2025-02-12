@@ -29,10 +29,11 @@ class GameViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: [.mixWithOthers])
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
         try? AVAudioSession.sharedInstance().setActive(true)
-        gameView.startGameButton.isHidden = false
         gameModel.playBackgroundMusic()
+        
+        gameView.startGameButton.isHidden = false
         gameModel = GameModel(gameTime: gameTime ?? TimeModel.short)
         gameView.titleLabel.text = "Нажмите “Запустить” чтобы начать игру"
         gameModel.onTimerEnd = { [weak self] in
