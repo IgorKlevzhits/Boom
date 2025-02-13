@@ -12,9 +12,6 @@ import ImageIO
 class GameViewController: UIViewController {
     
     // MARK: - Private Properties
-    var gameTime: TimeModel?
-    let questionBank = QuestionBank()
-    let selectedCategories: [QuestionCategory] = [.sportsAndHobbies]
     
     private let gameView = GameView()
     private var gameModel = GameModel()
@@ -24,6 +21,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         self.view = gameView
         setupNavBar()
+        QuestionManager.shared.updateCurrentQuestions()
         gameView.startGameButton.addTarget(self, action: #selector(startGameButtonTapped), for: .touchUpInside)
     }
     
@@ -68,7 +66,7 @@ class GameViewController: UIViewController {
     
     @objc private func startGameButtonTapped(_ sender: UIButton) {
         self.navigationItem.rightBarButtonItem?.isEnabled = true
-        gameView.titleLabel.text = questionBank.getNextQuestion(from: selectedCategories)?.text
+        gameView.titleLabel.text = QuestionManager.shared.getRandomQuestion()
         gameView.startGameButton.isHidden = true
         gameModel.startTimer()
         gameModel.playBombSound()

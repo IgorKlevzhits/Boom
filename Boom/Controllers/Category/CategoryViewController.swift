@@ -85,6 +85,7 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
         collectionView.reloadItems(at: [indexPath])
         
         // MARK: тут проводить логику с нажатиями
+        QuestionManager.shared.toggleCategory(selectedItem.title)
     }
     
     private func shakeCell(_ cell: UICollectionViewCell) {
