@@ -16,6 +16,20 @@ internal class CategoryController {
         CategoryItem(isSelected: false, iconName: "nature", title: "Природа"),
     ]
     
+    init() {
+        loadSelectedCategories()
+    }
+
+    func loadSelectedCategories() {
+        if let savedCategories = UserDefaults.standard.array(forKey: "selectedCategories") as? [String] {
+            for i in 0..<listCategory.count {
+                if savedCategories.contains(listCategory[i].title) {
+                    listCategory[i].isSelected = true
+                }
+            }
+        }
+    }
+    
 }
 
 struct CategoryItem {

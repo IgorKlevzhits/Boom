@@ -6,8 +6,27 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class GridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    private lazy var backButton: UIBarButtonItem = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "chevron.backward", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30)), for: .normal)
+        button.tintColor = UIColor(named: "TextColor")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        return UIBarButtonItem(customView: button)
+    }()
+    
+    private lazy var backgroundImageView: UIImageView = {
+        let element = UIImageView(image: UIImage(named: "WhiteBackground"))
+        element.contentMode = .scaleAspectFill
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
     
     private let controller = CategoryController()
     
@@ -26,8 +45,8 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
+        navigationItem.leftBarButtonItem = backButton
         setView()
         setConstraints()
     }
@@ -51,29 +70,63 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
         let selectedItem = controller.listCategory[indexPath.item]
         
         // Инвертируем состояние isSelected
+        let selectedCount = controller.listCategory.filter { $0.isSelected }.count
+        if selectedCount == 1 && controller.listCategory[indexPath.item].isSelected {
+            if let cell = collectionView.cellForItem(at: indexPath) {
+                shakeCell(cell)
+            }
+            triggerHapticFeedback()
+            AudioServicesPlaySystemSound(1053)
+            return
+        }
         controller.listCategory[indexPath.item].isSelected.toggle()
 
         // Обновляем только выбранную ячейку
         collectionView.reloadItems(at: [indexPath])
         
         // MARK: тут проводить логику с нажатиями
+        QuestionManager.shared.toggleCategory(selectedItem.title)
+    }
+    
+    private func shakeCell(_ cell: UICollectionViewCell) {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: .linear)
+        animation.values = [-5, 5, -4, 4, -3, 3, -2, 2, 0]
+        animation.duration = 0.3
+        cell.layer.add(animation, forKey: "shake")
+    }
+    
+    private func triggerHapticFeedback() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.prepare()
+        generator.notificationOccurred(.error)
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 
 extension GridViewController {
     func setView() {
+        view.addSubview(backgroundImageView)
         view.addSubview(collectionView)
 
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(DemoCollectionViewCell.self, forCellWithReuseIdentifier: "DemoCell")
-        collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
 
     }
     
     func setConstraints() {
         NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

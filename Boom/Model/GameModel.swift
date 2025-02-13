@@ -24,17 +24,7 @@ final class GameModel {
     var onTimerEnd: (() -> Void)?
     
     init() {
-//        switch gameTime {
-//        case .short:
-//            self.totalTime = 10
-//        case .midle:
-//            self.totalTime = 20
-//        case .long:
-//            self.totalTime = 45
-//        case .random:
-//            self.totalTime = Int.random(in: 10...45)
-//        }
-        totalTime = 5
+        totalTime = 2
     }
     
     func startTimer() {

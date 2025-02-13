@@ -31,7 +31,7 @@ class MainViewController: UIViewController, MainViewDelegate {
     }
     
     func categoryButtonTapped() {
-        navigationController?.pushViewController(CategoryViewController(), animated: true)
+        navigationController?.pushViewController(GridViewController(), animated: true)
     }
     
     func settingsButtonTapped() {

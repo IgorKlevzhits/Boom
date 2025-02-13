@@ -9,8 +9,7 @@ import UIKit
 class DemoCollectionViewCell: UICollectionViewCell {
     
     lazy var imageView = UIImageView()
-    lazy var titleLabel = UILabel()
-    lazy var stackView = UIStackView()
+    lazy var titleLabel = UILabel(text: "", size: 16, weight: .heavy)
     lazy var checkImage = UIImageView()
     
     override init(frame: CGRect) {
@@ -43,28 +42,13 @@ private extension DemoCollectionViewCell {
         contentView.layer.cornerRadius = 20
         contentView.layer.borderWidth = 2
 
-        setStackView()
         setImageView()
-        setTitleLabelView()
+        contentView.addSubview(titleLabel)
         setCheckImageView()
     }
     
-    private func setStackView() {
-        contentView.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 25
-        stackView.distribution = .equalCentering
-        stackView.alignment = .center
-    }
-    
-    private func setTitleLabelView() {
-        stackView.addArrangedSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
     private func setImageView() {
-        stackView.addArrangedSubview(imageView)
+        contentView.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = false
@@ -72,7 +56,7 @@ private extension DemoCollectionViewCell {
     }
     
     private func setCheckImageView() {
-        stackView.addSubview(checkImage)
+        contentView.addSubview(checkImage)
         checkImage.image = UIImage(named: "CheckCircle")
         checkImage.translatesAutoresizingMaskIntoConstraints = false
         checkImage.contentMode = .scaleAspectFit
@@ -82,18 +66,18 @@ private extension DemoCollectionViewCell {
     
     func setConstaints() {
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            checkImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            checkImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             
-            imageView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 30),
+            imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
+            imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.5),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
-//            // не работает
-//            titleLabel.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 30),
-            
-            checkImage.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 8),
-            checkImage.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 8),
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 }
