@@ -24,7 +24,7 @@ final class GameModel {
     var onTimerEnd: (() -> Void)?
     
     init() {
-        totalTime = 2
+        totalTime = 10
     }
     
     func startTimer() {

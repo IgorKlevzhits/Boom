@@ -74,7 +74,6 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
             AudioServicesPlaySystemSound(1053)
             return
         }
-        AudioServicesPlaySystemSound(1052)
         controller.listCategory[indexPath.item].isSelected.toggle()
 
         // Обновляем только выбранную ячейку

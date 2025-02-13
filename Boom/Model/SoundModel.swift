@@ -52,17 +52,3 @@ class SoundsBoomModel{
         .init(id: "3", titel: "boomThree", formatAudio: "mp3")]
     
 }
-
-
-//enum SoundsBoomModel: String {
-//    case boomOne
-//    case boomTwo
-//    case boomThree
-//    var soundName: String {
-//        switch self {
-//        case .boomOne : return "boomOne"
-//        case .boomTwo: return "boomTwo"
-//        case .boomThree: return "boomThree"
-//        }
-//    }
-//}

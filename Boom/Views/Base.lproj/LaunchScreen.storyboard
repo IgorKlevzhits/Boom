@@ -30,8 +30,8 @@
                             <constraint firstAttribute="bottom" secondItem="mZ1-lU-Lzg" secondAttribute="bottom" id="C2e-rt-pAh"/>
                             <constraint firstItem="mZ1-lU-Lzg" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="ESz-BZ-Ho1"/>
                             <constraint firstItem="jtT-L4-Ywi" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="FBE-kT-pRt"/>
-                            <constraint firstItem="mZ1-lU-Lzg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="RTA-4c-QjE"/>
-                            <constraint firstItem="mZ1-lU-Lzg" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="g12-jZ-WOD"/>
+                            <constraint firstItem="mZ1-lU-Lzg" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="RTA-4c-QjE"/>
+                            <constraint firstItem="mZ1-lU-Lzg" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="g12-jZ-WOD"/>
                             <constraint firstItem="jtT-L4-Ywi" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="lUN-KM-cHg"/>
                         </constraints>
                     </view>

@@ -5,6 +5,7 @@
 //  Created by Игорь Клевжиц on 13.02.2025.
 //
 import Foundation
+import AudioToolbox
 
 class QuestionManager {
     static let shared = QuestionManager()
@@ -145,8 +146,12 @@ class QuestionManager {
     func toggleCategory(_ category: String) {
         if selectedCategories.contains(category) {
             selectedCategories.removeAll { $0 == category }
+            AudioServicesPlaySystemSound(1051)
+            saveSelectedCategories()
         } else {
             selectedCategories.append(category)
+            AudioServicesPlaySystemSound(1052)
+            saveSelectedCategories()
         }
     }
 
