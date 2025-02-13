@@ -9,6 +9,18 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
+    
+    private lazy var backButton: UIBarButtonItem = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "chevron.backward", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30)), for: .normal)
+        button.tintColor = UIColor(named: "TextColor")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        return UIBarButtonItem(customView: button)
+    }()
+    
     let mainView: SettingView = .init()
     
     override func loadView() {
@@ -19,7 +31,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = mainView.titelLabel
-        
+        navigationItem.leftBarButtonItem = backButton
     }
     
     
@@ -48,5 +60,8 @@ extension SettingsViewController: UIPickerViewDataSource {
         }
     }
     
+    @objc func backButtonTapped() {
+        navigationController?.popToRootViewController(animated: true)
+    }
     
 }

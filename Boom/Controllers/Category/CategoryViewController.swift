@@ -21,12 +21,7 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
         return UIBarButtonItem(customView: button)
     }()
     
-    private lazy var backgroundImageView: UIImageView = {
-        let element = UIImageView(image: UIImage(named: "WhiteBackground"))
-        element.contentMode = .scaleAspectFill
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    private let backgroundImageView = UIImageView(image: "WhiteBackground")
     
     private let controller = CategoryController()
     
@@ -79,6 +74,7 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
             AudioServicesPlaySystemSound(1053)
             return
         }
+        AudioServicesPlaySystemSound(1052)
         controller.listCategory[indexPath.item].isSelected.toggle()
 
         // Обновляем только выбранную ячейку

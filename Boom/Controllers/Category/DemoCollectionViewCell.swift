@@ -41,7 +41,11 @@ private extension DemoCollectionViewCell {
     func setView() {
         contentView.layer.cornerRadius = 20
         contentView.layer.borderWidth = 2
-
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowRadius = 10
+        contentView.layer.shadowOpacity = 0.5
+        contentView.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
+        
         setImageView()
         contentView.addSubview(titleLabel)
         setCheckImageView()

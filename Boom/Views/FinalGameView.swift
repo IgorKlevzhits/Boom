@@ -11,13 +11,7 @@ class FinalGameView: UIView {
     
     let titelLabel = UILabel(text: "Конец Игры", size: 30, weight: .black)
     
-    let backGroundImage: UIImageView = {
-        let bgImage = UIImageView()
-        bgImage.image = UIImage(named: "WhiteBackground")
-        bgImage.contentMode = .scaleAspectFill
-        bgImage.clipsToBounds = true
-        return bgImage
-    }()
+    let backGroundImage = UIImageView(image: "WhiteBackground")
     let finishImage: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "FinalBoom")
