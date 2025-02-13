@@ -15,7 +15,6 @@ class GameViewController: UIViewController {
     
     private let gameView = GameView()
     private var gameModel = GameModel()
-    
     // MARK: - Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
