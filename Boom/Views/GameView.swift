@@ -9,12 +9,7 @@ import UIKit
 
 class GameView: UIView {
     // MARK: - UI
-    private lazy var backgroundImageView: UIImageView = {
-        let element = UIImageView(image: UIImage(named: "WhiteBackground"))
-        element.contentMode = .scaleAspectFill
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    private let backgroundImageView = UIImageView(image: "WhiteBackground")
     
     let titleLabel = UILabel(text: "Нажмите “Запустить” чтобы начать игру", size: 28, weight: .bold)
     

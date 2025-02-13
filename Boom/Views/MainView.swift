@@ -13,12 +13,7 @@ class MainView: UIView {
     
     // MARK: - UI
     
-    private lazy var backgroundImageView: UIImageView = {
-        let element = UIImageView(image: UIImage(named: "YellowBackground"))
-        element.contentMode = .scaleAspectFill
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    private let backgroundImageView = UIImageView(image: "YellowBackground")
     
     lazy var settingsButtonNavBar: UIBarButtonItem = {
         let button = UIButton(type: .custom)
