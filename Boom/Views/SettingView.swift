@@ -12,6 +12,8 @@ class SettingView: UIView {
     
     private let spacingElements: CGFloat = 30
     private let heightButtons: CGFloat = 40
+    
+    
     //MARK: TIME STACK
     
     private lazy var mainStackView: UIStackView = {
@@ -29,10 +31,10 @@ class SettingView: UIView {
     
     private let timeTitelLabel = UILabel(text: "ВРЕМЯ ИГРЫ", size: 20, weight: .bold)
     
-    private let shortTimeButton = UIButton(title: "Короткое")
-    private let mediumTimeButton = UIButton(title: "Среднее")
-    private let longTimeButton = UIButton(title: "Длинное")
-    private let randomTimeButton = UIButton(title: "Случайное")
+    let shortTimeButton = UIButton(title: "Короткое")
+    let mediumTimeButton = UIButton(title: "Среднее")
+    let longTimeButton = UIButton(title: "Длинное")
+    let randomTimeButton = UIButton(title: "Случайное")
     
     let timeContainerView = UIView(radius: 20)
     
@@ -47,17 +49,17 @@ class SettingView: UIView {
     
     let backgroundMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
-        pickerView.backgroundColor = .white
+        pickerView.backgroundColor =  UIColor(named: "TextColor")
         return pickerView
     }()
     let tickMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
-        pickerView.backgroundColor = .white
+        pickerView.backgroundColor =  UIColor(named: "TextColor")
         return pickerView
     }()
     let bomdExplosionMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
-        pickerView.backgroundColor = .white
+        pickerView.backgroundColor =  UIColor(named: "TextColor")
         return pickerView
     }()
     let backGroundMusikStackView = UIStackView(distribution: .fill)
@@ -177,3 +179,4 @@ class SettingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
