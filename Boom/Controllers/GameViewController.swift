@@ -78,6 +78,12 @@ class GameViewController: UIViewController {
             gameModel.playBombTimerSound()
             startGame = true
         }
+        
+        if gameView.isAnimationPlaying == false {
+            gameView.animationView?.play()
+            gameView.isAnimationPlaying = true
+        }
+        
         if SettingsModel.shared.getModeState() {
             gameView.startGameButton.isHidden = true
         } else {
