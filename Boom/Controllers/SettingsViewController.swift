@@ -11,7 +11,6 @@ import AVFoundation
 
 class SettingsViewController: UIViewController {
     
-    
     private lazy var backButton: UIBarButtonItem = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "chevron.backward", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30)), for: .normal)
@@ -59,7 +58,7 @@ class SettingsViewController: UIViewController {
         mainView.bomdExplosionMusikPicker.selectRow(SoundsBoomModel.shared.getSelectedSoundIndex(), inComponent: 0, animated: false)
         let selectedRow = SettingsModel.shared.getModeState() ? 0 : 1
         mainView.gameModePicker.selectRow(selectedRow, inComponent: 0, animated: false)
-
+        
         changedTimeButton()
     }
     @objc func shortTimeButtonTapped() {
@@ -103,14 +102,14 @@ class SettingsViewController: UIViewController {
             highlightButton(mainView.randomTimeButton)
         }
     }
-
+    
     private func highlightButton(_ button: UIButton) {
         UIView.animate(withDuration: 0.3) {
             button.setTitleColor(UIColor(named: "TextColor"), for: .normal)
             button.backgroundColor = .white
         }
     }
-
+    
     
     //MARK: SWITCHMETHOD
     @objc func switchChanged(_ sender: UISwitch) {
@@ -120,7 +119,7 @@ class SettingsViewController: UIViewController {
             SettingsModel.shared.setChallengeState(false)
         }
     }
-
+    
     @objc func swithVibration(_ sender: UISwitch) {
         if sender.isOn {
             SettingsModel.shared.setVibrationState(true)
@@ -146,7 +145,7 @@ class SettingsViewController: UIViewController {
 }
 //MARK: PIKER DELEGATE
 extension SettingsViewController: UIPickerViewDelegate {
-
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case mainView.backgroundMusikPicker:
@@ -171,7 +170,7 @@ extension SettingsViewController: UIPickerViewDelegate {
             break
         }
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.white,
@@ -200,7 +199,7 @@ extension SettingsViewController: UIPickerViewDataSource {
             return SoundsBoomModel.shared.getCountSounds()
         case mainView.tickMusikPicker:
             return SoundBombTimerModel.shared.getCountSounds()
-        case mainView.gameModePicker: 
+        case mainView.gameModePicker:
             return gameModes.count
         default:
             return 0
