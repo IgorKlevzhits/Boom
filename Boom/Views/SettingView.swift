@@ -29,6 +29,15 @@ class SettingView: UIView {
     
     let titelLabel = UILabel(text: "Настройки", size: 30, weight: .black)
     
+    private let gameModeContainerView = UIView(radius: 20)
+    private let gameModeStackView = UIStackView(axis: .vertical)
+    private let gameModeTitelLabel = UILabel(text: "РЕЖИМ ИГРЫ", size: 20, weight: .bold)
+    let gameModePicker: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.backgroundColor =  UIColor(named: "TextColor")
+        return pickerView
+    }()
+    
     private let timeTitelLabel = UILabel(text: "ВРЕМЯ ИГРЫ", size: 20, weight: .bold)
     
     var shortTimeButton = UIButton(title: "Короткое")
@@ -105,6 +114,12 @@ class SettingView: UIView {
         addSubview(backGraundImageView)
         addSubview(mainStackView)
         
+        // MARK: GAME MODE
+        mainStackView.addArrangedSubview(gameModeContainerView)
+        gameModeContainerView.addSubview(gameModeStackView)
+        gameModeStackView.addArrangedSubview(gameModeTitelLabel)
+        gameModeStackView.addArrangedSubview(gameModePicker)
+        
         //MARK: TIME STACK
         mainStackView.addArrangedSubview(timeContainerView)
         timeTitelLabel.textAlignment = .left
@@ -156,6 +171,13 @@ class SettingView: UIView {
             mainStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Sizes.spacingElements),
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Sizes.spacingElements),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Sizes.spacingElements),
+            
+            // MARK: GAME MODE
+            gameModeContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3),
+            gameModeStackView.topAnchor.constraint(equalTo: gameModeContainerView.topAnchor),
+            gameModeStackView.leadingAnchor.constraint(equalTo: gameModeContainerView.leadingAnchor, constant: spacingElements),
+            gameModeStackView.trailingAnchor.constraint(equalTo: gameModeContainerView.trailingAnchor, constant: -spacingElements),
+            gameModeStackView.bottomAnchor.constraint(equalTo: gameModeContainerView.bottomAnchor, constant: -spacingElements/2),
         
             //MARK: TIME STACK
             timeContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
@@ -163,8 +185,8 @@ class SettingView: UIView {
             mainTimeStackView.topAnchor.constraint(equalTo: timeContainerView.topAnchor),
             mainTimeStackView.leadingAnchor.constraint(equalTo: timeContainerView.leadingAnchor, constant: spacingElements),
             mainTimeStackView.trailingAnchor.constraint(equalTo: timeContainerView.trailingAnchor, constant: -spacingElements),
-            mainTimeStackView.bottomAnchor.constraint(equalTo: timeContainerView.bottomAnchor),
             mainTimeStackView.bottomAnchor.constraint(equalTo: timeContainerView.bottomAnchor, constant: -spacingElements/2),
+            
             //MARK: MUSIKSTACK
             musikContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
             

@@ -26,6 +26,7 @@ class SettingsViewController: UIViewController {
     let mainView: SettingView = .init()
     var audioPlayer: AVAudioPlayer?
     var stopTimer: Timer?
+    let gameModes = ["Классика", "Горячая картошка"]
     
     override func loadView() {
         self.view = mainView
@@ -36,6 +37,8 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.titleView = mainView.titelLabel
         navigationItem.leftBarButtonItem = backButton
+        mainView.gameModePicker.delegate = self
+        mainView.gameModePicker.delegate = self
         mainView.backgroundMusikPicker.delegate = self
         mainView.backgroundMusikPicker.dataSource = self
         mainView.bomdExplosionMusikPicker.delegate = self
@@ -54,6 +57,9 @@ class SettingsViewController: UIViewController {
         mainView.backgroundMusikPicker.selectRow(BackgroundSoundModel.shared.getSelectedSoundIndex(), inComponent: 0, animated: false)
         mainView.tickMusikPicker.selectRow(SoundBombTimerModel.shared.getSelectedSoundIndex(), inComponent: 0, animated: false)
         mainView.bomdExplosionMusikPicker.selectRow(SoundsBoomModel.shared.getSelectedSoundIndex(), inComponent: 0, animated: false)
+        let selectedRow = SettingsModel.shared.getModeState() ? 0 : 1
+        mainView.gameModePicker.selectRow(selectedRow, inComponent: 0, animated: false)
+
         changedTimeButton()
     }
     @objc func shortTimeButtonTapped() {
@@ -95,8 +101,6 @@ class SettingsViewController: UIViewController {
             highlightButton(mainView.longTimeButton)
         case .random:
             highlightButton(mainView.randomTimeButton)
-        default:
-            print("Ошибка: неизвестное значение времени")
         }
     }
 
@@ -157,17 +161,28 @@ extension SettingsViewController: UIPickerViewDelegate {
             SoundsBoomModel.shared.saveSelectedSound(row)
             audioPlayer?.stop()
             playSound(fromFile: SoundsBoomModel.shared.loadSelectedSound())
+        case mainView.gameModePicker:
+            if row == 0 {
+                SettingsModel.shared.setModeState(true)
+            } else {
+                SettingsModel.shared.setModeState(false)
+            }
         default:
             break
         }
     }
 
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let title = "\(row + 1)"
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.white,
             .font: UIFont.systemFont(ofSize: 20)
         ]
+        var title = ""
+        if pickerView != mainView.gameModePicker {
+            title = "\(row + 1)"
+        } else {
+            title = gameModes[row]
+        }
         return NSAttributedString(string: title, attributes: attributes)
     }
 }
@@ -185,6 +200,8 @@ extension SettingsViewController: UIPickerViewDataSource {
             return SoundsBoomModel.shared.getCountSounds()
         case mainView.tickMusikPicker:
             return SoundBombTimerModel.shared.getCountSounds()
+        case mainView.gameModePicker: 
+            return gameModes.count
         default:
             return 0
         }

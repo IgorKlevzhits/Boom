@@ -24,7 +24,11 @@ final class GameModel {
     var onTimerEnd: (() -> Void)?
     
     init() {
-        totalTime = TimeModel.shared.getTotalTime()
+        if SettingsModel.shared.getModeState() {
+            totalTime = TimeModel.shared.getTotalTime()
+        } else {
+            totalTime = 7
+        }
     }
     
     func startTimer() {
@@ -38,7 +42,7 @@ final class GameModel {
     
     func pauseOrResumeTimer() {
         isPaused ? startTimer() : timer.invalidate()
-        isPaused ? playBombSound() : pauseBombSound()
+        isPaused ? playBombTimerSound() : pauseBombTimerSound()
         isPaused.toggle()
     }
     
@@ -47,7 +51,7 @@ final class GameModel {
         switch totalTime {
         case 1:
             totalTime -= 1
-            stopBombSound()
+            stopBombTimerSound()
             playBoom()
             if SettingsModel.shared.getVibrationState() {
                 boomVibration()
@@ -104,17 +108,21 @@ final class GameModel {
         GameModel.backgroundPlayer?.stop()
     }
     
-    func playBombSound() {
+    func playBombTimerSound() {
         GameModel.bombTimerPlayer = createPlayer(soundName: SoundBombTimerModel.shared.loadSelectedSound(), loop: true)
         GameModel.bombTimerPlayer?.play()
     }
     
-    func stopBombSound() {
+    func stopBombTimerSound() {
         GameModel.bombTimerPlayer?.stop()
     }
     
-    func pauseBombSound() {
+    func pauseBombTimerSound() {
         GameModel.bombTimerPlayer?.pause()
+    }
+    
+    func updateTime() {
+        totalTime = 7
     }
 }
 
