@@ -31,10 +31,10 @@ class SettingView: UIView {
     
     private let timeTitelLabel = UILabel(text: "ВРЕМЯ ИГРЫ", size: 20, weight: .bold)
     
-    let shortTimeButton = UIButton(title: "Короткое")
-    let mediumTimeButton = UIButton(title: "Среднее")
-    let longTimeButton = UIButton(title: "Длинное")
-    let randomTimeButton = UIButton(title: "Случайное")
+    var shortTimeButton = UIButton(title: "Короткое")
+    var middleTimeButton = UIButton(title: "Среднее")
+    var longTimeButton = UIButton(title: "Длинное")
+    var randomTimeButton = UIButton(title: "Случайное")
     
     let timeContainerView = UIView(radius: 20)
     
@@ -43,9 +43,9 @@ class SettingView: UIView {
     let mainTimeStackView = UIStackView(axis: .vertical)
     
     //MARK: MUSIK STACK
-    private let backgroundMusikLabel = UILabel(text: "Фоновая музыка")
-    private let tickMusikLabel = UILabel(text: "Тиканье Бомбы")
-    private let bombExplosionMusikLabel = UILabel(text: "Взрыв бомбы")
+    private let backgroundMusikLabel = UILabel(text: " Фоновая музыка")
+    private let tickMusikLabel = UILabel(text: " Тиканье Бомбы")
+    private let bombExplosionMusikLabel = UILabel(text: " Взрыв бомбы")
     
     let backgroundMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
@@ -71,15 +71,17 @@ class SettingView: UIView {
     let musikContainerView = UIView(radius: 20)
     
     //MARK: USER DEFAULT
-    private lazy var vibrationTurnOnLabel = UILabel(text: "Вибрация")
-    private lazy var chelengeTurnOnLabel = UILabel(text: "Игра с заданиями")
+    private lazy var vibrationTurnOnLabel = UILabel(text: " Вибрация")
+    private lazy var chelengeTurnOnLabel = UILabel(text: " Игра с заданиями")
     
     let vibrationSwitch: UISwitch = {
         let vibrationSwitch = UISwitch()
+        vibrationSwitch.onTintColor = UIColor(named: "YellowButton")
         return vibrationSwitch
     }()
     let chelengeSwitch: UISwitch = {
         let chalengeSwitch = UISwitch()
+        chalengeSwitch.onTintColor = UIColor(named: "YellowButton")
         return chalengeSwitch
     }()
     let vibrationStackView = UIStackView(distribution: .fill)
@@ -95,7 +97,11 @@ class SettingView: UIView {
     }
     
     func setView(){
-        
+        vibrationStackView.alignment = .center
+        chelengeStackView.alignment = .center
+
+        vibrationStackView.spacing = 10
+        chelengeStackView.spacing = 10
         addSubview(backGraundImageView)
         addSubview(mainStackView)
         
@@ -103,7 +109,7 @@ class SettingView: UIView {
         mainStackView.addArrangedSubview(timeContainerView)
         timeTitelLabel.textAlignment = .left
         upperStackView.addArrangedSubview(shortTimeButton)
-        upperStackView.addArrangedSubview(mediumTimeButton)
+        upperStackView.addArrangedSubview(middleTimeButton)
         lowerStackView.addArrangedSubview(longTimeButton)
         lowerStackView.addArrangedSubview(randomTimeButton)
         mainTimeStackView.addArrangedSubview(timeTitelLabel)
@@ -134,6 +140,11 @@ class SettingView: UIView {
         userDefaultsStackView.addArrangedSubview(chelengeStackView)
         userDefaultsContainerView.addSubview(userDefaultsStackView)
         
+        vibrationStackView.isLayoutMarginsRelativeArrangement = true
+        vibrationStackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+
+        chelengeStackView.isLayoutMarginsRelativeArrangement = true
+        chelengeStackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
     }
     func setConstraint() {
         NSLayoutConstraint.activate([
