@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Lottie
 
 class GameView: UIView {
     // MARK: - UI
+    private var animationView: LottieAnimationView?
     private let backgroundImageView = UIImageView(image: "WhiteBackground")
     
     let titleLabel = UILabel(text: "Нажмите “Запустить” чтобы начать игру", size: 28, weight: .bold)
@@ -46,8 +48,25 @@ extension GameView {
         addSubview(bombImageView)
         addSubview(startGameButton)
         
-
-       
+        
+        
+    }
+    
+    
+    func setupAnimation(name: String, loopMode: LottieLoopMode = .loop) {
+        
+        animationView?.removeFromSuperview()
+        
+        animationView = LottieAnimationView(name: name)
+        guard let animationView = animationView else { return }
+        
+        animationView.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
+        animationView.center = self.center
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = loopMode
+        
+        self.addSubview(animationView)
+        animationView.play()
     }
     
     // MARK: - Setup Constraints

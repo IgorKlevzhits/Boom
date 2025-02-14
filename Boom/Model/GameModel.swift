@@ -22,6 +22,7 @@ final class GameModel {
     private(set) var isPaused = false
     
     var onTimerEnd: (() -> Void)?
+    var onAnimationChange: (() -> Void)?
     
     init() {
         if SettingsModel.shared.getModeState() {
@@ -56,6 +57,8 @@ final class GameModel {
             if SettingsModel.shared.getVibrationState() {
                 boomVibration()
             }
+            
+            onAnimationChange?()
         case 0:
             stopTimer()
             // Переход на другой экран

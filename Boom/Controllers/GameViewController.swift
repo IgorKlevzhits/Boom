@@ -12,7 +12,6 @@ import ImageIO
 class GameViewController: UIViewController {
     
     // MARK: - Private Properties
-    
     private let gameView = GameView()
     private var gameModel = GameModel()
     private var startGame = false
@@ -40,7 +39,12 @@ class GameViewController: UIViewController {
             self?.gameModel.stopBackgroundMusic()
             self?.navigateToNextScreen()
         }
-        loadGIF(named: "AnimationBomb", duration: 10)
+        
+        gameModel.onAnimationChange = { [weak self] in
+            self?.changeAnimationToExplosion()
+        }
+        
+        playLottieAnimation()
         self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
@@ -50,7 +54,7 @@ class GameViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         gameModel.timer.invalidate()
         gameModel.stopBackgroundMusic()
-        gameModel.stopBombTimerSound() 
+        gameModel.stopBombTimerSound()
         dismiss(animated: true)
     }
     
@@ -64,7 +68,7 @@ class GameViewController: UIViewController {
         }
     }
     
-
+    
     
     @objc private func startGameButtonTapped(_ sender: UIButton) {
         self.navigationItem.rightBarButtonItem?.isEnabled = true
@@ -83,22 +87,12 @@ class GameViewController: UIViewController {
         }
     }
     
-    private func loadGIF(named name: String, duration: TimeInterval) {
-        guard let gifURL = Bundle.main.url(forResource: name, withExtension: "gif"),
-              let gifData = try? Data(contentsOf: gifURL),
-              let source = CGImageSourceCreateWithData(gifData as CFData, nil) else { return }
-        
-        var images: [UIImage] = []
-        let count = CGImageSourceGetCount(source)
-        let frameDuration = duration / Double(count)
-        
-        for i in 0..<count {
-            if let cgImage = CGImageSourceCreateImageAtIndex(source, i, nil) {
-                images.append(UIImage(cgImage: cgImage))
-            }
-        }
-        
-        gameView.bombImageView.image = UIImage.animatedImage(with: images, duration: duration)
+    private func playLottieAnimation() {
+        gameView.setupAnimation(name: "Bomb", loopMode: .loop)
+    }
+    
+    private func changeAnimationToExplosion() {
+        gameView.setupAnimation(name: "Explosion", loopMode: .playOnce)
     }
     
     private func navigateToNextScreen() {
@@ -137,5 +131,5 @@ extension GameViewController {
         self.navigationItem.leftBarButtonItem = backButtonNavBar()
         self.navigationItem.rightBarButtonItem = pauseButtonNavBar()
     }
-
+    
 }
