@@ -29,12 +29,21 @@ class SettingView: UIView {
     
     let titelLabel = UILabel(text: "Настройки", size: 30, weight: .black)
     
+    private let gameModeContainerView = UIView(radius: 20)
+    private let gameModeStackView = UIStackView(axis: .vertical)
+    private let gameModeTitelLabel = UILabel(text: "РЕЖИМ ИГРЫ", size: 20, weight: .bold)
+    let gameModePicker: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.backgroundColor =  UIColor(named: "TextColor")
+        return pickerView
+    }()
+    
     private let timeTitelLabel = UILabel(text: "ВРЕМЯ ИГРЫ", size: 20, weight: .bold)
     
-    let shortTimeButton = UIButton(title: "Короткое")
-    let mediumTimeButton = UIButton(title: "Среднее")
-    let longTimeButton = UIButton(title: "Длинное")
-    let randomTimeButton = UIButton(title: "Случайное")
+    var shortTimeButton = UIButton(title: "Короткое")
+    var middleTimeButton = UIButton(title: "Среднее")
+    var longTimeButton = UIButton(title: "Длинное")
+    var randomTimeButton = UIButton(title: "Случайное")
     
     let timeContainerView = UIView(radius: 20)
     
@@ -43,9 +52,9 @@ class SettingView: UIView {
     let mainTimeStackView = UIStackView(axis: .vertical)
     
     //MARK: MUSIK STACK
-    private let backgroundMusikLabel = UILabel(text: "Фоновая музыка")
-    private let tickMusikLabel = UILabel(text: "Тиканье Бомбы")
-    private let bombExplosionMusikLabel = UILabel(text: "Взрыв бомбы")
+    private let backgroundMusikLabel = UILabel(text: " Фоновая музыка")
+    private let tickMusikLabel = UILabel(text: " Тиканье Бомбы")
+    private let bombExplosionMusikLabel = UILabel(text: " Взрыв бомбы")
     
     let backgroundMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
@@ -71,15 +80,17 @@ class SettingView: UIView {
     let musikContainerView = UIView(radius: 20)
     
     //MARK: USER DEFAULT
-    private lazy var vibrationTurnOnLabel = UILabel(text: "Вибрация")
-    private lazy var chelengeTurnOnLabel = UILabel(text: "Игра с заданиями")
+    private lazy var vibrationTurnOnLabel = UILabel(text: " Вибрация")
+    private lazy var chelengeTurnOnLabel = UILabel(text: " Игра с заданиями")
     
     let vibrationSwitch: UISwitch = {
         let vibrationSwitch = UISwitch()
+        vibrationSwitch.onTintColor = UIColor(named: "YellowButton")
         return vibrationSwitch
     }()
     let chelengeSwitch: UISwitch = {
         let chalengeSwitch = UISwitch()
+        chalengeSwitch.onTintColor = UIColor(named: "YellowButton")
         return chalengeSwitch
     }()
     let vibrationStackView = UIStackView(distribution: .fill)
@@ -95,15 +106,25 @@ class SettingView: UIView {
     }
     
     func setView(){
-        
+        vibrationStackView.alignment = .center
+        chelengeStackView.alignment = .center
+
+        vibrationStackView.spacing = 10
+        chelengeStackView.spacing = 10
         addSubview(backGraundImageView)
         addSubview(mainStackView)
+        
+        // MARK: GAME MODE
+        mainStackView.addArrangedSubview(gameModeContainerView)
+        gameModeContainerView.addSubview(gameModeStackView)
+        gameModeStackView.addArrangedSubview(gameModeTitelLabel)
+        gameModeStackView.addArrangedSubview(gameModePicker)
         
         //MARK: TIME STACK
         mainStackView.addArrangedSubview(timeContainerView)
         timeTitelLabel.textAlignment = .left
         upperStackView.addArrangedSubview(shortTimeButton)
-        upperStackView.addArrangedSubview(mediumTimeButton)
+        upperStackView.addArrangedSubview(middleTimeButton)
         lowerStackView.addArrangedSubview(longTimeButton)
         lowerStackView.addArrangedSubview(randomTimeButton)
         mainTimeStackView.addArrangedSubview(timeTitelLabel)
@@ -134,6 +155,11 @@ class SettingView: UIView {
         userDefaultsStackView.addArrangedSubview(chelengeStackView)
         userDefaultsContainerView.addSubview(userDefaultsStackView)
         
+        vibrationStackView.isLayoutMarginsRelativeArrangement = true
+        vibrationStackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+
+        chelengeStackView.isLayoutMarginsRelativeArrangement = true
+        chelengeStackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
     }
     func setConstraint() {
         NSLayoutConstraint.activate([
@@ -145,6 +171,13 @@ class SettingView: UIView {
             mainStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Sizes.spacingElements),
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Sizes.spacingElements),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Sizes.spacingElements),
+            
+            // MARK: GAME MODE
+            gameModeContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3),
+            gameModeStackView.topAnchor.constraint(equalTo: gameModeContainerView.topAnchor),
+            gameModeStackView.leadingAnchor.constraint(equalTo: gameModeContainerView.leadingAnchor, constant: spacingElements),
+            gameModeStackView.trailingAnchor.constraint(equalTo: gameModeContainerView.trailingAnchor, constant: -spacingElements),
+            gameModeStackView.bottomAnchor.constraint(equalTo: gameModeContainerView.bottomAnchor, constant: -spacingElements/2),
         
             //MARK: TIME STACK
             timeContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
@@ -152,8 +185,8 @@ class SettingView: UIView {
             mainTimeStackView.topAnchor.constraint(equalTo: timeContainerView.topAnchor),
             mainTimeStackView.leadingAnchor.constraint(equalTo: timeContainerView.leadingAnchor, constant: spacingElements),
             mainTimeStackView.trailingAnchor.constraint(equalTo: timeContainerView.trailingAnchor, constant: -spacingElements),
-            mainTimeStackView.bottomAnchor.constraint(equalTo: timeContainerView.bottomAnchor),
             mainTimeStackView.bottomAnchor.constraint(equalTo: timeContainerView.bottomAnchor, constant: -spacingElements/2),
+            
             //MARK: MUSIKSTACK
             musikContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
             

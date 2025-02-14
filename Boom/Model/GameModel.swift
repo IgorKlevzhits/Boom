@@ -24,7 +24,11 @@ final class GameModel {
     var onTimerEnd: (() -> Void)?
     
     init() {
-        totalTime = 10
+        if SettingsModel.shared.getModeState() {
+            totalTime = TimeModel.shared.getTotalTime()
+        } else {
+            totalTime = 7
+        }
     }
     
     func startTimer() {
@@ -38,7 +42,7 @@ final class GameModel {
     
     func pauseOrResumeTimer() {
         isPaused ? startTimer() : timer.invalidate()
-        isPaused ? playBombSound() : pauseBombSound()
+        isPaused ? playBombTimerSound() : pauseBombTimerSound()
         isPaused.toggle()
     }
     
@@ -47,9 +51,11 @@ final class GameModel {
         switch totalTime {
         case 1:
             totalTime -= 1
-            stopBombSound()
+            stopBombTimerSound()
             playBoom()
-            boomVibration()
+            if SettingsModel.shared.getVibrationState() {
+                boomVibration()
+            }
         case 0:
             stopTimer()
             // Переход на другой экран
@@ -89,12 +95,12 @@ final class GameModel {
     }
     
     func playBoom() {
-        GameModel.boomPlayer = createPlayer(soundName: Music.boomThree, loop: false)
+        GameModel.boomPlayer = createPlayer(soundName: SoundsBoomModel.shared.loadSelectedSound(), loop: false)
         GameModel.boomPlayer?.play()
     }
     
     func playBackgroundMusic() {
-        GameModel.backgroundPlayer = createPlayer(soundName: Music.backgroundMusicThree, loop: true)
+        GameModel.backgroundPlayer = createPlayer(soundName: BackgroundSoundModel.shared.loadSelectedSound(), loop: true)
         GameModel.backgroundPlayer?.play()
     }
     
@@ -102,17 +108,21 @@ final class GameModel {
         GameModel.backgroundPlayer?.stop()
     }
     
-    func playBombSound() {
-        GameModel.bombTimerPlayer = createPlayer(soundName: Music.bombTimerThree, loop: true)
+    func playBombTimerSound() {
+        GameModel.bombTimerPlayer = createPlayer(soundName: SoundBombTimerModel.shared.loadSelectedSound(), loop: true)
         GameModel.bombTimerPlayer?.play()
     }
     
-    func stopBombSound() {
+    func stopBombTimerSound() {
         GameModel.bombTimerPlayer?.stop()
     }
     
-    func pauseBombSound() {
+    func pauseBombTimerSound() {
         GameModel.bombTimerPlayer?.pause()
+    }
+    
+    func updateTime() {
+        totalTime = 7
     }
 }
 

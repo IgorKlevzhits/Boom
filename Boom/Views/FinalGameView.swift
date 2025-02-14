@@ -60,6 +60,11 @@ class FinalGameView: UIView {
         finishImage.translatesAutoresizingMaskIntoConstraints = false
         stackButton.translatesAutoresizingMaskIntoConstraints = false
         mainStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        if !SettingsModel.shared.getChallengeState() {
+            conditionLable.alpha = 0
+            changeTaskButton.alpha = 0
+        }
     }
     
     // MARK: - Setup Constraints

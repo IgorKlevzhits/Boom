@@ -15,6 +15,7 @@ class GameViewController: UIViewController {
     
     private let gameView = GameView()
     private var gameModel = GameModel()
+    private var startGame = false
     // MARK: - Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +27,13 @@ class GameViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        gameView.startGameButton.setTitle("Запустить", for: .normal)
+        gameView.startGameButton.isHidden = false
+        startGame = false
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
         try? AVAudioSession.sharedInstance().setActive(true)
         gameModel.playBackgroundMusic()
         
-        gameView.startGameButton.isHidden = false
         gameModel = GameModel()
         gameView.titleLabel.text = "Нажмите “Запустить” чтобы начать игру"
         gameModel.onTimerEnd = { [weak self] in
@@ -47,7 +50,7 @@ class GameViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         gameModel.timer.invalidate()
         gameModel.stopBackgroundMusic()
-        gameModel.stopBombSound() 
+        gameModel.stopBombTimerSound() 
         dismiss(animated: true)
     }
     
@@ -65,10 +68,19 @@ class GameViewController: UIViewController {
     
     @objc private func startGameButtonTapped(_ sender: UIButton) {
         self.navigationItem.rightBarButtonItem?.isEnabled = true
-        gameView.titleLabel.text = QuestionManager.shared.getRandomQuestion()
-        gameView.startGameButton.isHidden = true
-        gameModel.startTimer()
-        gameModel.playBombSound()
+        if !startGame {
+            gameView.titleLabel.text = QuestionManager.shared.getRandomQuestion()
+            gameModel.startTimer()
+            gameModel.playBombTimerSound()
+            startGame = true
+        }
+        if SettingsModel.shared.getModeState() {
+            gameView.startGameButton.isHidden = true
+        } else {
+            gameView.startGameButton.setTitle("Ответил", for: .normal)
+            gameModel.updateTime()
+            
+        }
     }
     
     private func loadGIF(named name: String, duration: TimeInterval) {

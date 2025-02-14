@@ -6,15 +6,33 @@
 //
 
 
-class TimeModel{
-    let titel: String
-    let totalTime: Int
-    init(titel: String, totalTime: Int) {
-        self.titel = titel
-        self.totalTime = totalTime
+import Foundation
+
+class TimeModel {
+    static let shared = TimeModel()
+    
+    private init() {}
+    enum TimeOption: Int, CaseIterable {
+        case short = 10
+        case middle = 20
+        case long = 45
+        case random
     }
-    static var mocdata: [TimeModel] = [
-        .init(titel: "short", totalTime: 10),
-        .init(titel: "midle", totalTime: 20),
-        .init(titel: "long", totalTime: 45)]
+    
+    private let userDefaultsKey = "selectedTime"
+    
+    func saveSelectedTime(_ option: TimeOption) {
+        UserDefaults.standard.set(option.rawValue, forKey: userDefaultsKey)
+    }
+    
+    func loadSelectedTime() -> TimeOption {
+        let savedValue = UserDefaults.standard.integer(forKey: userDefaultsKey)
+        return TimeOption(rawValue: savedValue) ?? .short
+    }
+    
+    func getTotalTime() -> Int {
+        let selectedOption = loadSelectedTime()
+        return selectedOption == .random ? Int.random(in: 10...45) : selectedOption.rawValue
+    }
 }
+
