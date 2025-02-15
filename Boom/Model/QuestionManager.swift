@@ -15,10 +15,11 @@ class QuestionManager {
     }
     
     private var currentQuestions: [String] = []
-    private var selectedCategories: [String] = ["О разном"] {
+    private var selectedCategories: [String] = [] {
         didSet {
             updateCurrentQuestions()
             saveSelectedCategories()
+            print(selectedCategories)
         }
     }
     private var allQuestions: [String: [String]] = [
@@ -132,7 +133,7 @@ class QuestionManager {
     ]
     
     private func saveSelectedCategories() {
-        UserDefaults.standard.set(selectedCategories, forKey: "selectedCategories")
+        UserDefaults.standard.set(selectedCategories.isEmpty ? ["О разном"] : selectedCategories, forKey: "selectedCategories")
     }
     
     private func loadSelectedCategories() {
