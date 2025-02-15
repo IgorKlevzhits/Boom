@@ -58,7 +58,6 @@ class MainViewController: UIViewController, MainViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationItem.leftBarButtonItem = mainView.settingsButtonNavBar
         navigationItem.rightBarButtonItem = mainView.rulesButtonNavBar
     }
