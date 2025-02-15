@@ -39,8 +39,16 @@ class MainViewController: UIViewController, MainViewDelegate {
     }
     
     func rulesButtonTapped() {
-        //        let rulesVC = yourController()
-        //        navigationController?.pushViewController(yourController(), animated: true)
+        let rulesVC = RulesViewController()
+        if let sheet = rulesVC.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return context.maximumDetentValue * 0.75
+            }
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = true
+        }
+        rulesVC.modalPresentationStyle = .pageSheet
+        present(rulesVC, animated: true, completion: nil)
     }
     
     // MARK: - Life Cycle
