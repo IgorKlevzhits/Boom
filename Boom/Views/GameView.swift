@@ -10,7 +10,8 @@ import Lottie
 
 class GameView: UIView {
     // MARK: - UI
-    private var animationView: LottieAnimationView?
+    var isAnimationPlaying = false
+    private(set) var animationView: LottieAnimationView?
     private let backgroundImageView = UIImageView(image: "WhiteBackground")
     
     let titleLabel = UILabel(text: "Нажмите “Запустить” чтобы начать игру", size: 28, weight: .bold)
@@ -47,9 +48,6 @@ extension GameView {
         addSubview(titleLabel)
         addSubview(bombImageView)
         addSubview(startGameButton)
-        
-        
-        
     }
     
     
@@ -66,7 +64,20 @@ extension GameView {
         animationView.loopMode = loopMode
         
         self.addSubview(animationView)
-        animationView.play()
+        
+        if !isAnimationPlaying {
+            animationView.stop()
+        } else {
+            animationView.play()
+        }
+    }
+    
+    func pauseAnimation() {
+        animationView?.pause()
+    }
+    
+    func resumeAnimation() {
+        animationView?.play()
     }
     
     // MARK: - Setup Constraints

@@ -66,6 +66,12 @@ class GameViewController: UIViewController {
             let image = UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 35))
             button.setImage(image, for: .normal)
         }
+        
+        if gameModel.isPaused {
+            gameView.pauseAnimation()
+        } else {
+            gameView.resumeAnimation()
+        }
     }
     
     
@@ -78,6 +84,12 @@ class GameViewController: UIViewController {
             gameModel.playBombTimerSound()
             startGame = true
         }
+        
+        if gameView.isAnimationPlaying == false {
+            gameView.animationView?.play()
+            gameView.isAnimationPlaying = true
+        }
+        
         if SettingsModel.shared.getModeState() {
             gameView.startGameButton.isHidden = true
         } else {
