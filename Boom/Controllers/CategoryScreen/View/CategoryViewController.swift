@@ -8,7 +8,7 @@
 import UIKit
 import AudioToolbox
 
-class GridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class CategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     private lazy var backButton: UIBarButtonItem = {
         let button = UIButton(type: .custom)
@@ -132,7 +132,7 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 }
 
-extension GridViewController {
+extension CategoryViewController {
     func setView() {
         view.addSubview(backgroundImageView)
         view.addSubview(collectionView)
