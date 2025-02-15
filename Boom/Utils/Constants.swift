@@ -12,15 +12,3 @@ enum Sizes {
     static let heightButtons: CGFloat = 55
     static let sizeNavigationButtons: CGFloat = 35
 }
-
-enum Music {
-    static let bombTimerOne = "bombTimerOne"
-    static let bombTimerTwo = "bombTimerTwo"
-    static let bombTimerThree = "bombTimerThree"
-    static let backgroundMusicOne = "backgroundMusicOne"
-    static let backgroundMusicTwo = "backgroundMusicTwo"
-    static let backgroundMusicThree = "backgroundMusicThree"
-    static let boomOne = "boomOne"
-    static let boomTwo = "boomTwo"
-    static let boomThree = "boomThree"
-}

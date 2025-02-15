@@ -6,21 +6,16 @@
 //
 import UIKit
 
-extension UIView {
-    
-    func setFont(fontSize: CGFloat, weight: UIFont.Weight) -> UIFont {
+extension UIFont {
+    static func setFont(fontSize: CGFloat, weight: UIFont.Weight) -> UIFont {
         let systemFont = UIFont.systemFont(ofSize: fontSize, weight: weight)
         
-        let font: UIFont
-        
         if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
-            font = UIFont(descriptor: descriptor, size: fontSize)
+            return UIFont(descriptor: descriptor, size: fontSize)
         } else {
-            font = systemFont
+            return systemFont
         }
-        return font
     }
-    
 }
 
 extension UIButton {
@@ -28,7 +23,7 @@ extension UIButton {
         self.init(type: .system)
         self.setTitle(title, for: .normal)
         self.backgroundColor = UIColor(named: backgroundColor)
-        self.titleLabel?.font = setFont(fontSize: 20, weight: .heavy)
+        self.titleLabel?.font = UIFont.setFont(fontSize: 20, weight: .heavy)
         self.tintColor = UIColor(named: "TextColor")
         self.layer.cornerRadius = 10
         self.layer.shadowColor = UIColor.black.cgColor
@@ -43,7 +38,7 @@ extension UILabel {
     convenience init(text: String, size: CGFloat, weight: UIFont.Weight) {
         self.init()
         self.text = text
-        self.font = setFont(fontSize: size, weight: weight)
+        self.font = UIFont.setFont(fontSize: size, weight: weight)
         self.textColor = UIColor(named: "TextColor")
         self.numberOfLines = 0
         self.lineBreakMode = .byWordWrapping
@@ -58,7 +53,7 @@ extension UIButton {
         self.setTitle(title, for: .normal)
         self.setTitleColor(.white, for: .normal)
         self.backgroundColor = UIColor(named: "TextColor")
-        self.titleLabel?.font = setFont(fontSize: 20, weight: .heavy)
+        self.titleLabel?.font = UIFont.setFont(fontSize: 20, weight: .heavy)
         self.layer.cornerRadius = 15
         self.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -86,7 +81,6 @@ extension UIView {
         self.layer.shadowOpacity = 0.5
         self.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
@@ -94,7 +88,7 @@ extension UILabel {
     convenience init(text: String) {
         self.init()
         self.textColor = .white
-        self.font = setFont(fontSize: 20, weight: .heavy)
+        self.font = UIFont.setFont(fontSize: 20, weight: .heavy)
         self.textAlignment = .left
         self.backgroundColor = UIColor(named: "TextColor")
         self.text = text

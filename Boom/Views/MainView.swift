@@ -59,7 +59,7 @@ class MainView: UIView {
         let element = UILabel()
         element.text = "ИГРА ДЛЯ КОМПАНИИ"
         element.textColor = .black
-        element.font = setFont(fontSize: 28, weight: .heavy)
+        element.font = UIFont.setFont(fontSize: 28, weight: .heavy)
         element.numberOfLines = 0
         element.textAlignment = .center
         element.layer.shadowColor = UIColor.black.cgColor
@@ -74,7 +74,7 @@ class MainView: UIView {
         let element = UILabel()
         element.text = "БОМБА"
         element.textColor = .black
-        element.font = setFont(fontSize: 48, weight: .black)
+        element.font = UIFont.setFont(fontSize: 48, weight: .black)
         element.textAlignment = .center
         element.layer.shadowColor = UIColor.black.cgColor
         element.layer.shadowRadius = 5
