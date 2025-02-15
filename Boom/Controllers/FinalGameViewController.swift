@@ -38,9 +38,7 @@ class FinalGameViewController: UIViewController {
     }
     
     func makeTask() {
-        if let task = TaskModel().task.randomElement( ) {
-            mainView.conditionLable.text = task.description
-        } 
+        mainView.conditionLable.text = TaskModel.shared.getTask()
     }
     
     //MARK: ACTIONS
