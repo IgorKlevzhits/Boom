@@ -140,7 +140,17 @@ class RulesViewController: UIViewController {
             ])
 
             if index == 1 {
-                let fakeStartGameButton = UIButton(title: textButton, backgroundColor: "YellowButton")
+                let fakeButton = UIButton()
+                fakeButton.setTitle(textButton, for: .normal)
+                fakeButton.backgroundColor = UIColor(named: "YellowButton")
+                fakeButton.titleLabel?.font = UIFont.setFont(fontSize: 20, weight: .heavy)
+                fakeButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
+                fakeButton.layer.cornerRadius = 10
+                fakeButton.layer.shadowColor = UIColor.black.cgColor
+                fakeButton.layer.shadowRadius = 10
+                fakeButton.layer.shadowOpacity = 0.5
+                fakeButton.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
+                fakeButton.translatesAutoresizingMaskIntoConstraints = false
 
                 let fakeButtonStackView = UIStackView()
                 fakeButtonStackView.axis = .horizontal
@@ -156,19 +166,19 @@ class RulesViewController: UIViewController {
                 secondEmptyView.translatesAutoresizingMaskIntoConstraints = false
 
                 fakeButtonStackView.addArrangedSubview(emptyView)
-                fakeButtonStackView.addArrangedSubview(fakeStartGameButton)
+                fakeButtonStackView.addArrangedSubview(fakeButton)
                 fakeButtonStackView.addArrangedSubview(secondEmptyView)
 
                 textStackView.addArrangedSubview(fakeButtonStackView)
 
                 NSLayoutConstraint.activate([
-                    fakeStartGameButton.heightAnchor.constraint(equalToConstant: 44),
+                    fakeButton.heightAnchor.constraint(equalToConstant: 44),
 
                     fakeButtonStackView.leadingAnchor.constraint(equalTo: textStackView.leadingAnchor),
                     fakeButtonStackView.trailingAnchor.constraint(equalTo: textStackView.trailingAnchor),
                     emptyView.widthAnchor.constraint(equalTo: textStackView.widthAnchor, multiplier: 0.25),
                     secondEmptyView.widthAnchor.constraint(equalTo: textStackView.widthAnchor, multiplier: 0.25),
-                    fakeStartGameButton.widthAnchor.constraint(equalTo: textStackView.widthAnchor, multiplier: 0.5),
+                    fakeButton.widthAnchor.constraint(equalTo: textStackView.widthAnchor, multiplier: 0.5),
                 ])
             }
         }
