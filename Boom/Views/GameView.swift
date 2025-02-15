@@ -48,9 +48,6 @@ extension GameView {
         addSubview(titleLabel)
         addSubview(bombImageView)
         addSubview(startGameButton)
-        
-        
-        
     }
     
     
@@ -73,6 +70,14 @@ extension GameView {
         } else {
             animationView.play()
         }
+    }
+    
+    func pauseAnimation() {
+        animationView?.pause()
+    }
+    
+    func resumeAnimation() {
+        animationView?.play()
     }
     
     // MARK: - Setup Constraints
