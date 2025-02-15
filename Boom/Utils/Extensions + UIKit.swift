@@ -34,19 +34,6 @@ extension UIButton {
     }
 }
 
-extension UILabel {
-    convenience init(text: String, size: CGFloat, weight: UIFont.Weight) {
-        self.init()
-        self.text = text
-        self.font = UIFont.setFont(fontSize: size, weight: weight)
-        self.textColor = UIColor(named: "TextColor")
-        self.numberOfLines = 0
-        self.lineBreakMode = .byWordWrapping
-        self.textAlignment = .center
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-}
-
 extension UIButton {
     convenience init(title: String) {
         self.init(type: .system)
@@ -59,27 +46,15 @@ extension UIButton {
     }
 }
 
-extension UIStackView {
-    convenience init(axis: NSLayoutConstraint.Axis) {
+extension UILabel {
+    convenience init(text: String, size: CGFloat, weight: UIFont.Weight) {
         self.init()
-        self.axis = axis
-        self.distribution = .fillEqually
-        self.spacing = 10
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-}
-
-extension UIView {
-    convenience init(radius: CGFloat) {
-        self.init()
-        self.layer.cornerRadius = radius
-        self.backgroundColor = UIColor(named: "CategoryCellBackground")
-        self.layer.borderColor = UIColor(named: "TextColor")?.cgColor
-        self.layer.borderWidth = 1
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowRadius = 10
-        self.layer.shadowOpacity = 0.5
-        self.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
+        self.text = text
+        self.font = UIFont.setFont(fontSize: size, weight: weight)
+        self.textColor = UIColor(named: "TextColor")
+        self.numberOfLines = 0
+        self.lineBreakMode = .byWordWrapping
+        self.textAlignment = .center
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 }
@@ -97,6 +72,16 @@ extension UILabel {
 }
 
 extension UIStackView {
+    convenience init(axis: NSLayoutConstraint.Axis) {
+        self.init()
+        self.axis = axis
+        self.distribution = .fillEqually
+        self.spacing = 10
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+
+extension UIStackView {
     convenience init(distribution: UIStackView.Distribution) {
         self.init()
         self.axis = .horizontal
@@ -105,6 +90,21 @@ extension UIStackView {
         self.layer.cornerRadius = 15
         self.clipsToBounds = true
         self.spacing = 10
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+
+extension UIView {
+    convenience init(radius: CGFloat) {
+        self.init()
+        self.layer.cornerRadius = radius
+        self.backgroundColor = UIColor(named: "CategoryCellBackground")
+        self.layer.borderColor = UIColor(named: "TextColor")?.cgColor
+        self.layer.borderWidth = 1
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowRadius = 10
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 }
