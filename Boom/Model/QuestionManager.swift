@@ -4,7 +4,7 @@
 //
 //  Created by Игорь Клевжиц on 13.02.2025.
 //
-import Foundation
+import UIKit
 import AudioToolbox
 
 class QuestionManager {
@@ -147,10 +147,14 @@ class QuestionManager {
         if selectedCategories.contains(category) {
             selectedCategories.removeAll { $0 == category }
             AudioServicesPlaySystemSound(1051)
+            if SettingsModel.shared.getVibrationState() {
+            }
             saveSelectedCategories()
         } else {
             selectedCategories.append(category)
             AudioServicesPlaySystemSound(1052)
+            if SettingsModel.shared.getVibrationState() {
+            }
             saveSelectedCategories()
         }
     }

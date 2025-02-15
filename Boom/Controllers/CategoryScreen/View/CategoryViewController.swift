@@ -27,7 +27,7 @@ class CategoryViewController: UIViewController, UICollectionViewDataSource, UICo
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: Sizes.sizeNavigationButtons).isActive = true
         button.heightAnchor.constraint(equalToConstant: Sizes.sizeNavigationButtons).isActive = true
-        button.addTarget(self, action: #selector(rulesButtomTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(rulesButtonTapped), for: .touchUpInside)
         let element = UIBarButtonItem(customView: button)
         return element
     }()
@@ -82,9 +82,8 @@ class CategoryViewController: UIViewController, UICollectionViewDataSource, UICo
         if selectedCount == 1 && controller.listCategory[indexPath.item].isSelected {
             if let cell = collectionView.cellForItem(at: indexPath) {
                 shakeCell(cell)
+                AudioServicesPlaySystemSound(1053)
             }
-            triggerHapticFeedback()
-            AudioServicesPlaySystemSound(1053)
             return
         }
         controller.listCategory[indexPath.item].isSelected.toggle()
@@ -104,32 +103,26 @@ class CategoryViewController: UIViewController, UICollectionViewDataSource, UICo
         cell.layer.add(animation, forKey: "shake")
     }
     
-    private func triggerHapticFeedback() {
-        let generator = UINotificationFeedbackGenerator()
-        generator.prepare()
-        generator.notificationOccurred(.error)
-    }
-    
     @objc func backButtonTapped() {
         navigationController?.popToRootViewController(animated: true)
     }
     
-    @objc func rulesButtomTapped() {
-        let vc = CategoryRulesViewController()
-        let navVc = UINavigationController(rootViewController: vc)
-        
-        if let sheet = navVc.sheetPresentationController {
-            sheet.preferredCornerRadius = 20
-            sheet.detents = [
-                .custom(resolver: { context in
-                    0.9 * context.maximumDetentValue
-                }),
-                .large()
-            ]
+    @objc func rulesButtonTapped() {
+        let rulesVC = CategoryRulesViewController()
+
+        rulesVC.modalPresentationStyle = .pageSheet
+
+        if let sheet = rulesVC.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return context.maximumDetentValue * 0.9
+            }
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = true
         }
         
-        navigationController?.present(navVc, animated: true)
+        present(rulesVC, animated: true, completion: nil)
     }
+
 }
 
 extension CategoryViewController {

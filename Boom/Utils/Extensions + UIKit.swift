@@ -112,7 +112,7 @@ extension UIStackView {
 extension UIImageView {
     convenience init(image: String) {
         self.init(image: UIImage(named: image))
-        self.contentMode = .scaleAspectFill
+        self.contentMode = .scaleToFill
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 }
