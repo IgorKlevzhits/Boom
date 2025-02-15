@@ -128,4 +128,3 @@ final class GameModel {
         totalTime = 7
     }
 }
-

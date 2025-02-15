@@ -27,7 +27,6 @@ class FinalGameViewController: UIViewController {
         self.view = mainView
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

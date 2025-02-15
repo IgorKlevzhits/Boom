@@ -19,7 +19,7 @@ internal class CategoryController {
     init() {
         loadSelectedCategories()
     }
-
+    
     func loadSelectedCategories() {
         if let savedCategories = UserDefaults.standard.array(forKey: "selectedCategories") as? [String] {
             for i in 0..<listCategory.count {
@@ -29,7 +29,6 @@ internal class CategoryController {
             }
         }
     }
-    
 }
 
 struct CategoryItem {

@@ -8,7 +8,7 @@
 import UIKit
 import AudioToolbox
 
-class GridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class CategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     private lazy var backButton: UIBarButtonItem = {
         let button = UIButton(type: .custom)
@@ -19,6 +19,17 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
         button.heightAnchor.constraint(equalToConstant: 30).isActive = true
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         return UIBarButtonItem(customView: button)
+    }()
+    
+    lazy var rulesButton: UIBarButtonItem = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "OrangeQuestionIcon"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: Sizes.sizeNavigationButtons).isActive = true
+        button.heightAnchor.constraint(equalToConstant: Sizes.sizeNavigationButtons).isActive = true
+        button.addTarget(self, action: #selector(rulesButtomTapped), for: .touchUpInside)
+        let element = UIBarButtonItem(customView: button)
+        return element
     }()
     
     private let backgroundImageView = UIImageView(image: "WhiteBackground")
@@ -42,6 +53,8 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = backButton
+        navigationItem.rightBarButtonItem = rulesButton
+        navigationItem.titleView = UILabel(text: "Категории", size: 30, weight: .black)
         setView()
         setConstraints()
     }
@@ -75,7 +88,7 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
             return
         }
         controller.listCategory[indexPath.item].isSelected.toggle()
-
+        
         // Обновляем только выбранную ячейку
         collectionView.reloadItems(at: [indexPath])
         
@@ -100,19 +113,35 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
     @objc func backButtonTapped() {
         navigationController?.popToRootViewController(animated: true)
     }
+    
+    @objc func rulesButtomTapped() {
+        let vc = CategoryRulesViewController()
+        let navVc = UINavigationController(rootViewController: vc)
+        
+        if let sheet = navVc.sheetPresentationController {
+            sheet.preferredCornerRadius = 20
+            sheet.detents = [
+                .custom(resolver: { context in
+                    0.9 * context.maximumDetentValue
+                }),
+                .large()
+            ]
+        }
+        
+        navigationController?.present(navVc, animated: true)
+    }
 }
 
-extension GridViewController {
+extension CategoryViewController {
     func setView() {
         view.addSubview(backgroundImageView)
         view.addSubview(collectionView)
-
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(DemoCollectionViewCell.self, forCellWithReuseIdentifier: "DemoCell")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
-
     }
     
     func setConstraints() {
