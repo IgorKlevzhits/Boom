@@ -28,7 +28,7 @@ final class GameModel {
         if SettingsModel.shared.getModeState() {
             totalTime = TimeModel.shared.getTotalTime()
         } else {
-            totalTime = 7
+            totalTime = TimeModel.shared.getTotalTime()
         }
     }
     
@@ -125,6 +125,6 @@ final class GameModel {
     }
     
     func updateTime() {
-        totalTime = 7
+        totalTime = TimeModel.shared.getTotalTime()
     }
 }

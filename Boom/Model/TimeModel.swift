@@ -32,7 +32,20 @@ class TimeModel {
     
     func getTotalTime() -> Int {
         let selectedOption = loadSelectedTime()
-        return selectedOption == .random ? Int.random(in: 10...45) : selectedOption.rawValue
+        if SettingsModel.shared.getModeState() {
+            return selectedOption == .random ? Int.random(in: 10...45) : selectedOption.rawValue
+        } else {
+            switch selectedOption {
+            case .short:
+                return 5
+            case .middle:
+                return 7
+            case .long:
+                return 10
+            default:
+                return Int.random(in: 5...10)
+            }
+        }
     }
 }
 

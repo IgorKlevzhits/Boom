@@ -17,16 +17,6 @@ class RulesViewController: UIViewController {
         return element
     }()
     
-    private lazy var rulesGameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Правила Игры"
-        label.textColor = UIColor(named: "TextColor")
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     private lazy var scrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.showsVerticalScrollIndicator = false
@@ -52,7 +42,7 @@ class RulesViewController: UIViewController {
     private let spaceElements: CGFloat = 10
     private let sizeNumberLabel: CGFloat = 30
     
-    private let rulesArray = [
+    private let rulesClassicArray = [
         "Все игроки становятся в круг.",
         "Первый игрок берет телефон и нажимает кнопку:",
         "На экране появляется вопрос «Назовите фрукт»",
@@ -62,17 +52,38 @@ class RulesViewController: UIViewController {
         "Если выбран режим игры «С Заданиями», то проигравший выполняет задание."
     ]
     
+    private let rulesHotPotatoArray = [
+        "В этом режиме, больше не влияет удача. Всё зависит от вас!",
+        "Теперь после каждого ответа, перед тем как отдать телефон игрок должен успеть нажать кнопку:",
+        "Игра будет закончена после того как не успеет ответить за отведённое лично ему время!"
+    ]
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        setupRules()
+        setupRules(rulesClassicArray, title: "Правила классической игры", textButton: "Запустить")
+        setupRules(rulesHotPotatoArray, title: "Правила режима горячая картошка", textButton: "Ответил")
         setupConstraints()
     }
     
     // MARK: - Setup Methods
-    private func setupRules() {
-        for (index, rule) in rulesArray.enumerated() {
+    private func setupRules(_ array: [String], title: String, textButton: String) {
+        
+        let rulesGameLabel: UILabel = {
+            let label = UILabel()
+            label.text = title
+            label.textColor = UIColor(named: "TextColor")
+            label.textAlignment = .center
+            label.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
+            label.numberOfLines = 0
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        
+        textStackView.addArrangedSubview(rulesGameLabel)
+        
+        for (index, rule) in array.enumerated() {
             let ruleStackView = UIStackView()
             ruleStackView.axis = .horizontal
             ruleStackView.spacing = spaceElements
@@ -129,7 +140,7 @@ class RulesViewController: UIViewController {
             ])
 
             if index == 1 {
-                let fakeStartGameButton = UIButton(title: "Зпустить", backgroundColor: "YellowButton")
+                let fakeStartGameButton = UIButton(title: textButton, backgroundColor: "YellowButton")
 
                 let fakeButtonStackView = UIStackView()
                 fakeButtonStackView.axis = .horizontal
@@ -162,7 +173,6 @@ class RulesViewController: UIViewController {
     
     private func setupViews() {
         view.addSubview(backgroundImageView)
-        view.addSubview(rulesGameLabel)
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(textStackView)
@@ -176,13 +186,10 @@ class RulesViewController: UIViewController {
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            rulesGameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Sizes.spacingElements),
-            rulesGameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            scrollView.topAnchor.constraint(equalTo: rulesGameLabel.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),

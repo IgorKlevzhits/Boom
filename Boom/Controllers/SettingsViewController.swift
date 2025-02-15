@@ -36,14 +36,14 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.titleView = mainView.titelLabel
         navigationItem.leftBarButtonItem = backButton
-        mainView.gameModePicker.delegate = self
-        mainView.gameModePicker.delegate = self
         mainView.backgroundMusikPicker.delegate = self
         mainView.backgroundMusikPicker.dataSource = self
         mainView.bomdExplosionMusikPicker.delegate = self
         mainView.bomdExplosionMusikPicker.dataSource = self
         mainView.tickMusikPicker.delegate = self
         mainView.tickMusikPicker.dataSource = self
+        mainView.classicModeButton.addTarget(self, action: #selector(modeButtonTapped), for: .touchUpInside)
+        mainView.hotPotatoMdeButton.addTarget(self, action: #selector(modeButtonTapped), for: .touchUpInside)
         mainView.shortTimeButton.addTarget(self, action: #selector(shortTimeButtonTapped), for: .touchUpInside)
         mainView.middleTimeButton.addTarget(self, action: #selector(middleTimeButtonTapped), for: .touchUpInside)
         mainView.longTimeButton.addTarget(self, action: #selector(longTimeButtonTapped), for: .touchUpInside)
@@ -56,11 +56,19 @@ class SettingsViewController: UIViewController {
         mainView.backgroundMusikPicker.selectRow(BackgroundSoundModel.shared.getSelectedSoundIndex(), inComponent: 0, animated: false)
         mainView.tickMusikPicker.selectRow(SoundBombTimerModel.shared.getSelectedSoundIndex(), inComponent: 0, animated: false)
         mainView.bomdExplosionMusikPicker.selectRow(SoundsBoomModel.shared.getSelectedSoundIndex(), inComponent: 0, animated: false)
-        let selectedRow = SettingsModel.shared.getModeState() ? 0 : 1
-        mainView.gameModePicker.selectRow(selectedRow, inComponent: 0, animated: false)
-        
+        changedModeButton()
         changedTimeButton()
     }
+    
+    @objc func modeButtonTapped(_ sender: UIButton) {
+        if sender.currentTitle! == "Классика" {
+            SettingsModel.shared.setModeState(true)
+        } else {
+            SettingsModel.shared.setModeState(false)
+        }
+        changedModeButton()
+    }
+    
     @objc func shortTimeButtonTapped() {
         TimeModel.shared.saveSelectedTime(TimeModel.TimeOption.short)
         changedTimeButton()
@@ -100,6 +108,24 @@ class SettingsViewController: UIViewController {
             highlightButton(mainView.longTimeButton)
         case .random:
             highlightButton(mainView.randomTimeButton)
+        }
+    }
+    
+    private func changedModeButton() {
+        let buttons = [
+            mainView.classicModeButton,
+            mainView.hotPotatoMdeButton
+        ]
+        UIView.animate(withDuration: 0.3) {
+            buttons.forEach {
+                $0.setTitleColor(.white, for: .normal)
+                $0.backgroundColor = UIColor(named: "TextColor")
+            }
+        }
+        if SettingsModel.shared.getModeState() {
+            highlightButton(mainView.classicModeButton)
+        } else {
+            highlightButton(mainView.hotPotatoMdeButton)
         }
     }
     
@@ -160,12 +186,6 @@ extension SettingsViewController: UIPickerViewDelegate {
             SoundsBoomModel.shared.saveSelectedSound(row)
             audioPlayer?.stop()
             playSound(fromFile: SoundsBoomModel.shared.loadSelectedSound())
-        case mainView.gameModePicker:
-            if row == 0 {
-                SettingsModel.shared.setModeState(true)
-            } else {
-                SettingsModel.shared.setModeState(false)
-            }
         default:
             break
         }
@@ -176,12 +196,7 @@ extension SettingsViewController: UIPickerViewDelegate {
             .foregroundColor: UIColor.white,
             .font: UIFont.systemFont(ofSize: 20)
         ]
-        var title = ""
-        if pickerView != mainView.gameModePicker {
-            title = "\(row + 1)"
-        } else {
-            title = gameModes[row]
-        }
+        var title = "\(row + 1)"
         return NSAttributedString(string: title, attributes: attributes)
     }
 }
@@ -199,8 +214,6 @@ extension SettingsViewController: UIPickerViewDataSource {
             return SoundsBoomModel.shared.getCountSounds()
         case mainView.tickMusikPicker:
             return SoundBombTimerModel.shared.getCountSounds()
-        case mainView.gameModePicker:
-            return gameModes.count
         default:
             return 0
         }
