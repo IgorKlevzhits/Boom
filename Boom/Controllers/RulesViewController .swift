@@ -146,7 +146,7 @@ class RulesViewController: UIViewController {
                 fakeButtonStackView.axis = .horizontal
                 fakeButtonStackView.spacing = spaceElements
                 fakeButtonStackView.alignment = .center
-                fakeButtonStackView.distribution = .fillEqually
+                fakeButtonStackView.distribution = .fill
                 fakeButtonStackView.translatesAutoresizingMaskIntoConstraints = false
 
                 let emptyView = UIView()
@@ -165,7 +165,10 @@ class RulesViewController: UIViewController {
                     fakeStartGameButton.heightAnchor.constraint(equalToConstant: 44),
 
                     fakeButtonStackView.leadingAnchor.constraint(equalTo: textStackView.leadingAnchor),
-                    fakeButtonStackView.trailingAnchor.constraint(equalTo: textStackView.trailingAnchor)
+                    fakeButtonStackView.trailingAnchor.constraint(equalTo: textStackView.trailingAnchor),
+                    emptyView.widthAnchor.constraint(equalTo: textStackView.widthAnchor, multiplier: 0.25),
+                    secondEmptyView.widthAnchor.constraint(equalTo: textStackView.widthAnchor, multiplier: 0.25),
+                    fakeStartGameButton.widthAnchor.constraint(equalTo: textStackView.widthAnchor, multiplier: 0.5),
                 ])
             }
         }
