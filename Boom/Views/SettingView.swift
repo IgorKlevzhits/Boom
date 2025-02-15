@@ -13,6 +13,19 @@ class SettingView: UIView {
     private let spacingElements: CGFloat = 30
     private let heightButtons: CGFloat = 40
     
+    private lazy var scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.showsVerticalScrollIndicator = false
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
+    }()
+    
+    private lazy var contentView: UIView = {
+        let element = UIView()
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
     
     //MARK: TIME STACK
     
@@ -32,11 +45,8 @@ class SettingView: UIView {
     private let gameModeContainerView = UIView(radius: 20)
     private let gameModeStackView = UIStackView(axis: .vertical)
     private let gameModeTitelLabel = UILabel(text: "РЕЖИМ ИГРЫ", size: 20, weight: .bold)
-    let gameModePicker: UIPickerView = {
-        let pickerView = UIPickerView()
-        pickerView.backgroundColor =  UIColor(named: "TextColor")
-        return pickerView
-    }()
+    var classicModeButton = UIButton(title: "Классика")
+    var hotPotatoMdeButton = UIButton(title: "Горачая картошка")
     
     private let timeTitelLabel = UILabel(text: "ВРЕМЯ ИГРЫ", size: 20, weight: .bold)
     
@@ -52,9 +62,9 @@ class SettingView: UIView {
     let mainTimeStackView = UIStackView(axis: .vertical)
     
     //MARK: MUSIK STACK
-    private let backgroundMusikLabel = UILabel(text: " Фоновая музыка")
-    private let tickMusikLabel = UILabel(text: " Тиканье Бомбы")
-    private let bombExplosionMusikLabel = UILabel(text: " Взрыв бомбы")
+    private let backgroundMusikLabel = UILabel(text: "  Фоновая музыка")
+    private let tickMusikLabel = UILabel(text: "  Тиканье Бомбы")
+    private let bombExplosionMusikLabel = UILabel(text: "  Взрыв бомбы")
     
     let backgroundMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
@@ -80,8 +90,8 @@ class SettingView: UIView {
     let musikContainerView = UIView(radius: 20)
     
     //MARK: USER DEFAULT
-    private lazy var vibrationTurnOnLabel = UILabel(text: " Вибрация")
-    private lazy var chelengeTurnOnLabel = UILabel(text: " Игра с заданиями")
+    private lazy var vibrationTurnOnLabel = UILabel(text: "  Вибрация")
+    private lazy var chelengeTurnOnLabel = UILabel(text: "  Игра с заданиями")
     
     let vibrationSwitch: UISwitch = {
         let vibrationSwitch = UISwitch()
@@ -112,13 +122,16 @@ class SettingView: UIView {
         vibrationStackView.spacing = 10
         chelengeStackView.spacing = 10
         addSubview(backGraundImageView)
-        addSubview(mainStackView)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(mainStackView)
         
         // MARK: GAME MODE
         mainStackView.addArrangedSubview(gameModeContainerView)
         gameModeContainerView.addSubview(gameModeStackView)
         gameModeStackView.addArrangedSubview(gameModeTitelLabel)
-        gameModeStackView.addArrangedSubview(gameModePicker)
+        gameModeStackView.addArrangedSubview(classicModeButton)
+        gameModeStackView.addArrangedSubview(hotPotatoMdeButton)
         
         //MARK: TIME STACK
         mainStackView.addArrangedSubview(timeContainerView)
@@ -168,12 +181,24 @@ class SettingView: UIView {
             backGraundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             backGraundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            mainStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Sizes.spacingElements),
-            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Sizes.spacingElements),
-            mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Sizes.spacingElements),
+            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Sizes.spacingElements),
+            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Sizes.spacingElements),
+            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Sizes.spacingElements),
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Sizes.spacingElements),
             
             // MARK: GAME MODE
-            gameModeContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3),
+            gameModeContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
             gameModeStackView.topAnchor.constraint(equalTo: gameModeContainerView.topAnchor),
             gameModeStackView.leadingAnchor.constraint(equalTo: gameModeContainerView.leadingAnchor, constant: spacingElements),
             gameModeStackView.trailingAnchor.constraint(equalTo: gameModeContainerView.trailingAnchor, constant: -spacingElements),
