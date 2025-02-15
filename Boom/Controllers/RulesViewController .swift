@@ -10,7 +10,12 @@ import UIKit
 class RulesViewController: UIViewController {
     
     // MARK: - UI Elements
-    private let backgroundImageView = UIImageView(image: UIImage(named: "WhiteBackground"))
+    private lazy var backgroundImageView: UIImageView = {
+        let element = UIImageView(image: UIImage(named: "WhiteBackground"))
+        element.contentMode = .scaleAspectFill
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
     
     private lazy var rulesGameLabel: UILabel = {
         let label = UILabel()
@@ -18,21 +23,28 @@ class RulesViewController: UIViewController {
         label.textColor = UIColor(named: "TextColor")
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var scrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.showsVerticalScrollIndicator = false
+        scroll.translatesAutoresizingMaskIntoConstraints = false
         return scroll
     }()
     
-    private lazy var contentView: UIView = UIView()
+    private lazy var contentView: UIView = {
+        let element = UIView()
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
     
     private lazy var textStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = spaceElements
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
@@ -157,11 +169,6 @@ class RulesViewController: UIViewController {
     }
     
     private func setupConstraints() {
-        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        rulesGameLabel.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        textStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -172,7 +179,7 @@ class RulesViewController: UIViewController {
             rulesGameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Sizes.spacingElements),
             rulesGameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            scrollView.topAnchor.constraint(equalTo: rulesGameLabel.bottomAnchor, constant: Sizes.spacingElements),
+            scrollView.topAnchor.constraint(equalTo: rulesGameLabel.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -183,7 +190,7 @@ class RulesViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            textStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            textStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Sizes.spacingElements),
             textStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Sizes.spacingElements),
             textStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Sizes.spacingElements),
             textStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Sizes.spacingElements)

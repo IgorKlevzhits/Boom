@@ -40,6 +40,9 @@ class MainViewController: UIViewController, MainViewDelegate {
     
     func rulesButtonTapped() {
         let rulesVC = RulesViewController()
+        
+        rulesVC.modalPresentationStyle = .pageSheet
+        
         if let sheet = rulesVC.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return context.maximumDetentValue * 0.75
@@ -47,7 +50,7 @@ class MainViewController: UIViewController, MainViewDelegate {
             sheet.detents = [customDetent]
             sheet.prefersGrabberVisible = true
         }
-        rulesVC.modalPresentationStyle = .pageSheet
+        
         present(rulesVC, animated: true, completion: nil)
     }
     

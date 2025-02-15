@@ -32,7 +32,6 @@ class DemoCollectionViewCell: UICollectionViewCell {
         checkImage.isHidden = !category.isSelected
         
         contentView.backgroundColor = category.isSelected ? UIColor(named: "CategorySelectedCellBackground") : UIColor(named: "CategoryCellBackground")
-        titleLabel.textColor = .black
     }
 }
 
