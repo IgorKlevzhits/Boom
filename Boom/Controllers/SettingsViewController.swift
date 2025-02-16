@@ -154,6 +154,7 @@ final class SettingsViewController: UIViewController {
         }
     }
     @objc func backButtonTapped() {
+        audioPlayer?.stop()
         navigationController?.popToRootViewController(animated: true)
     }
     func playSound(fromFile fileName: String) {
