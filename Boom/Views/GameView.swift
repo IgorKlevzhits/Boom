@@ -9,6 +9,7 @@ import UIKit
 import Lottie
 
 final class GameView: UIView {
+    
     // MARK: - UI
     var isAnimationPlaying = false
     private(set) var animationView: LottieAnimationView?
@@ -26,8 +27,6 @@ final class GameView: UIView {
     let startGameButton = UIButton(title: "Запустить", backgroundColor: "YellowButton")
     
     // MARK: - Private Properties
-    
-    
     
     init() {
         super.init(frame: .zero)
@@ -56,7 +55,7 @@ extension GameView {
         addSubview(bombImageView)
         addSubview(startGameButton)
     }
-    
+  
     func startBombAnimation() {
         bombImageView.isHidden = true
         setupAnimation(name: "Bomb", loopMode: .loop)

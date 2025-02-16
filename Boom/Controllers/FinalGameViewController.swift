@@ -59,6 +59,4 @@ final class FinalGameViewController: UIViewController {
     @objc func backButtonTapped() {
         navigationController?.popToRootViewController(animated: true)
     }
-    
-    
 }

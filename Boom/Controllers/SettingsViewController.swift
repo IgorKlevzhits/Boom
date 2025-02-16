@@ -136,7 +136,6 @@ final class SettingsViewController: UIViewController {
         }
     }
     
-    
     //MARK: SWITCHMETHOD
     @objc func switchChanged(_ sender: UISwitch) {
         if sender.isOn {
@@ -220,4 +219,3 @@ extension SettingsViewController: UIPickerViewDataSource {
         }
     }
 }
-
