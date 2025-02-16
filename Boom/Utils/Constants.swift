@@ -12,3 +12,8 @@ enum Sizes {
     static let heightButtons: CGFloat = 55
     static let sizeNavigationButtons: CGFloat = 35
 }
+
+enum ChoiseSound {
+    static let choiceCategory = "ChoiceCategory"
+    static let wrongChoise = "WrongChoise"
+}

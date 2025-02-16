@@ -5,10 +5,11 @@
 //  Created by Игорь Клевжиц on 13.02.2025.
 //
 import UIKit
-import AudioToolbox
+import AVFAudio
 
 final class QuestionManager {
     static let shared = QuestionManager()
+    private var choiceCategotySound: AVAudioPlayer?
     
     private init() {
         loadSelectedCategories()
@@ -19,7 +20,6 @@ final class QuestionManager {
         didSet {
             updateCurrentQuestions()
             saveSelectedCategories()
-//            print(selectedCategories)
         }
     }
     private var allQuestions: [String: [String]] = [
@@ -132,6 +132,33 @@ final class QuestionManager {
         ]
     ]
     
+    private func chiceVibration() {
+        let notification = UINotificationFeedbackGenerator()
+        notification.notificationOccurred(.success)
+    }
+    
+    private func isSilentMode() -> Bool {
+        return AVAudioSession.sharedInstance().secondaryAudioShouldBeSilencedHint
+    }
+    
+    private func createPlayer(soundName: String) -> AVAudioPlayer? {
+        guard let url = Bundle.main.url(forResource: soundName, withExtension: "mp3") else { return nil }
+        
+        do {
+            let player = try AVAudioPlayer(contentsOf: url)
+            return player
+        } catch {
+            print("ошибка \(soundName)")
+            return nil
+        }
+    }
+    
+    private func playChoice() {
+        guard !isSilentMode() else { return }
+        GameModel.boomPlayer = createPlayer(soundName: ChoiseSound.choiceCategory)
+        GameModel.boomPlayer?.play()
+    }
+    
     private func saveSelectedCategories() {
         UserDefaults.standard.set(selectedCategories.isEmpty ? ["О разном"] : selectedCategories, forKey: "selectedCategories")
     }
@@ -147,14 +174,15 @@ final class QuestionManager {
     func toggleCategory(_ category: String) {
         if selectedCategories.contains(category) {
             selectedCategories.removeAll { $0 == category }
-            AudioServicesPlaySystemSound(1051)
+            playChoice()
             saveSelectedCategories()
         } else {
             selectedCategories.append(category)
-            AudioServicesPlaySystemSound(1052)
-            if SettingsModel.shared.getVibrationState() {
-            }
+            playChoice()
             saveSelectedCategories()
+        }
+        if SettingsModel.shared.getVibrationState() {
+            chiceVibration()
         }
     }
     

@@ -7,7 +7,6 @@
 
 import AVFAudio
 import UIKit
-import AudioToolbox
 
 final class GameModel {
     static var backgroundPlayer: AVAudioPlayer?

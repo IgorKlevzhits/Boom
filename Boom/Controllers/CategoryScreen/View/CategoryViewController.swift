@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import AudioToolbox
+import AVFAudio
 
 final class CategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -82,7 +82,10 @@ final class CategoryViewController: UIViewController, UICollectionViewDataSource
         if selectedCount == 1 && controller.listCategory[indexPath.item].isSelected {
             if let cell = collectionView.cellForItem(at: indexPath) {
                 shakeCell(cell)
-                AudioServicesPlaySystemSound(1053)
+                playWrongChoice()
+                if SettingsModel.shared.getVibrationState() {
+                    chiceVibration()
+                }
             }
             return
         }
@@ -93,6 +96,33 @@ final class CategoryViewController: UIViewController, UICollectionViewDataSource
         
         // MARK: тут проводить логику с нажатиями
         QuestionManager.shared.toggleCategory(selectedItem.title)
+    }
+    
+    private func chiceVibration() {
+        let notification = UINotificationFeedbackGenerator()
+        notification.notificationOccurred(.error)
+    }
+    
+    private func isSilentMode() -> Bool {
+        return AVAudioSession.sharedInstance().secondaryAudioShouldBeSilencedHint
+    }
+    
+    private func createPlayer(soundName: String) -> AVAudioPlayer? {
+        guard let url = Bundle.main.url(forResource: soundName, withExtension: "mp3") else { return nil }
+        
+        do {
+            let player = try AVAudioPlayer(contentsOf: url)
+            return player
+        } catch {
+            print("ошибка \(soundName)")
+            return nil
+        }
+    }
+    
+    private func playWrongChoice() {
+        guard !isSilentMode() else { return }
+        GameModel.boomPlayer = createPlayer(soundName: ChoiseSound.wrongChoise)
+        GameModel.boomPlayer?.play()
     }
     
     private func shakeCell(_ cell: UICollectionViewCell) {
