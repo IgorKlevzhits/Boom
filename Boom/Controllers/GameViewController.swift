@@ -79,6 +79,8 @@ final class GameViewController: UIViewController {
             gameModel.startTimer()
             gameModel.playBombTimerSound()
             startGame = true
+            
+            gameView.startBombAnimation()
         }
         
         if gameView.isAnimationPlaying == false {
@@ -96,7 +98,7 @@ final class GameViewController: UIViewController {
     }
     
     private func playLottieAnimation() {
-        gameView.setupAnimation(name: "Bomb", loopMode: .loop)
+        gameView.setupAnimation(name: "StartBomb", loopMode: .loop)
     }
     
     private func changeAnimationToExplosion() {
