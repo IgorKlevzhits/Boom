@@ -7,7 +7,7 @@
 import UIKit
 
 
-class StartView: UIView {
+final class StartView: UIView {
     
     weak var delegate: StartViewDelegate?
     

@@ -8,7 +8,7 @@
 import UIKit
 import AudioToolbox
 
-class CategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+final class CategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     private lazy var backButton: UIBarButtonItem = {
         let button = UIButton(type: .custom)

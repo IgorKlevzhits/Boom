@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FinalGameView: UIView {
+final class FinalGameView: UIView {
     
     // MARK: - UI
     

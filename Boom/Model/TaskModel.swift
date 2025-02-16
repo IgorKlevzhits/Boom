@@ -6,7 +6,7 @@
 //
 
 import Foundation
-class TaskModel {
+final class TaskModel {
     
     static let shared = TaskModel()
     

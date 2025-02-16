@@ -8,7 +8,7 @@
 import UIKit
 import Lottie
 
-class GameView: UIView {
+final class GameView: UIView {
     // MARK: - UI
     var isAnimationPlaying = false
     private(set) var animationView: LottieAnimationView?

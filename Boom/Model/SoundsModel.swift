@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BackgroundSoundModel {
+final class BackgroundSoundModel {
     static let shared = BackgroundSoundModel()
     
     private init() {}

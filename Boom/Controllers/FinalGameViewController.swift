@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FinalGameViewController: UIViewController {
+final class FinalGameViewController: UIViewController {
     
     private lazy var backButton: UIBarButtonItem = {
         let button = UIButton(type: .custom)

@@ -5,7 +5,6 @@
 //  Created by Artem Kriukov on 11.02.2025.
 //
 
-import Foundation
 import AVFAudio
 import UIKit
 import AudioToolbox
@@ -37,7 +36,7 @@ final class GameModel {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
-    func stopTimer() {
+    private func stopTimer() {
         timer.invalidate()
     }
     
@@ -82,7 +81,7 @@ final class GameModel {
         }
     }
     
-    func boomVibration() {
+    private func boomVibration() {
         let impact = UIImpactFeedbackGenerator(style: .heavy)
         let notification = UINotificationFeedbackGenerator()
         
@@ -97,12 +96,14 @@ final class GameModel {
         }
     }
     
-    func playBoom() {
+    private func playBoom() {
+        guard !isSilentMode() else { return }
         GameModel.boomPlayer = createPlayer(soundName: SoundsBoomModel.shared.loadSelectedSound(), loop: false)
         GameModel.boomPlayer?.play()
     }
     
     func playBackgroundMusic() {
+        guard !isSilentMode() else { return }
         GameModel.backgroundPlayer = createPlayer(soundName: BackgroundSoundModel.shared.loadSelectedSound(), loop: true)
         GameModel.backgroundPlayer?.play()
     }
@@ -112,6 +113,7 @@ final class GameModel {
     }
     
     func playBombTimerSound() {
+        guard !isSilentMode() else { return }
         GameModel.bombTimerPlayer = createPlayer(soundName: SoundBombTimerModel.shared.loadSelectedSound(), loop: true)
         GameModel.bombTimerPlayer?.play()
     }
@@ -120,11 +122,15 @@ final class GameModel {
         GameModel.bombTimerPlayer?.stop()
     }
     
-    func pauseBombTimerSound() {
+    private func pauseBombTimerSound() {
         GameModel.bombTimerPlayer?.pause()
     }
     
     func updateTime() {
         totalTime = TimeModel.shared.getTotalTime()
+    }
+    
+    private func isSilentMode() -> Bool {
+        return AVAudioSession.sharedInstance().secondaryAudioShouldBeSilencedHint
     }
 }

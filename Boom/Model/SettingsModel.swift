@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class SettingsModel {
+final class SettingsModel {
     static let shared = SettingsModel()
     
     private let modeKey = "mode"

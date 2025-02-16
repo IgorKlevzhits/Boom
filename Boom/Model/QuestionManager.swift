@@ -7,7 +7,7 @@
 import UIKit
 import AudioToolbox
 
-class QuestionManager {
+final class QuestionManager {
     static let shared = QuestionManager()
     
     private init() {
