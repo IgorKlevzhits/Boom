@@ -104,6 +104,8 @@ final class GameViewController: UIViewController {
     }
     
     private func navigateToNextScreen() {
+        gameModel.stopBackgroundMusic()
+        gameModel.stopBombTimerSound()
         let finalVC = FinalGameViewController()
         self.navigationController?.pushViewController(finalVC, animated: true)
     }
