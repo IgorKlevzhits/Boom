@@ -46,7 +46,7 @@ final class SettingView: UIView {
     private let gameModeStackView = UIStackView(axis: .vertical)
     private let gameModeTitelLabel = UILabel(text: "РЕЖИМ ИГРЫ", size: 20, weight: .bold)
     var classicModeButton = UIButton(title: "Классика")
-    var hotPotatoMdeButton = UIButton(title: "Горачая картошка")
+    var hotPotatoMdeButton = UIButton(title: "Горячая картошка")
     
     private let timeTitelLabel = UILabel(text: "ВРЕМЯ ИГРЫ", size: 20, weight: .bold)
     
