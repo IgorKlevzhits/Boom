@@ -19,7 +19,6 @@ final class GameViewController: UIViewController {
         super.viewDidLoad()
         self.view = gameView
         setupNavBar()
-        QuestionManager.shared.updateCurrentQuestions()
         gameView.startGameButton.addTarget(self, action: #selector(startGameButtonTapped), for: .touchUpInside)
     }
     
