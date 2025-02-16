@@ -61,6 +61,4 @@ final class StartViewController: UIViewController, StartViewDelegate {
         navigationItem.leftBarButtonItem = mainView.settingsButtonNavBar
         navigationItem.rightBarButtonItem = mainView.rulesButtonNavBar
     }
-    
 }
-

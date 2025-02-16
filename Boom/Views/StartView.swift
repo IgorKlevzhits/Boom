@@ -185,5 +185,4 @@ private extension StartView {
             startGameButton.heightAnchor.constraint(equalToConstant: Sizes.heightButtons)
         ])
     }
-
 }

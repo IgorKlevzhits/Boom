@@ -22,6 +22,7 @@ final class CategoryCell: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setView() {
         layer.cornerRadius = 20
         layer.borderWidth = 2

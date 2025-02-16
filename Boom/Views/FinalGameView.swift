@@ -14,6 +14,7 @@ final class FinalGameView: UIView {
     let titelLabel = UILabel(text: "Конец Игры", size: 30, weight: .black)
     
     let backGroundImage = UIImageView(image: "WhiteBackground")
+    
     let finishImage: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "FinalBoom")
@@ -32,6 +33,7 @@ final class FinalGameView: UIView {
         stack.spacing = Sizes.spacingElements
         return stack
     }()
+    
     lazy var mainStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -95,8 +97,8 @@ final class FinalGameView: UIView {
             stackButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Sizes.spacingElements),
             stackButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Sizes.spacingElements)
         ])
-
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

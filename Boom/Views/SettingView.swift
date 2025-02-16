@@ -5,7 +5,6 @@
 //  Created by Евгений on 11.02.2025.
 //
 
-
 import UIKit
 
 final class SettingView: UIView {
@@ -25,7 +24,6 @@ final class SettingView: UIView {
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
-    
     
     //MARK: TIME STACK
     
@@ -72,18 +70,21 @@ final class SettingView: UIView {
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         return pickerView
     }()
+    
     let tickMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor =  UIColor(named: "TextColor")
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         return pickerView
     }()
+    
     let bomdExplosionMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor =  UIColor(named: "TextColor")
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         return pickerView
     }()
+    
     let backGroundMusikStackView = UIStackView(distribution: .fill)
     let tickMusikStackView = UIStackView(distribution: .fill)
     let bombExplosionMusikStackView = UIStackView(distribution: .fill)
@@ -102,18 +103,21 @@ final class SettingView: UIView {
         vibrationSwitch.translatesAutoresizingMaskIntoConstraints = false
         return vibrationSwitch
     }()
+    
     let chelengeSwitch: UISwitch = {
         let chalengeSwitch = UISwitch()
         chalengeSwitch.onTintColor = UIColor(named: "YellowButton")
         chalengeSwitch.translatesAutoresizingMaskIntoConstraints = false
         return chalengeSwitch
     }()
+    
     let vibrationStackView = UIStackView(distribution: .fill)
+    
     let chelengeStackView = UIStackView(distribution: .fill)
     
     let userDefaultsStackView = UIStackView(axis: .vertical)
-    
     let userDefaultsContainerView = UIView(radius: 20)
+    
     init() {
         super.init(frame: .zero)
         setView()
@@ -123,7 +127,7 @@ final class SettingView: UIView {
     func setView(){
         vibrationStackView.alignment = .center
         chelengeStackView.alignment = .center
-
+        
         vibrationStackView.spacing = 10
         chelengeStackView.spacing = 10
         addSubview(backGraundImageView)
@@ -162,7 +166,7 @@ final class SettingView: UIView {
         mainMusikStackView.addArrangedSubview(tickMusikStackView)
         mainMusikStackView.addArrangedSubview(bombExplosionMusikStackView)
         musikContainerView.addSubview(mainMusikStackView)
-       
+        
         //MARK: USER DEFAULT
         mainStackView.addArrangedSubview(userDefaultsContainerView)
         vibrationStackView.addArrangedSubview(vibrationTurnOnLabel)
@@ -175,10 +179,11 @@ final class SettingView: UIView {
         
         vibrationStackView.isLayoutMarginsRelativeArrangement = true
         vibrationStackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
-
+        
         chelengeStackView.isLayoutMarginsRelativeArrangement = true
         chelengeStackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
     }
+    
     func setConstraint() {
         NSLayoutConstraint.activate([
             backGraundImageView.topAnchor.constraint(equalTo: topAnchor),
@@ -208,7 +213,7 @@ final class SettingView: UIView {
             gameModeStackView.leadingAnchor.constraint(equalTo: gameModeContainerView.leadingAnchor, constant: spacingElements),
             gameModeStackView.trailingAnchor.constraint(equalTo: gameModeContainerView.trailingAnchor, constant: -spacingElements),
             gameModeStackView.bottomAnchor.constraint(equalTo: gameModeContainerView.bottomAnchor, constant: -spacingElements/2),
-        
+            
             //MARK: TIME STACK
             timeContainerView.heightAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.4),
             
@@ -238,8 +243,8 @@ final class SettingView: UIView {
         ])
         
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
