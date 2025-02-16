@@ -17,18 +17,15 @@ internal class CategoryController {
     ]
     
     init() {
-        loadSelectedCategories()
+        updateSelectedCategories()
     }
     
-    func loadSelectedCategories() {
-        if let savedCategories = UserDefaults.standard.array(forKey: "selectedCategories") as? [String] {
+    func updateSelectedCategories() {
+            let selectedCategories = QuestionManager.shared.getSelectedCategories()
             for i in 0..<listCategory.count {
-                if savedCategories.contains(listCategory[i].title) {
-                    listCategory[i].isSelected = true
-                }
+                listCategory[i].isSelected = selectedCategories.contains(listCategory[i].title)
             }
         }
-    }
 }
 
 struct CategoryItem {

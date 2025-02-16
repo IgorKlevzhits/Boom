@@ -171,4 +171,9 @@ final class QuestionManager {
             return currentQuestions.removeFirst()
         }
     }
+    
+    func getSelectedCategories() -> [String] {
+        return selectedCategories
+    }
+    
 }
