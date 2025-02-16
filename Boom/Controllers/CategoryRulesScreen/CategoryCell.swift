@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class CategoryCell: UIView {
+final class CategoryCell: UIView {
     lazy var imageView = UIImageView()
     lazy var titleLabel = UILabel(text: "", size: 16, weight: .heavy)
     lazy var checkImage = UIImageView()
@@ -22,6 +22,7 @@ class CategoryCell: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setView() {
         layer.cornerRadius = 20
         layer.borderWidth = 2

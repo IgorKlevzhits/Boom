@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  StartView.swift
 //  Boom
 //
 //  Created by Игорь Клевжиц on 11.02.2025.
@@ -7,9 +7,9 @@
 import UIKit
 
 
-class MainView: UIView {
+final class StartView: UIView {
     
-    weak var delegate: MainViewDelegate?
+    weak var delegate: StartViewDelegate?
     
     // MARK: - UI
     
@@ -140,7 +140,7 @@ class MainView: UIView {
     }
 }
 
-private extension MainView {
+private extension StartView {
     
     // MARK: - Set Views
     
@@ -185,5 +185,4 @@ private extension MainView {
             startGameButton.heightAnchor.constraint(equalToConstant: Sizes.heightButtons)
         ])
     }
-
 }

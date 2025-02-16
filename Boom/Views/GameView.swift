@@ -8,7 +8,8 @@
 import UIKit
 import Lottie
 
-class GameView: UIView {
+final class GameView: UIView {
+    
     // MARK: - UI
     var isAnimationPlaying = false
     private(set) var animationView: LottieAnimationView?
@@ -27,16 +28,21 @@ class GameView: UIView {
     
     // MARK: - Private Properties
     
-    
-    
     init() {
         super.init(frame: .zero)
         setViews()
         setupConstraints()
+        setStaticImage()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setStaticImage() {
+        bombImageView.image = UIImage(named: "StartBomb")
+        bombImageView.isHidden = false
+        animationView?.isHidden = true
     }
 }
 
@@ -49,7 +55,11 @@ extension GameView {
         addSubview(bombImageView)
         addSubview(startGameButton)
     }
-    
+  
+    func startBombAnimation() {
+        bombImageView.isHidden = true
+        setupAnimation(name: "Bomb", loopMode: .loop)
+    }
     
     func setupAnimation(name: String, loopMode: LottieLoopMode = .loop) {
         
@@ -78,6 +88,13 @@ extension GameView {
     
     func resumeAnimation() {
         animationView?.play()
+    }
+    
+    func resetToStartState() {
+        animationView?.stop() 
+        animationView?.isHidden = true
+        isAnimationPlaying = false
+        setStaticImage()
     }
     
     // MARK: - Setup Constraints

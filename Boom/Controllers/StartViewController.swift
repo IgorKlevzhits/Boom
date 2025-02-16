@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  StartViewController.swift
 //  Boom
 //
 //  Created by Игорь Клевжиц on 09.02.2025.
@@ -7,20 +7,20 @@
 
 import UIKit
 
-protocol MainViewDelegate: AnyObject {
+protocol StartViewDelegate: AnyObject {
     func startGameButtonTapped()
     func categoryButtonTapped()
     func settingsButtonTapped()
     func rulesButtonTapped()
 }
 
-class MainViewController: UIViewController, MainViewDelegate {
+final class StartViewController: UIViewController, StartViewDelegate {
     
-    private let mainView: MainView = .init()
+    private let mainView: StartView = .init()
     
     override func loadView() {
         self.view = mainView
-        mainView.delegate = self // Почему в ЛоадВью загружаются методы, а не дид Лоад? (Бойтик)
+        mainView.delegate = self
         
     }
     
@@ -58,10 +58,7 @@ class MainViewController: UIViewController, MainViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationItem.leftBarButtonItem = mainView.settingsButtonNavBar
         navigationItem.rightBarButtonItem = mainView.rulesButtonNavBar
     }
-    
 }
-

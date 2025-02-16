@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class DemoCollectionViewCell: UICollectionViewCell {
+final class DemoCollectionViewCell: UICollectionViewCell {
     
     lazy var imageView = UIImageView()
     lazy var titleLabel = UILabel(text: "", size: 16, weight: .heavy)
@@ -38,16 +38,19 @@ class DemoCollectionViewCell: UICollectionViewCell {
 private extension DemoCollectionViewCell {
     
     func setView() {
+        setContentView()
+        setImageView()
+        contentView.addSubview(titleLabel)
+        setCheckImageView()
+    }
+    
+    private func setContentView() {
         contentView.layer.cornerRadius = 20
         contentView.layer.borderWidth = 2
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowRadius = 10
         contentView.layer.shadowOpacity = 0.5
         contentView.layer.shadowOffset = CGSize(width: 2.5, height: 2.5)
-        
-        setImageView()
-        contentView.addSubview(titleLabel)
-        setCheckImageView()
     }
     
     private func setImageView() {

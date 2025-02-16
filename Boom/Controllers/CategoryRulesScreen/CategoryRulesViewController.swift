@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class CategoryRulesViewController: UIViewController {
+final class CategoryRulesViewController: UIViewController {
     
     private lazy var backgroundImageView: UIImageView = {
         let element = UIImageView(image: UIImage(named: "OrangeBackround"))

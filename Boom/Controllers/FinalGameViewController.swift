@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FinalGameViewController: UIViewController {
+final class FinalGameViewController: UIViewController {
     
     private lazy var backButton: UIBarButtonItem = {
         let button = UIButton(type: .custom)
@@ -38,9 +38,7 @@ class FinalGameViewController: UIViewController {
     }
     
     func makeTask() {
-        if let task = TaskModel().task.randomElement( ) {
-            mainView.conditionLable.text = task.description
-        } 
+        mainView.conditionLable.text = TaskModel.shared.getTask()
     }
     
     //MARK: ACTIONS
@@ -61,6 +59,4 @@ class FinalGameViewController: UIViewController {
     @objc func backButtonTapped() {
         navigationController?.popToRootViewController(animated: true)
     }
-    
-    
 }
