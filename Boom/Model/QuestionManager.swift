@@ -15,7 +15,7 @@ final class QuestionManager {
     }
     
     private var currentQuestions: [String] = []
-    private var selectedCategories: [String] = [] {
+    private var selectedCategories: [String] = ["О разном"] {
         didSet {
             updateCurrentQuestions()
             saveSelectedCategories()
@@ -171,5 +171,6 @@ final class QuestionManager {
         } else {
             return currentQuestions.removeFirst()
         }
+        
     }
 }
