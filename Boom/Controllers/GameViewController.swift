@@ -13,6 +13,7 @@ final class GameViewController: UIViewController {
     private let gameView = GameView()
     private var gameModel = GameModel()
     private var startGame = false
+    
     // MARK: - Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +92,6 @@ final class GameViewController: UIViewController {
         } else {
             gameView.startGameButton.setTitle("Ответил", for: .normal)
             gameModel.updateTime()
-            
         }
     }
     
@@ -109,7 +109,6 @@ final class GameViewController: UIViewController {
         let finalVC = FinalGameViewController()
         self.navigationController?.pushViewController(finalVC, animated: true)
     }
-    
 }
 
 extension GameViewController {
@@ -141,5 +140,4 @@ extension GameViewController {
         self.navigationItem.leftBarButtonItem = backButtonNavBar()
         self.navigationItem.rightBarButtonItem = pauseButtonNavBar()
     }
-    
 }
