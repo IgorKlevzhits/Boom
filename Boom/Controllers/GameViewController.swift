@@ -6,10 +6,8 @@
 //
 
 import UIKit
-import AVFoundation
-import ImageIO
 
-class GameViewController: UIViewController {
+final class GameViewController: UIViewController {
     
     // MARK: - Private Properties
     private let gameView = GameView()
@@ -29,8 +27,6 @@ class GameViewController: UIViewController {
         gameView.startGameButton.setTitle("Запустить", for: .normal)
         gameView.startGameButton.isHidden = false
         startGame = false
-        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
-        try? AVAudioSession.sharedInstance().setActive(true)
         gameModel.playBackgroundMusic()
         
         gameModel = GameModel()
@@ -108,6 +104,8 @@ class GameViewController: UIViewController {
     }
     
     private func navigateToNextScreen() {
+        gameModel.stopBackgroundMusic()
+        gameModel.stopBombTimerSound()
         let finalVC = FinalGameViewController()
         self.navigationController?.pushViewController(finalVC, animated: true)
     }

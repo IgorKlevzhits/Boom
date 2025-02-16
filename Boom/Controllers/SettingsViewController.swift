@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     
     private lazy var backButton: UIBarButtonItem = {
         let button = UIButton(type: .custom)
@@ -154,6 +154,7 @@ class SettingsViewController: UIViewController {
         }
     }
     @objc func backButtonTapped() {
+        audioPlayer?.stop()
         navigationController?.popToRootViewController(animated: true)
     }
     func playSound(fromFile fileName: String) {
@@ -196,7 +197,7 @@ extension SettingsViewController: UIPickerViewDelegate {
             .foregroundColor: UIColor.white,
             .font: UIFont.systemFont(ofSize: 20)
         ]
-        var title = "\(row + 1)"
+        let title = "\(row + 1)"
         return NSAttributedString(string: title, attributes: attributes)
     }
 }

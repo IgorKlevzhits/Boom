@@ -14,7 +14,7 @@ protocol StartViewDelegate: AnyObject {
     func rulesButtonTapped()
 }
 
-class StartViewController: UIViewController, StartViewDelegate {
+final class StartViewController: UIViewController, StartViewDelegate {
     
     private let mainView: StartView = .init()
     

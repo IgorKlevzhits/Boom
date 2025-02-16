@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BackgroundSoundModel {
+final class BackgroundSoundModel {
     static let shared = BackgroundSoundModel()
     
     private init() {}
@@ -20,7 +20,6 @@ class BackgroundSoundModel {
     func saveSelectedSound(_ index: Int) {
         guard index >= 0 && index < sounds.count else { return }
         UserDefaults.standard.set(sounds[index], forKey: userDefaultsKey)
-        print(sounds[index])
     }
     
     func loadSelectedSound() -> String {
@@ -49,7 +48,6 @@ class SoundBombTimerModel {
     func saveSelectedSound(_ index: Int) {
         guard index >= 0 && index < sounds.count else { return }
         UserDefaults.standard.set(sounds[index], forKey: userDefaultsKey)
-        print(sounds[index])
     }
     
     func loadSelectedSound() -> String {
@@ -78,7 +76,6 @@ class SoundsBoomModel {
     func saveSelectedSound(_ index: Int) {
         guard index >= 0 && index < sounds.count else { return }
         UserDefaults.standard.set(sounds[index], forKey: userDefaultsKey)
-        print(sounds[index])
     }
     
     func loadSelectedSound() -> String {

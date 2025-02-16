@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class CategoryCell: UIView {
+final class CategoryCell: UIView {
     lazy var imageView = UIImageView()
     lazy var titleLabel = UILabel(text: "", size: 16, weight: .heavy)
     lazy var checkImage = UIImageView()

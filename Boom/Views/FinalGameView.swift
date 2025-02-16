@@ -7,7 +7,9 @@
 
 import UIKit
 
-class FinalGameView: UIView {
+final class FinalGameView: UIView {
+    
+    // MARK: - UI
     
     let titelLabel = UILabel(text: "Конец Игры", size: 30, weight: .black)
     
@@ -38,6 +40,10 @@ class FinalGameView: UIView {
         return stack
     }()
     
+    // MARK: - Private Properties
+    
+    private var heightImageView: CGFloat = 0.4
+    
     init() {
         super.init(frame: .zero)
         setView()
@@ -62,8 +68,9 @@ class FinalGameView: UIView {
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         
         if !SettingsModel.shared.getChallengeState() {
-            conditionLable.alpha = 0
-            changeTaskButton.alpha = 0
+            conditionLable.isHidden = true
+            changeTaskButton.isHidden = true
+            heightImageView = 0.6
         }
     }
     
@@ -80,10 +87,10 @@ class FinalGameView: UIView {
             mainStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Sizes.spacingElements),
             mainStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Sizes.spacingElements),
             
-            finishImage.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
+            finishImage.heightAnchor.constraint(equalTo: heightAnchor, multiplier: heightImageView),
             changeTaskButton.heightAnchor.constraint(equalToConstant: Sizes.heightButtons),
+            restartButton.heightAnchor.constraint(equalToConstant: Sizes.heightButtons),
             
-            stackButton.topAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: Sizes.spacingElements),
             stackButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Sizes.spacingElements),
             stackButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Sizes.spacingElements),
             stackButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Sizes.spacingElements)

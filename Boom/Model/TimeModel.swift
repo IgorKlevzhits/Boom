@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TimeModel {
+final class TimeModel {
     static let shared = TimeModel()
     
     private init() {}

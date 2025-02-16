@@ -6,8 +6,15 @@
 //
 
 import Foundation
-class TaskModel {
-    var task: [String] = [
+final class TaskModel {
+    
+    static let shared = TaskModel()
+    
+    init() {
+        updateTasks()
+    }
+    
+    private let tasks: [String] = [
         "Замри в позе скульптуры на две минуты",
         "Скажи комплимент любым двум участникам",
         "Разговаривай с акцентом следующие два круга",
@@ -24,5 +31,18 @@ class TaskModel {
         "Следующий круг комментируй ответ каждого участника кому-нибудь на ушко",
         "Придумай задание другому игроку"
     ]
+    private var currentTasks: [String] = []
     
+    private func updateTasks() {
+        currentTasks = tasks.shuffled()
+    }
+    
+    func getTask() -> String {
+        if currentTasks.isEmpty {
+            updateTasks()
+            return currentTasks.removeFirst()
+        } else {
+            return currentTasks.removeFirst()
+        }
+    }
 }

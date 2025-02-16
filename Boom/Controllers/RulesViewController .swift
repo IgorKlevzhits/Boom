@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RulesViewController: UIViewController {
+final class RulesViewController: UIViewController {
     
     // MARK: - UI Elements
     private lazy var backgroundImageView: UIImageView = {
@@ -154,7 +154,6 @@ class RulesViewController: UIViewController {
 
                 let fakeButtonStackView = UIStackView()
                 fakeButtonStackView.axis = .horizontal
-                fakeButtonStackView.spacing = spaceElements
                 fakeButtonStackView.alignment = .center
                 fakeButtonStackView.distribution = .fill
                 fakeButtonStackView.translatesAutoresizingMaskIntoConstraints = false

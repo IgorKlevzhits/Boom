@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class DemoCollectionViewCell: UICollectionViewCell {
+final class DemoCollectionViewCell: UICollectionViewCell {
     
     lazy var imageView = UIImageView()
     lazy var titleLabel = UILabel(text: "", size: 16, weight: .heavy)

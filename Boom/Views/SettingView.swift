@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingView: UIView {
+final class SettingView: UIView {
     
     private let spacingElements: CGFloat = 30
     private let heightButtons: CGFloat = 40
@@ -69,16 +69,19 @@ class SettingView: UIView {
     let backgroundMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor =  UIColor(named: "TextColor")
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
         return pickerView
     }()
     let tickMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor =  UIColor(named: "TextColor")
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
         return pickerView
     }()
     let bomdExplosionMusikPicker: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.backgroundColor =  UIColor(named: "TextColor")
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
         return pickerView
     }()
     let backGroundMusikStackView = UIStackView(distribution: .fill)
@@ -96,11 +99,13 @@ class SettingView: UIView {
     let vibrationSwitch: UISwitch = {
         let vibrationSwitch = UISwitch()
         vibrationSwitch.onTintColor = UIColor(named: "YellowButton")
+        vibrationSwitch.translatesAutoresizingMaskIntoConstraints = false
         return vibrationSwitch
     }()
     let chelengeSwitch: UISwitch = {
         let chalengeSwitch = UISwitch()
         chalengeSwitch.onTintColor = UIColor(named: "YellowButton")
+        chalengeSwitch.translatesAutoresizingMaskIntoConstraints = false
         return chalengeSwitch
     }()
     let vibrationStackView = UIStackView(distribution: .fill)
@@ -198,14 +203,14 @@ class SettingView: UIView {
             mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Sizes.spacingElements),
             
             // MARK: GAME MODE
-            gameModeContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
+            gameModeContainerView.heightAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.4),
             gameModeStackView.topAnchor.constraint(equalTo: gameModeContainerView.topAnchor),
             gameModeStackView.leadingAnchor.constraint(equalTo: gameModeContainerView.leadingAnchor, constant: spacingElements),
             gameModeStackView.trailingAnchor.constraint(equalTo: gameModeContainerView.trailingAnchor, constant: -spacingElements),
             gameModeStackView.bottomAnchor.constraint(equalTo: gameModeContainerView.bottomAnchor, constant: -spacingElements/2),
         
             //MARK: TIME STACK
-            timeContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
+            timeContainerView.heightAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.4),
             
             mainTimeStackView.topAnchor.constraint(equalTo: timeContainerView.topAnchor),
             mainTimeStackView.leadingAnchor.constraint(equalTo: timeContainerView.leadingAnchor, constant: spacingElements),
@@ -213,7 +218,7 @@ class SettingView: UIView {
             mainTimeStackView.bottomAnchor.constraint(equalTo: timeContainerView.bottomAnchor, constant: -spacingElements/2),
             
             //MARK: MUSIKSTACK
-            musikContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            musikContainerView.heightAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.5),
             
             mainMusikStackView.topAnchor.constraint(equalTo: musikContainerView.topAnchor, constant: spacingElements/2),
             mainMusikStackView.bottomAnchor.constraint(equalTo: musikContainerView.bottomAnchor, constant: -spacingElements/2),
@@ -225,7 +230,7 @@ class SettingView: UIView {
             bomdExplosionMusikPicker.widthAnchor.constraint(equalTo: bombExplosionMusikStackView.widthAnchor, multiplier: 0.3),
             
             //MARK: USER_DEFAULT
-            userDefaultsContainerView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3),
+            userDefaultsContainerView.heightAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.3),
             userDefaultsStackView.leftAnchor.constraint(equalTo: userDefaultsContainerView.leftAnchor, constant: spacingElements/2),
             userDefaultsStackView.rightAnchor.constraint(equalTo: userDefaultsContainerView.rightAnchor, constant: -spacingElements/2),
             userDefaultsStackView.topAnchor.constraint(equalTo: userDefaultsContainerView.topAnchor, constant: spacingElements/2),
