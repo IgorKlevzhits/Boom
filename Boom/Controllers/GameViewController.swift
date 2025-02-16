@@ -37,6 +37,8 @@ final class GameViewController: UIViewController {
             self?.navigateToNextScreen()
         }
         
+        gameView.resetToStartState()
+        
         gameModel.onAnimationChange = { [weak self] in
             self?.changeAnimationToExplosion()
         }

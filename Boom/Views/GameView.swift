@@ -90,6 +90,13 @@ extension GameView {
         animationView?.play()
     }
     
+    func resetToStartState() {
+        animationView?.stop() 
+        animationView?.isHidden = true
+        isAnimationPlaying = false
+        setStaticImage()
+    }
+    
     // MARK: - Setup Constraints
     
     func setupConstraints() {
